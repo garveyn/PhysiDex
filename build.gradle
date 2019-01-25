@@ -19,6 +19,9 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven {
+            url  "https://dl.bintray.com/r0adkll/pokemon-tcg-sdk-kotlin"
+        }
     }
 }
 

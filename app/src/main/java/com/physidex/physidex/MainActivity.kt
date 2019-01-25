@@ -10,6 +10,8 @@ import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 
+const val DISPLAY_CARD = "com.physidex.physidex.CARD"
+
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,8 +28,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     /** Called when the user taps the Send button */
-    fun sendMessage(view: View) {
+    fun findCard(view: View) {
         // do something in response to the button
+//        val editText = findViewById<EditText>(R.id.editText)
+//        val cardName = editText.text.toString()
+//        val intent = Intent(this, DisplayCardActivity::class.java).apply {
+//            putExtra(DISPLAY_CARD, cardName)
+//        }
+//        startActivity(intent)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
