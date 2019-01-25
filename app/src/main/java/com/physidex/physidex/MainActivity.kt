@@ -1,11 +1,13 @@
 package com.physidex.physidex
 
 import android.os.Bundle
-import android.support.design.widget.Snackbar
+// import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.content.Intent
+import android.widget.EditText
 
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
@@ -30,12 +32,12 @@ class MainActivity : AppCompatActivity() {
     /** Called when the user taps the Send button */
     fun findCard(view: View) {
         // do something in response to the button
-//        val editText = findViewById<EditText>(R.id.editText)
-//        val cardName = editText.text.toString()
-//        val intent = Intent(this, DisplayCardActivity::class.java).apply {
-//            putExtra(DISPLAY_CARD, cardName)
-//        }
-//        startActivity(intent)
+        val editText = findViewById<EditText>(R.id.editText)
+        val cardName = editText.text.toString()
+        val intent = Intent(this, DisplayCardActivity::class.java).apply {
+            putExtra(DISPLAY_CARD, cardName)
+        }
+        startActivity(intent)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
