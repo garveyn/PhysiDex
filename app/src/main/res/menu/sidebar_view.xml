@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+
+        <!-- Deck Manager -->
+        <item
+            android:id="@+id/deck_manager_menu"
+            android:icon="@drawable/ic_decks"
+            android:title="@string/deck_manager"
+            />
+
+        <!-- Game Manager -->
+        <item
+            android:id="@+id/game_manager_menu"
+            android:icon="@drawable/ic_play"
+            android:title="@string/game_manager"
+            />
+
+        <!-- My Binder -->
+        <item
+            android:id="@+id/my_binder_menu"
+            android:icon="@drawable/ic_binder"
+            android:title="@string/my_binder"
+            />
+
+        <!-- Settings -->
+        <item
+            android:id="@+id/action_settings"
+            android:icon="@drawable/ic_settings"
+            android:title="@string/action_settings"
+            />
+    </group>
+
+</menu>
