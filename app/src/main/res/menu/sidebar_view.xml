@@ -12,7 +12,7 @@
         <!-- Game Manager -->
         <item
             android:id="@+id/game_manager_menu"
-            android:icon="@drawable/ic_play"
+            android:icon="@drawable/ic_play_arrow"
             android:title="@string/game_manager"
             />
 

@@ -7,6 +7,8 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.content.Intent
+import android.support.design.widget.NavigationView
+import android.support.v4.widget.DrawerLayout
 import android.widget.EditText
 
 import kotlinx.android.synthetic.main.activity_main.*
@@ -16,10 +18,25 @@ const val DISPLAY_CARD = "com.physidex.physidex.CARD"
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var mDrawerLayout: DrawerLayout
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.drawer_test)
         setSupportActionBar(toolbar)
+
+        mDrawerLayout = findViewById(R.id.drawer_layout)
+
+        val navigationView: NavigationView = findViewById(R.id.nav_view)
+
+        navigationView.setNavigationItemSelectedListener { menuItem ->
+
+            menuItem.isChecked=true
+
+            mDrawerLayout.closeDrawers()
+
+            true
+        }
 //        fab.setOnClickListener { view ->
 //            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 //                    .setAction("Action", null).show()
