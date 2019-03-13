@@ -3,10 +3,16 @@ package com.physidex.physidex
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.ImageView
 import android.widget.TextView
 import io.pokemontcg.Pokemon
+import android.os.AsyncTask
+import java.net.URL
 
 class DisplayCardActivity : AppCompatActivity() {
+
+//    var cardImageView: ImageView = findViewById(R.id.cardImageView)
+    var response: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,6 +27,7 @@ class DisplayCardActivity : AppCompatActivity() {
 
     private fun cardSearch(pokemonName: String) {
         if (pokemonName.isNotEmpty()) {
+            //Log.d("PokemonName", pokemonName)
             val msg: String = pokemonName
             // var response: String = ""
 
@@ -37,7 +44,7 @@ class DisplayCardActivity : AppCompatActivity() {
 
                 if (cards.isNotEmpty()) {
                     Log.d("FIRST CARD", cards[0].toString())
-                    // response = cards[0].toString()
+                    response = cards[0].toString()
                 } else {
                     Log.d("FIRST CARD", "No cards were returned")
                 }
@@ -47,8 +54,9 @@ class DisplayCardActivity : AppCompatActivity() {
             }).start()
 
             findViewById<TextView>(R.id.cardResponse).apply {
-                text = msg
+                text = response
             }
         }
     }
 }
+
