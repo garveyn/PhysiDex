@@ -9,6 +9,7 @@ import android.view.MenuItem
 import android.view.View
 import android.content.Intent
 import android.support.design.widget.NavigationView
+import android.support.v4.app.Fragment
 import android.support.v4.view.GravityCompat
 import android.support.v4.view.GravityCompat.*
 import android.support.v4.widget.DrawerLayout
@@ -18,11 +19,11 @@ import android.view.LayoutInflater
 import android.widget.EditText
 
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.content_main.*
+import kotlinx.android.synthetic.main.drawer_test.*
 
 const val DISPLAY_CARD = "com.physidex.physidex.CARD"
 
-class MainActivity : AppCompatActivity() {
+open class MainActivity : AppCompatActivity() {
 
     private lateinit var mDrawerLayout: DrawerLayout
 
@@ -39,6 +40,9 @@ class MainActivity : AppCompatActivity() {
 
         mDrawerLayout = findViewById(R.id.drawer_layout)
 
+        val fragmentManager = supportFragmentManager
+
+
         val navigationView: NavigationView = findViewById(R.id.nav_view)
 
         navigationView.setNavigationItemSelectedListener { menuItem ->
@@ -47,17 +51,23 @@ class MainActivity : AppCompatActivity() {
 
             mDrawerLayout.closeDrawers()
 
+            val fragmentTransaction = fragmentManager.beginTransaction()
+            val newFragment: Fragment
 
+            when (menuItem.itemId) {
+                R.id.action_settings -> newFragment = SettingsPage()
+                R.id.my_binder_menu -> newFragment = MyBinderPage()
+                R.id.game_manager_menu -> newFragment = GameManagerPage()
+                R.id.deck_manager_menu -> newFragment = DeckManagerPage()
+                else -> newFragment = Fragment()
+            }
+
+            fragmentTransaction.replace(R.id.fragment_frame, newFragment)
+            fragmentTransaction.addToBackStack(null)
+            fragmentTransaction.commit()
 
             true
         }
-//        fab.setOnClickListener { view ->
-//            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                    .setAction("Action", null).show()
-//        }
-
-        // Example of a call to a native method
-        //sample_text.text = stringFromJNI()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
