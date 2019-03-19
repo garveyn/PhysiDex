@@ -9,7 +9,11 @@ import android.view.MenuItem
 import android.view.View
 import android.content.Intent
 import android.support.design.widget.NavigationView
+import android.support.v4.view.GravityCompat
+import android.support.v4.view.GravityCompat.*
 import android.support.v4.widget.DrawerLayout
+import android.support.v7.app.ActionBar
+import android.support.v7.widget.Toolbar
 import android.view.LayoutInflater
 import android.widget.EditText
 
@@ -25,7 +29,13 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.drawer_test)
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
+        val actionbar: ActionBar? = supportActionBar
+        actionbar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            setHomeAsUpIndicator(R.drawable.ic_menu)
+        }
 
         mDrawerLayout = findViewById(R.id.drawer_layout)
 
@@ -37,6 +47,8 @@ class MainActivity : AppCompatActivity() {
 
             mDrawerLayout.closeDrawers()
 
+
+
             true
         }
 //        fab.setOnClickListener { view ->
@@ -46,6 +58,16 @@ class MainActivity : AppCompatActivity() {
 
         // Example of a call to a native method
         //sample_text.text = stringFromJNI()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                mDrawerLayout.openDrawer(START)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     /** Called when the user taps the Send button */
@@ -65,15 +87,6 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        return when (item.itemId) {
-            R.id.action_settings -> true
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
 
     /**
      * A native method that is implemented by the 'native-lib' native library,
