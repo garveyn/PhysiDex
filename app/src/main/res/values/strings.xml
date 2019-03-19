@@ -12,7 +12,10 @@
     <string name="my_binder">My Binder</string>
     <string name="action_settings">Settings</string>
 
-
+    <!--Search bar -->
+    <string name="general_search_prompt">Search All Cards By Pokemon</string>
+    <string name="app_label">Search Text?</string>
+    <string name="search_hint">Search By Pokemon</string>
 
 
 </resources>
