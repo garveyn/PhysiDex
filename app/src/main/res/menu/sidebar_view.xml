@@ -2,6 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
 
+        <!-- Search -->
+        <item
+            android:id="@+id/search_page"
+            android:icon="@drawable/ic_search"
+            android:title="@string/search"
+            />
+
         <!-- Deck Manager -->
         <item
             android:id="@+id/deck_manager_menu"
@@ -29,12 +36,7 @@
             android:icon="@drawable/ic_settings"
             android:title="@string/action_settings"
             />
-        <!-- Search -->
-        <item
-            android:id="@+id/search_page"
-            android:icon="@drawable/ic_search"
-            android:title="@string/search"
-            />
+
     </group>
 
 </menu>
