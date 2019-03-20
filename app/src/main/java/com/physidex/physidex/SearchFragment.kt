@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
-class SettingsPage : Fragment() {
+class SearchFragment : Fragment() {
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -14,7 +14,7 @@ class SettingsPage : Fragment() {
             savedInstanceState: Bundle?): View
     {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.settings_main, container, false)
+        return inflater.inflate(R.layout.activity_main, container, false)
     }
 
 

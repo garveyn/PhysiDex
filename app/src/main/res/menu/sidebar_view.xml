@@ -29,6 +29,12 @@
             android:icon="@drawable/ic_settings"
             android:title="@string/action_settings"
             />
+        <!-- Search -->
+        <item
+            android:id="@+id/search_page"
+            android:icon="@drawable/ic_search"
+            android:title="@string/search"
+            />
     </group>
 
 </menu>

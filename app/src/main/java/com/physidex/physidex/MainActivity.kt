@@ -30,6 +30,9 @@ open class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.drawer_test)
+
+        mDrawerLayout = findViewById(R.id.drawer_layout)
+
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
         val actionbar: ActionBar? = supportActionBar
@@ -37,8 +40,6 @@ open class MainActivity : AppCompatActivity() {
             setDisplayHomeAsUpEnabled(true)
             setHomeAsUpIndicator(R.drawable.ic_menu)
         }
-
-        mDrawerLayout = findViewById(R.id.drawer_layout)
 
         val fragmentManager = supportFragmentManager
 
@@ -59,6 +60,7 @@ open class MainActivity : AppCompatActivity() {
                 R.id.my_binder_menu -> newFragment = MyBinderPage()
                 R.id.game_manager_menu -> newFragment = GameManagerPage()
                 R.id.deck_manager_menu -> newFragment = DeckManagerPage()
+                R.id.search_page -> newFragment = SearchFragment()
                 else -> newFragment = Fragment()
             }
 
