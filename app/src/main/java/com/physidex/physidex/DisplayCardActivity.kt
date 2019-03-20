@@ -1,6 +1,7 @@
 package com.physidex.physidex
 
 import android.app.Fragment
+import android.graphics.Bitmap
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -8,12 +9,15 @@ import android.widget.ImageView
 import android.widget.TextView
 import io.pokemontcg.Pokemon
 import android.os.AsyncTask
+import com.squareup.picasso.Picasso
 import java.net.URL
 
 class DisplayCardActivity : AppCompatActivity() {
 
 //    var cardImageView: ImageView = findViewById(R.id.cardImageView)
     var response: String = ""
+    //var responseView: TextView = findViewById(R.id.cardResponse)
+    private lateinit var mCardImageView: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +31,16 @@ class DisplayCardActivity : AppCompatActivity() {
     }
 
     private fun cardSearch(pokemonName: String) {
+
+        findViewById<TextView>(R.id.cardResponse).apply {
+            text = pokemonName
+        }
+
+        mCardImageView = findViewById(R.id.cardImageView)
+        Picasso.with(this)
+                .load("https://images.pokemontcg.io/pl4/25.png")
+                .into(mCardImageView)
+
         if (pokemonName.isNotEmpty()) {
             //Log.d("PokemonName", pokemonName)
             val msg: String = pokemonName
@@ -46,6 +60,22 @@ class DisplayCardActivity : AppCompatActivity() {
                 if (cards.isNotEmpty()) {
                     Log.d("FIRST CARD", cards[0].toString())
                     response = cards[0].toString()
+
+//                    responseView.post {
+//                        responseView.setText(cards[0].toString())
+//                    }
+
+                    //Log.d("URL", cards[0])
+//                    mCardImageView = findViewById(R.id.cardImageView)
+//                    Picasso.with(this)
+//                            .load(cards[0].imageUrl)
+//                            .into(mCardImageView)
+                    this@DisplayCardActivity.runOnUiThread(java.lang.Runnable {
+                        Picasso.with(this)
+                                .load(cards[0].imageUrl)
+                                .into(mCardImageView)
+                    })
+
                 } else {
                     Log.d("FIRST CARD", "No cards were returned")
                 }
@@ -53,10 +83,6 @@ class DisplayCardActivity : AppCompatActivity() {
 //                text = response
 //            }
             }).start()
-
-            findViewById<TextView>(R.id.cardResponse).apply {
-                text = response
-            }
         }
     }
 }
