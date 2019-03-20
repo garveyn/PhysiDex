@@ -37,9 +37,9 @@ class DisplayCardActivity : AppCompatActivity() {
         }
 
         mCardImageView = findViewById(R.id.cardImageView)
-        Picasso.with(this)
-                .load("https://images.pokemontcg.io/pl4/25.png")
-                .into(mCardImageView)
+//        Picasso.with(this)
+//                .load("https://images.pokemontcg.io/pl4/25.png")
+//                .into(mCardImageView)
 
         if (pokemonName.isNotEmpty()) {
             //Log.d("PokemonName", pokemonName)
