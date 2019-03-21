@@ -17,5 +17,4 @@ class SettingsPage : Fragment() {
         return inflater.inflate(R.layout.settings_main, container, false)
     }
 
-
 }
