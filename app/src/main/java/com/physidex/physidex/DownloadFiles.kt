@@ -2,23 +2,31 @@
 //
 //import android.os.AsyncTask
 //import android.util.Log
-//import java.net.URL
 //import io.pokemontcg.Pokemon
+//import io.pokemontcg.model.Card
+//import com.squareup.picasso.Picasso
+//import android.support.v7.app.AppCompatActivity
+//import android.widget.ImageView
+//import android.os.Bundle
 //
 //
-//private class DownloadFiles : AsyncTask<URL, Int, Long>() {
-//    override fun doInBackground(vararg params: URL?): Long {
+//internal class DownloadFiles : AsyncTask<String, Int, List<Card>>() {
+//
+//    private lateinit var cardsReturned: List<Card>
+//
+//    override fun doInBackground(vararg params: String?): List<Card>? {
 //        val pokemon = Pokemon()
-//        val cards = pokemon.card()
+//        cardsReturned = pokemon.card()
 //                .where {
 //                    //nationalPokedexNumber = 55
 //                    //name = pokemonName
 //                }
 //                .all()
 //
-//        if (cards.isNotEmpty()) {
-//            Log.d("FIRST CARD", cards[0].toString())
+//        if (cardsReturned.isNotEmpty()) {
+//            Log.d("FIRST CARD", cardsReturned[0].toString())
 //            // response = cards[0].toString()
+//           // cardsReturned = cards
 //        } else {
 //            Log.d("FIRST CARD", "No cards were returned")
 //        }
@@ -47,8 +55,18 @@
 ////        setProgressPercent(progress[0])
 ////    }
 ////
-//    override fun onPostExecute(result: Long?) {
+//    override fun onPostExecute(result: List<Card>?) {
 //        // Log.d(tag: "DOWNLOAD", msg:"Downloaded $result bytes")
 //        //cardImageView.setImageBitmap(result)
+//        if (result != null && result.isNotEmpty()) {
+//            Log.d("OnPostExecute", "Cards received.")
+//            setContentView(R.layout.activity_display_card)
+//            //var mCardImageView = findViewById<ImageView>(R.id.cardImageView)
+//            Picasso.with(this)
+//                    .load(result[0].imageUrl)
+//                    .into(mCardImageView)
+//
+//        }
+//
 //    }
 //}
