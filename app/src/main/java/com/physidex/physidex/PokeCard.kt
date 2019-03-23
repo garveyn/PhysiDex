@@ -1,4 +1,10 @@
 package com.physidex.physidex
 
-class PokeCard {
+import  io.pokemontcg.model.*
+
+class PokeCard(card: Card) : GenericCard() {
+
+    private var mCard: Card = card
+
+
 }

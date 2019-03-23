@@ -3,4 +3,17 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <!-- Card Type Colors -->
+    <color name="cardFire">#E24242</color>
+    <color name="cardGrass">#7DB808</color>
+    <color name="cardLightning">#FAB536</color>
+    <color name="cardMetal">#8A776E</color>
+    <color name="cardPsychic">#A65E9A</color>
+    <color name="cardWater">#5BC7E5</color>
+    <color name="cardFairy">#E03A83</color>
+    <color name="cardDragon">#C6A114</color>
+    <color name="cardDark">#2C2E2B</color>
+    <color name="cardFighting">#FF501F</color>
+
 </resources>

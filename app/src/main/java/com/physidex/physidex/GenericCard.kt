@@ -1,5 +1,4 @@
 package com.physidex.physidex
 
-abstract class Deck {
-
+abstract class GenericCard {
 }
