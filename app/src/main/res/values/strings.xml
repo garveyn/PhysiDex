@@ -16,5 +16,10 @@
     <!-- Display card -->
     <string name="no_cards_found">No cards were found.</string>
 
+    <!-- Deck Manager Page -->
+    <string name="deck_play">Play!</string>
+    <string name="deck_cannot_play">Edit</string>
+
+
 
 </resources>

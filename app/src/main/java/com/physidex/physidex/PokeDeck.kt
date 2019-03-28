@@ -1,44 +1,40 @@
 package com.physidex.physidex
 
-class PokeDeck(arrayList: ArrayList<PokeCard>, size: Int) : Deck() {
+class PokeDeck(arrayList: ArrayList<GenericCard>, size: Int, name: String)
+    : Deck(arrayList, size, name) {
 
     // Member Variables
-    private var mDeckList: ArrayList<PokeCard> = arrayList
-    private val mMaxSize: Int = size
-    private val mMaxDuplicates: Int = mMaxSize / 15
-    private val mPrizeCount: Int = mMaxSize / 10
-    private var mPrizeCardGuesses = ArrayList<PokeCard>()
+    val mMaxDuplicates: Int = this.mMaxSize / 15
+    val mPrizeCount: Int = this.mMaxSize / 10
+    var mPrizeCardGuesses = ArrayList<GenericCard>()
 
     // Constructors
-    // Decks default to 60
-    constructor(arrayList: ArrayList<PokeCard>) : this(arrayList, 60)
-
-    // Getters & Setters
-    fun getDeckSize() : Int {return mMaxSize}
-    fun getDeckList() : ArrayList<PokeCard> {return mDeckList}
-    fun getMaxDuplicates() : Int {return mMaxDuplicates}
-    fun getPrizeCardCount() : Int {return mPrizeCount}
-    fun getPrizeCardGuesses() : ArrayList<PokeCard> {return mPrizeCardGuesses}
-
-
-    fun setDeckList(newList: ArrayList<PokeCard>) {mDeckList = newList}
-    fun setPrizeCardGuesses(guesses: ArrayList<PokeCard>) {mPrizeCardGuesses = guesses}
+    // Decks default to 60 TODO make it more if arraylist is bigger than 60
+    constructor(arrayList: ArrayList<GenericCard>) : this(arrayList, 60, "newDeck")
 
     // Other Functions
 
-    // Manipulate Decklist TODO Implement the following functions
-    fun addCards(newCards: ArrayList<PokeCard>) {}
-    fun addCards(newCard: PokeCard) {}
-    fun removeCards(cardsToRemove: ArrayList<PokeCard>) {}
-    fun removeCards(cardToRemove: PokeCard) {}
-
-    fun exchangeCards(cardsToRemove: ArrayList<PokeCard>, newCards: ArrayList<PokeCard>) {
-        removeCards(cardsToRemove)
-        addCards(newCards)
+    // Edit Decklist TODO Implement the following functions
+    override fun addCards(newCards: ArrayList<GenericCard>)
+    {
+        for (card in newCards)
+        {
+            if (!isReadyToPlay) // if deck isn't full
+            {
+                addCards(card)
+            }
+        }
     }
 
-    fun exchangeCards(cardToRemove: PokeCard, newCard: PokeCard) {
-        removeCards(cardToRemove)
-        addCards(newCard)
+    override fun addCards(newCard: GenericCard) {
+        if (!isReadyToPlay) {
+            mDeckList.add(newCard)
+        }
     }
+    override fun removeCards(cardsToRemove: ArrayList<GenericCard>) {}
+    override fun removeCards(cardToRemove: GenericCard) {}
+
+
+    // Ingame functions
+    override fun drawCard(cardToDraw: GenericCard) {}
 }

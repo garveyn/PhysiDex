@@ -82,16 +82,6 @@ open class MainActivity : AppCompatActivity() {
         }
     }
 
-    /** Called when the user taps the Send button */
-    fun findCard(view: View) {
-        // do something in response to the button
-        val editText = findViewById<EditText>(R.id.editText)
-        val cardName = editText.text.toString()
-        val intent = Intent(this, DisplayCardActivity::class.java).apply {
-            putExtra(DISPLAY_CARD, cardName)
-        }
-        startActivity(intent)
-    }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
