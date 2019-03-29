@@ -22,8 +22,10 @@ class DeckManagerPage : Fragment() {
         // Inflate the layout for this fragment
         var view = inflater.inflate(R.layout.deck_manager_main, container, false)
 
+        val testData = ArrayOfDecks.buildDecks()
+
         viewManager = LinearLayoutManager(context)
-        viewAdapter = DeckAdapter(ArrayList<Deck>())
+        viewAdapter = DeckAdapter(testData)
 
         recyclerView = view.findViewById<RecyclerView>(R.id.deck_recyclerView).apply {
 
