@@ -81,6 +81,7 @@ class DisplayCardActivity : AppCompatActivity() {
             progressBar.visibility = View.INVISIBLE
             if (result != null && result.isNotEmpty()) {
                 Log.d("OnPostExecute", "Cards received.")
+                ArrayOfDecks.loadCards(result)
                 cardImageView.visibility = View.VISIBLE
                 Picasso.with(this@DisplayCardActivity)
                         .load(result[0].imageUrl)
