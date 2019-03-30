@@ -4,8 +4,8 @@ class PokeDeck(arrayList: ArrayList<GenericCard>, size: Int, name: String)
     : Deck(arrayList, size, name) {
 
     // Member Variables
-    val mMaxDuplicates: Int = this.mMaxSize / 15
-    val mPrizeCount: Int = this.mMaxSize / 10
+    val mMaxDuplicates: Int = this.requiredSize / 15
+    val mPrizeCount: Int = this.requiredSize / 10
     var mPrizeCardGuesses = ArrayList<GenericCard>()
 
     // Constructors
@@ -15,26 +15,29 @@ class PokeDeck(arrayList: ArrayList<GenericCard>, size: Int, name: String)
     // Other Functions
 
     // Edit Decklist TODO Implement the following functions
-    override fun addCards(newCards: ArrayList<GenericCard>)
+    override fun addCard(newCards: ArrayList<GenericCard>)
     {
         for (card in newCards)
         {
             if (!isReadyToPlay) // if deck isn't full
             {
-                addCards(card)
+                return addCard(card)
             }
         }
     }
 
-    override fun addCards(newCard: GenericCard) {
+    override fun addCard(newCard: GenericCard) {
         if (!isReadyToPlay) {
-            mDeckList.add(newCard)
+            deckList.add(newCard)
         }
     }
-    override fun removeCards(cardsToRemove: ArrayList<GenericCard>) {}
-    override fun removeCards(cardToRemove: GenericCard) {}
+    override fun removeCard(cardsToRemove: ArrayList<GenericCard>) {}
+    override fun removeCard(cardToRemove: GenericCard) {}
 
 
     // Ingame functions
     override fun drawCard(cardToDraw: GenericCard) {}
+    override fun drawCard(cardsToDraw: ArrayList<GenericCard>) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 }

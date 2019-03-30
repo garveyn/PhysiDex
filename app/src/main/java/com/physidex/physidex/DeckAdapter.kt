@@ -1,6 +1,5 @@
 package com.physidex.physidex
 
-import android.content.res.Resources
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -35,8 +34,8 @@ class DeckAdapter(private val decks: ArrayList<Deck>) :
 
     override fun onBindViewHolder(holder: DeckViewHolder, position: Int) {
         var deck: Deck = decks[position]
-        holder.nameField.text = deck.mDeckName
-        holder.dateModified.text = deck.mLastModifiedDate.toString()
+        holder.nameField.text = deck.deckName
+        holder.dateModified.text = deck.lastModifiedDate.toString()
 
         if (deck.isReadyToPlay) {
             holder.playDeckButton.text = playString

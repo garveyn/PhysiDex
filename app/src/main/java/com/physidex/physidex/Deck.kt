@@ -4,30 +4,35 @@ import java.util.*
 
 
 abstract class Deck(arrayList: ArrayList<GenericCard>, size: Int, name: String){
-    var mDeckList: ArrayList<GenericCard> = arrayList
-    val mMaxSize: Int = size
-    var mDeckName: String = name
+    var deckList: ArrayList<GenericCard> = arrayList
+    val requiredSize: Int = size
+    var deckName: String = name
     val creationDate: Date = GregorianCalendar.getInstance().time
-    var mLastModifiedDate = creationDate
+    var lastModifiedDate = creationDate
     val isReadyToPlay : Boolean
-        get() = mDeckList.size == mMaxSize
+        get() = deckList.size == requiredSize
+    val cardsNeededToPlay: Int
+        get() = requiredSize - deckList.size
 
 
-    abstract fun addCards(newCards: ArrayList<GenericCard>)
-    abstract fun addCards(newCard: GenericCard)
-    abstract fun removeCards(cardsToRemove: ArrayList<GenericCard>)
-    abstract fun removeCards(cardToRemove: GenericCard)
+    abstract fun addCard(newCards: ArrayList<GenericCard>) : Boolean
+    abstract fun addCard(newCard: GenericCard) : Boolean
+    abstract fun removeCard(cardsToRemove: ArrayList<GenericCard>) : Boolean
+    abstract fun removeCard(cardToRemove: GenericCard) : Boolean
 
-    fun exchangeCards(cardsToRemove: ArrayList<GenericCard>, newCards: ArrayList<GenericCard>) {
-        removeCards(cardsToRemove)
-        addCards(newCards)
+    fun exchangeCard(cardsToRemove: ArrayList<GenericCard>, newCards: ArrayList<GenericCard>) : Boolean {
+        val removed = removeCard(cardsToRemove)
+        val added = addCard(newCards)
+        return removed && added
     }
 
-    fun exchangeCards(cardToRemove: GenericCard, newCard: GenericCard) {
-        removeCards(cardToRemove)
-        addCards(newCard)
+    fun exchangeCard(cardToRemove: GenericCard, newCard: GenericCard) : Boolean {
+        val removed = removeCard(cardToRemove)
+        val added = addCard(newCard)
+        return removed && added
     }
 
     // Ingame Functions
     abstract fun drawCard(cardToDraw: GenericCard)
+    abstract fun drawCard(cardsToDraw: ArrayList<GenericCard>)
 }

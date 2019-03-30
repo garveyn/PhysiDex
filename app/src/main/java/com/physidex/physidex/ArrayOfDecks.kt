@@ -1,6 +1,5 @@
 package com.physidex.physidex
 
-import io.pokemontcg.Pokemon
 import io.pokemontcg.model.Card
 
 object ArrayOfDecks {
@@ -31,9 +30,9 @@ object ArrayOfDecks {
         for (card in arrCard)
         {
             if (!salamanceDeck.isReadyToPlay) {
-                salamanceDeck.addCards(card)
+                salamanceDeck.addCard(card)
             } else {
-                salamanceDeck.mDeckName = "Deck ${card.cardName}"
+                salamanceDeck.deckName = "Deck ${card.cardName}"
                 arrayListOfDecks.add(salamanceDeck)
                 salamanceDeck = PokeDeck(ArrayList())
             }
