@@ -28,9 +28,16 @@ object ArrayOfDecks {
 
         var salamanceDeck = PokeDeck(ArrayList())
 
-        salamanceDeck.addCards(arrCard)
-
-        arrayListOfDecks.add(salamanceDeck)
+        for (card in arrCard)
+        {
+            if (!salamanceDeck.isReadyToPlay) {
+                salamanceDeck.addCards(card)
+            } else {
+                salamanceDeck.mDeckName = "Deck ${card.cardName}"
+                arrayListOfDecks.add(salamanceDeck)
+                salamanceDeck = PokeDeck(ArrayList())
+            }
+        }
 
         print(arrCard.toString())
 

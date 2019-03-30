@@ -64,7 +64,7 @@ open class MainActivity : AppCompatActivity() {
                 else -> newFragment = Fragment()
             }
 
-            fragmentTransaction.replace(R.id.fragment_frame, newFragment)
+            fragmentTransaction.replace(R.id.fragment, newFragment)
             fragmentTransaction.addToBackStack(null)
             fragmentTransaction.commit()
 

@@ -1,4 +1,5 @@
 package com.physidex.physidex
 
-abstract class GenericCard {
+abstract class GenericCard(name: String) {
+    var cardName: String = name
 }

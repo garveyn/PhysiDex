@@ -11,8 +11,8 @@ import android.widget.TextView
 class DeckAdapter(private val decks: ArrayList<Deck>) :
         RecyclerView.Adapter<DeckAdapter.DeckViewHolder>() {
 
-    private val playString = Resources.getSystem().getString(R.string.deck_play)
-    private val cantPlayString = Resources.getSystem().getString(R.string.deck_cannot_play)
+    private val playString = "Play!" // TODO change to resource file
+    private val cantPlayString = "Edit"
 
     class DeckViewHolder(val view: View) : RecyclerView.ViewHolder(view){
 
