@@ -5,9 +5,9 @@ import androidx.room.*
 class CardWithAttacks {
 
     @Embedded
-    var pokeCard: PokeCard? = null
+    var pokeCard: PokeCardEntity? = null
 
     @Relation(parentColumn = "id",
               entityColumn = "cardId")
-    var attacks: List<PokeAttack> = ArrayList()
+    var attacks: List<PokeAttackEntity> = ArrayList()
 }
