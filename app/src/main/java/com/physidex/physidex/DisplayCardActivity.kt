@@ -32,64 +32,15 @@ class DisplayCardActivity : AppCompatActivity() {
 
     private fun cardSearch(pokemonName: String) {
 
-//        findViewById<TextView>(R.id.cardResponse).apply {
-//            text = pokemonName
-//        }
         cardResponse.text = pokemonName
 
-        //mCardImageView = findViewById(R.id.cardImageView)
-//        Picasso.with(this)
-//                .load("https://images.pokemontcg.io/pl4/25.png")
-//                .into(mCardImageView)
-
         if (pokemonName.isNotEmpty()) {
-            // var response: String = ""
-
 
             PokemonQueryTask().execute(pokemonName)
-//            val pokemon = Pokemon()
-//            Thread(Runnable {
-//                // poke the man
-//
-//                val cards = pokemon.card()
-//                        .where {
-//                            //nationalPokedexNumber = 55
-//                            name = pokemonName
-//                        }
-//                        .all()
-//
-//                if (cards.isNotEmpty()) {
-//                    Log.d("FIRST CARD", cards[0].toString())
-//                    response = cards[0].toString()
-//
-////                    responseView.post {
-////                        responseView.setText(cards[0].toString())
-////                    }
-//
-//                    //Log.d("URL", cards[0])
-////                    mCardImageView = findViewById(R.id.cardImageView)
-////                    Picasso.with(this)
-////                            .load(cards[0].imageUrl)
-////                            .into(mCardImageView)
-//                    this@DisplayCardActivity.runOnUiThread(java.lang.Runnable {
-//                        Picasso.with(this)
-//                                .load(cards[0].imageUrl)
-//                                .into(mCardImageView)
-//                    })
-//
-//                } else {
-//                    Log.d("FIRST CARD", "No cards were returned")
-//                }
-////            val textView = findViewById<TextView>(R.id.cardResponse).apply {
-////                text = response
-////            }
-//            }).start()
         }
     }
 
     inner class PokemonQueryTask : AsyncTask<String, Int, List<Card>>() {
-
-        //private lateinit var cardsReturned: List<Card>
 
         override fun onPreExecute() {
             super.onPreExecute()
@@ -123,6 +74,7 @@ class DisplayCardActivity : AppCompatActivity() {
         }
 
         override fun onPostExecute(result: List<Card>?) {
+            super.onPostExecute(result)
             Log.d("DOWNLOAD","Downloaded $result bytes")
             //cardImageView.setImageBitmap(result)
 
@@ -140,4 +92,3 @@ class DisplayCardActivity : AppCompatActivity() {
         }
     }
 }
-
