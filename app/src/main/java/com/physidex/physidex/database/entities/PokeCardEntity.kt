@@ -3,24 +3,6 @@ package com.physidex.physidex.database.entities
 import androidx.room.*
 import io.pokemontcg.model.*
 
-//data class PokeAttack (
-//        var cost: String?,
-//        var name: String,
-//        var text: String?,
-//        var damage: String?,
-//        @ColumnInfo(name = "converted_energy_cost") var convertedEnergyCost: Int
-//)
-
-//@Entity(foreignKeys =
-//    [
-//        ForeignKey(
-//                entity = PokeAttack::class,
-//                parentColumns = arrayOf("aid"),
-//                childColumns = arrayOf("attackId")
-//        )
-//    ]
-//)
-
 data class PokeEffect(
     var type: String,
     var value: String
