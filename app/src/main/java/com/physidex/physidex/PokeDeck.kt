@@ -1,14 +1,21 @@
 package com.physidex.physidex
 
-class PokeDeck(arrayList: ArrayList<GenericCard>, size: Int, name: String)
-    : Deck(arrayList, size, name) {
+import java.util.*
 
-    // Member Variables
+class PokeDeck(arrayList: ArrayList<GenericCard>, size: Int, name: String) : Deck {
+
+    override var deckName: String = name
+    override var deckList: ArrayList<GenericCard> = arrayList
+    override val requiredSize: Int = size
+    override val creationDate: Date = GregorianCalendar().time
+    override var lastModifiedDate: Date = creationDate
+    override val isReadyToPlay : Boolean
+        get() = deckList.size == requiredSize
+    override val cardsNeededToPlay: Int
+        get() = requiredSize - deckList.size
     val mMaxDuplicates: Int = this.requiredSize / 15
     val mPrizeCount: Int = this.requiredSize / 10
     var mPrizeCardGuesses = ArrayList<GenericCard>()
-    override val isReadyToPlay: Boolean
-        get() = mPrizeCount > 5
 
     // Constructors
     // Decks default to 60 TODO make it more if arraylist is bigger than 60
@@ -17,7 +24,7 @@ class PokeDeck(arrayList: ArrayList<GenericCard>, size: Int, name: String)
     // Other Functions
 
     // Edit Decklist TODO Implement the following functions
-    override fun addCard(newCards: ArrayList<GenericCard>)
+    override fun addCard(newCards: ArrayList<GenericCard>) : Boolean
     {
         for (card in newCards)
         {
@@ -26,16 +33,23 @@ class PokeDeck(arrayList: ArrayList<GenericCard>, size: Int, name: String)
                 return addCard(card)
             }
         }
+        return false
     }
 
-    override fun addCard(newCard: GenericCard) {
+    override fun addCard(newCard: GenericCard) : Boolean {
         if (!isReadyToPlay) {
-            deckList.add(newCard)
+            return deckList.add(newCard)
         }
+        return false
     }
-    override fun removeCard(cardsToRemove: ArrayList<GenericCard>) {}
-    override fun removeCard(cardToRemove: GenericCard) {}
 
+    override fun removeCard(cardsToRemove: ArrayList<GenericCard>): Boolean {
+        TODO("not implemented")
+    }
+
+    override fun removeCard(cardToRemove: GenericCard): Boolean {
+        TODO("not implemented")
+    }
 
     // Ingame functions
     override fun drawCard(cardToDraw: GenericCard) {}

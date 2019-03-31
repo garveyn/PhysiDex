@@ -3,20 +3,20 @@ package com.physidex.physidex
 import java.util.*
 
 
-abstract class Deck(arrayList: ArrayList<GenericCard>, size: Int, name: String){
-    var deckList: ArrayList<GenericCard> = arrayList
-    val requiredSize: Int = size
-    var deckName: String = name
-    val creationDate: Date = GregorianCalendar.getInstance().time
-    var lastModifiedDate = creationDate
-    abstract val isReadyToPlay : Boolean
-    abstract val cardsNeededToPlay: Int
+interface Deck{
+    var deckList: ArrayList<GenericCard>
+    val requiredSize: Int
+    var deckName: String
+    val creationDate: Date
+    var lastModifiedDate: Date
+    val isReadyToPlay : Boolean
+    val cardsNeededToPlay: Int
 
 
-    abstract fun addCard(newCards: ArrayList<GenericCard>) : Boolean
-    abstract fun addCard(newCard: GenericCard) : Boolean
-    abstract fun removeCard(cardsToRemove: ArrayList<GenericCard>) : Boolean
-    abstract fun removeCard(cardToRemove: GenericCard) : Boolean
+    fun addCard(newCards: ArrayList<GenericCard>) : Boolean
+    fun addCard(newCard: GenericCard) : Boolean
+    fun removeCard(cardsToRemove: ArrayList<GenericCard>) : Boolean
+    fun removeCard(cardToRemove: GenericCard) : Boolean
 
     fun exchangeCard(cardsToRemove: ArrayList<GenericCard>, newCards: ArrayList<GenericCard>) : Boolean {
         val removed = removeCard(cardsToRemove)
@@ -31,6 +31,6 @@ abstract class Deck(arrayList: ArrayList<GenericCard>, size: Int, name: String){
     }
 
     // Ingame Functions
-    abstract fun drawCard(cardToDraw: GenericCard)
-    abstract fun drawCard(cardsToDraw: ArrayList<GenericCard>)
+    fun drawCard(cardToDraw: GenericCard)
+    fun drawCard(cardsToDraw: ArrayList<GenericCard>)
 }

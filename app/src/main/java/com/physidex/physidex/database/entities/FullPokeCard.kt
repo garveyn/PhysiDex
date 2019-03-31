@@ -1,8 +1,15 @@
 package com.physidex.physidex.database.entities
 
 import androidx.room.*
+import com.physidex.physidex.GenericCard
 
-class CardWithAttacks {
+class FullPokeCard {
+
+//    override var cardName: String
+//        get() = pokeCard!!.cardName
+//        set(value) {
+//            pokeCard!!.cardName = value
+//        }
 
     @Embedded
     var pokeCard: PokeCardEntity? = null

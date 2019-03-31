@@ -7,10 +7,10 @@ import com.physidex.physidex.database.entities.*
 interface MyBinderDao {
 
     @Insert
-    fun addCard(card: CardWithAttacks)
+    fun addCard(card: FullPokeCard)
 
     @Delete
-    fun removeCard(card: CardWithAttacks)
+    fun removeCard(card: FullPokeCard)
 
     @Query("SELECT * FROM PokeCardEntity")
     fun getCards(): List<PokeCardEntity>
@@ -19,7 +19,7 @@ interface MyBinderDao {
     // especially since this call is using a relation.
     @Transaction
     @Query("SELECT * FROM PokeCardEntity")
-    fun getFullCards(): List<CardWithAttacks>
+    fun getFullCards(): List<FullPokeCard>
 
     // @Query("")
 }

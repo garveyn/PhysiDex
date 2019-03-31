@@ -26,4 +26,6 @@
      android:contentDescription="@string/deck_play"
      android:background="@drawable/ic_play_arrow"/>
 
+     <!-- TODO Change to black arrow -->
+
 </LinearLayout>
