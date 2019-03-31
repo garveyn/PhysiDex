@@ -7,7 +7,7 @@ import io.pokemontcg.model.Type
 @Entity(foreignKeys =
     [
         ForeignKey(
-                entity = PokeCard::class,
+                entity = PokeCardEntity::class,
                 parentColumns = arrayOf("id"),
                 childColumns = arrayOf("card_id"),
                 onDelete = CASCADE
@@ -17,7 +17,7 @@ import io.pokemontcg.model.Type
 class PokeAttackEntity constructor(cost: List<Type>?, name: String, text: String?, damage: String?,
                                    convertedEnergyCost: Int, cardId: Int){
 
-    @PrimaryKey(autoGenerate = true) var aid: Int = 0
+    @PrimaryKey(autoGenerate = true) var id: Int = 0
     @ColumnInfo(name = "name") var name: String = name
     @ColumnInfo(name = "text") var text: String? = text
     @ColumnInfo(name = "cost") var cost: String = cost?.joinToString(",") ?: ""
