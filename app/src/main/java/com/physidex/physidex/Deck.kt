@@ -9,10 +9,8 @@ abstract class Deck(arrayList: ArrayList<GenericCard>, size: Int, name: String){
     var deckName: String = name
     val creationDate: Date = GregorianCalendar.getInstance().time
     var lastModifiedDate = creationDate
-    val isReadyToPlay : Boolean
-        get() = deckList.size == requiredSize
-    val cardsNeededToPlay: Int
-        get() = requiredSize - deckList.size
+    abstract val isReadyToPlay : Boolean
+    abstract val cardsNeededToPlay: Int
 
 
     abstract fun addCard(newCards: ArrayList<GenericCard>) : Boolean

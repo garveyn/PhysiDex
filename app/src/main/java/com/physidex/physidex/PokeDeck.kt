@@ -7,6 +7,8 @@ class PokeDeck(arrayList: ArrayList<GenericCard>, size: Int, name: String)
     val mMaxDuplicates: Int = this.requiredSize / 15
     val mPrizeCount: Int = this.requiredSize / 10
     var mPrizeCardGuesses = ArrayList<GenericCard>()
+    override val isReadyToPlay: Boolean
+        get() = mPrizeCount > 5
 
     // Constructors
     // Decks default to 60 TODO make it more if arraylist is bigger than 60
