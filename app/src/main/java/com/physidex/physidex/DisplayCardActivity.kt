@@ -3,10 +3,9 @@ package com.physidex.physidex
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.ImageView
-import android.widget.TextView
 import io.pokemontcg.Pokemon
 import android.os.AsyncTask
+import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.squareup.picasso.Picasso
 import io.pokemontcg.model.Card
@@ -15,9 +14,12 @@ import kotlinx.android.synthetic.main.activity_display_card.*
 class DisplayCardActivity : AppCompatActivity() {
 
 //    var cardImageView: ImageView = findViewById(R.id.cardImageView)
-    var response: String = ""
+    // var response: String = ""
     //var responseView: TextView = findViewById(R.id.cardResponse)
-    private lateinit var mCardImageView: ImageView
+    // private lateinit var mCardImageView: ImageView
+
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var viewAdapter: RecyclerView.Adapter<*>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +34,7 @@ class DisplayCardActivity : AppCompatActivity() {
 
     private fun cardSearch(pokemonName: String) {
 
-        cardResponse.text = pokemonName
+        cardResponse.text = "You searched: $pokemonName"
 
         if (pokemonName.isNotEmpty()) {
 
@@ -81,7 +83,7 @@ class DisplayCardActivity : AppCompatActivity() {
             progressBar.visibility = View.INVISIBLE
             if (result != null && result.isNotEmpty()) {
                 Log.d("OnPostExecute", "Cards received.")
-                ArrayOfDecks.loadCards(result)
+                ArrayOfDecks.loadCards(result) // TODO: Remove this solution
                 cardImageView.visibility = View.VISIBLE
                 Picasso.with(this@DisplayCardActivity)
                         .load(result[0].imageUrl)

@@ -1,10 +1,12 @@
 package com.physidex.physidex.database.daos
 
+import android.arch.lifecycle.LiveData
 import androidx.room.*
+//import android.arch.persistence.room.*
 import com.physidex.physidex.database.entities.*
 
 @Dao
-interface MyBinderDao {
+interface PokeCardDao {
 
     @Insert
     fun addCard(card: CardWithAttacks)
@@ -19,7 +21,7 @@ interface MyBinderDao {
     // especially since this call is using a relation.
     @Transaction
     @Query("SELECT * FROM PokeCardEntity")
-    fun getFullCards(): List<CardWithAttacks>
+    fun getFullCards(): LiveData<List<CardWithAttacks>>
 
     // @Query("")
 }

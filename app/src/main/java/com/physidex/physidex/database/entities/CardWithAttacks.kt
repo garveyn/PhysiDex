@@ -11,3 +11,4 @@ class CardWithAttacks {
               entityColumn = "cardId")
     var attacks: List<PokeAttackEntity> = ArrayList()
 }
+
