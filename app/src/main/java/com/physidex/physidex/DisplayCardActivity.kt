@@ -51,23 +51,18 @@ class DisplayCardActivity : AppCompatActivity() {
         override fun doInBackground(vararg params: String): List<Card>? {
             val pokemon = Pokemon()
             Log.d("PARAM", params[0])
-            val cards = pokemon.card()
+            val cardsReturned = pokemon.card()
                     .where {
                         name = params[0]
-                    }
-            if (cards != null) {
-                val cardsReturned = cards.all()
+                    }.all()
 
-                if (cardsReturned.isNotEmpty()) {
-                    Log.d("FIRST CARD", cardsReturned[0].toString())
-                    // response = cards[0].toString()
-                    // cardsReturned = cards
-                    return cardsReturned
-                } else {
-                    Log.d("FIRST CARD", "No cards were returned")
-                }
+            if (cardsReturned.isNotEmpty()) {
+                Log.d("FIRST CARD", cardsReturned[0].toString())
+                // response = cards[0].toString()
+                // cardsReturned = cards
+                return cardsReturned
             } else {
-                Log.d("CARDS RETURNED", "returned null?")
+                Log.d("FIRST CARD", "No cards were returned")
             }
 
             return null
