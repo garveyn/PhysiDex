@@ -16,7 +16,7 @@ class DisplaySearchAdapter(var context: Context) :
     private var cards = emptyList<FullPokeCard>()
 
     inner class DisplaySearchViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val cardView: ImageView = itemView.findViewById(R.id.card_search_result)
+        val cardView: ImageView = itemView.findViewById(R.id.cardSearchResult)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DisplaySearchViewHolder {

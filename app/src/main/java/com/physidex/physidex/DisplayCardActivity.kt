@@ -3,15 +3,12 @@ package com.physidex.physidex
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.ImageView
-import android.widget.TextView
 import io.pokemontcg.Pokemon
 import android.os.AsyncTask
 import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.physidex.physidex.database.entities.FullPokeCard
-import com.squareup.picasso.Picasso
 import io.pokemontcg.model.Card
 import kotlinx.android.synthetic.main.activity_display_card.*
 
@@ -37,6 +34,7 @@ class DisplayCardActivity : AppCompatActivity() {
         adapter = DisplaySearchAdapter(this)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = GridLayoutManager(this, 2)
+        //recyclerView.addItemDecoration(GridItemDecoration(1, 2))
 
         // Capture the layout's TextView and set the string as its text
         cardSearch(card)
@@ -44,7 +42,7 @@ class DisplayCardActivity : AppCompatActivity() {
 
     private fun cardSearch(pokemonName: String) {
 
-        cardResponse.text = pokemonName
+        searchInput.text = String.format(getString(R.string.search_input), pokemonName)
 
         if (pokemonName.isNotEmpty()) {
 
@@ -89,6 +87,7 @@ class DisplayCardActivity : AppCompatActivity() {
             progressBar.visibility = View.INVISIBLE
             if (result != null && result.isNotEmpty()) {
                 Log.d("OnPostExecute", "Cards received.")
+                resultText.text = String.format(getString(R.string.results_number), result.size)
                 ArrayOfDecks.loadCards(result)
                 val fullPokeCards: MutableList<FullPokeCard> = mutableListOf()
                 for (card in result) {
@@ -96,13 +95,9 @@ class DisplayCardActivity : AppCompatActivity() {
                 }
                 searchResultView.visibility = View.VISIBLE
                 adapter.setResults(fullPokeCards)
-//                cardImageView.visibility = View.VISIBLE
-//                Picasso.with(this@DisplayCardActivity)
-//                        .load(result[0].imageUrl)
-//                        .into(cardImageView)
 
             } else {
-               cardResponse.text = getString(R.string.no_cards_found)
+               resultText.text = getString(R.string.no_cards_found)
             }
         }
     }
