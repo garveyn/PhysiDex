@@ -8,6 +8,9 @@ import android.widget.TextView
 import io.pokemontcg.Pokemon
 import android.os.AsyncTask
 import android.view.View
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.physidex.physidex.database.entities.FullPokeCard
 import com.squareup.picasso.Picasso
 import io.pokemontcg.model.Card
 import kotlinx.android.synthetic.main.activity_display_card.*
@@ -15,9 +18,12 @@ import kotlinx.android.synthetic.main.activity_display_card.*
 class DisplayCardActivity : AppCompatActivity() {
 
 //    var cardImageView: ImageView = findViewById(R.id.cardImageView)
-    var response: String = ""
+    //var response: String = ""
     //var responseView: TextView = findViewById(R.id.cardResponse)
-    private lateinit var mCardImageView: ImageView
+    //private lateinit var mCardImageView: ImageView
+
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var adapter: DisplaySearchAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +31,12 @@ class DisplayCardActivity : AppCompatActivity() {
 
         // Get the Intent that started this activity and extract the string
         val card = intent.getStringExtra(DISPLAY_CARD)
+
+        // Set up RecyclerView
+        recyclerView = searchResultView
+        adapter = DisplaySearchAdapter(this)
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = GridLayoutManager(this, 2)
 
         // Capture the layout's TextView and set the string as its text
         cardSearch(card)
@@ -45,7 +57,7 @@ class DisplayCardActivity : AppCompatActivity() {
         override fun onPreExecute() {
             super.onPreExecute()
             progressBar.visibility = View.VISIBLE
-            cardImageView.visibility = View.INVISIBLE
+            searchResultView.visibility = View.INVISIBLE
         }
 
         override fun doInBackground(vararg params: String): List<Card>? {
@@ -69,6 +81,7 @@ class DisplayCardActivity : AppCompatActivity() {
         }
 
         override fun onPostExecute(result: List<Card>?) {
+            // TODO: check if cards are already owned
             super.onPostExecute(result)
             Log.d("DOWNLOAD","Downloaded $result bytes")
             //cardImageView.setImageBitmap(result)
@@ -77,10 +90,16 @@ class DisplayCardActivity : AppCompatActivity() {
             if (result != null && result.isNotEmpty()) {
                 Log.d("OnPostExecute", "Cards received.")
                 ArrayOfDecks.loadCards(result)
-                cardImageView.visibility = View.VISIBLE
-                Picasso.with(this@DisplayCardActivity)
-                        .load(result[0].imageUrl)
-                        .into(cardImageView)
+                val fullPokeCards: MutableList<FullPokeCard> = mutableListOf()
+                for (card in result) {
+                    fullPokeCards.add(FullPokeCard(card))
+                }
+                searchResultView.visibility = View.VISIBLE
+                adapter.setResults(fullPokeCards)
+//                cardImageView.visibility = View.VISIBLE
+//                Picasso.with(this@DisplayCardActivity)
+//                        .load(result[0].imageUrl)
+//                        .into(cardImageView)
 
             } else {
                cardResponse.text = getString(R.string.no_cards_found)

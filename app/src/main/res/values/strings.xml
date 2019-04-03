@@ -15,6 +15,7 @@
 
     <!-- Display card -->
     <string name="no_cards_found">No cards were found.</string>
+    <string name="image_description">A card resulting from search.</string>
 
     <!-- Deck Manager Page -->
     <string name="deck_play">Play!</string>

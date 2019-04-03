@@ -23,37 +23,41 @@ fun consolidateEffects(effects: List<Effect>?): PokeEffect? {
     return null
 }
 
+//@Entity
+//class PokeCardEntity
+//constructor(cardName: String, nationalPokedexNumber: Int?,
+//                           imageUrl: String, imageUrlHiRes: String,
+//                           types: List<Type>, supertype: SuperType,
+//                           subtype: SubType, evolvesFrom: String?,
+//                           hp: Int?, retreatCost: List<Type>? ,
+//                           number: String, rarity: String?,
+//                           series: String, set: String,
+//                           text: List<String>, attacks: List<Attack>?,
+//                           weaknesses: List<Effect>?, resistances: List<Effect>?,
+//                           ability: Ability?) {
 @Entity
 class PokeCardEntity
-constructor(cardName: String, nationalPokedexNumber: Int?,
-                           imageUrl: String, imageUrlHiRes: String,
-                           types: List<Type>, supertype: SuperType,
-                           subtype: SubType, evolvesFrom: String?,
-                           hp: Int?, retreatCost: List<Type>? ,
-                           number: String, rarity: String?,
-                           series: String, set: String,
-                           text: List<String>, attacks: List<Attack>?,
-                           weaknesses: List<Effect>?, resistances: List<Effect>?,
-                           ability: Ability?) {
+constructor(card: Card) {
 
     @PrimaryKey(autoGenerate = true) var id: Int = 0
-    @ColumnInfo(name = "card_name") var cardName: String = cardName
-    @ColumnInfo(name = "national_pokedex_number") var nationalDexNum: Int? = nationalPokedexNumber
-    @ColumnInfo(name = "image_url") var imageUrl: String = imageUrl
-    @ColumnInfo(name = "image_url_hi_res") var imageUrlHiRes: String = imageUrlHiRes
-    @ColumnInfo(name = "types") var types: List<Type> = types
-    @ColumnInfo(name = "supertype") var supertype: SuperType = supertype
-    @ColumnInfo(name = "subtype") var subtype: SubType = subtype
-    @ColumnInfo(name = "evolves_from") var evolvesFrom: String? = evolvesFrom
-    @ColumnInfo(name = "hp") var hp: Int? = hp
-    @ColumnInfo(name = "retreat_cost") var retreatCost: Int = retreatCost?.size ?: 0
-    @ColumnInfo(name = "number_in_set") var numberInSet: String = number
-    @ColumnInfo(name = "rarity") var rarity: String? = rarity
-    @ColumnInfo(name = "series") var series: String = series
-    @ColumnInfo(name = "set") var set: String = set
-    @ColumnInfo(name = "card_text") var cardText: String = text.joinToString(",")
-    @Embedded var weakness: PokeEffect? = consolidateEffects(weaknesses)
-    @Embedded var resistance: PokeEffect? = consolidateEffects(resistances)
-    @Embedded var ability: Ability? = ability
+    @ColumnInfo(name = "card_name") var cardName: String = card.name
+    @ColumnInfo(name = "national_pokedex_number") var nationalDexNum: Int? = card.nationalPokedexNumber
+    @ColumnInfo(name = "image_url") var imageUrl: String = card.imageUrl
+    @ColumnInfo(name = "image_url_hi_res") var imageUrlHiRes: String = card.imageUrlHiRes
+    @ColumnInfo(name = "type1") var type1: String? = (card.types?.getOrNull(0))?.toString()
+    @ColumnInfo(name = "type2") var type2: String? = (card.types?.getOrNull(0))?.toString()
+    @ColumnInfo(name = "supertype") var supertype: SuperType = card.supertype
+    @ColumnInfo(name = "subtype") var subtype: SubType = card.subtype
+    @ColumnInfo(name = "evolves_from") var evolvesFrom: String? = card.evolvesFrom
+    @ColumnInfo(name = "hp") var hp: Int? = card.hp
+    @ColumnInfo(name = "retreat_cost") var retreatCost: Int = card.retreatCost?.size ?: 0
+    @ColumnInfo(name = "number_in_set") var numberInSet: String = card.number
+    @ColumnInfo(name = "rarity") var rarity: String? = card.rarity
+    @ColumnInfo(name = "series") var series: String = card.series
+    @ColumnInfo(name = "set") var set: String = card.set
+    @ColumnInfo(name = "card_text") var cardText: String? = card.text?.joinToString(",")
+    @Embedded var weakness: PokeEffect? = consolidateEffects(card.weaknesses)
+    @Embedded var resistance: PokeEffect? = consolidateEffects(card.resistances)
+    @Embedded var ability: Ability? = card.ability
     @ColumnInfo(name = "num_copies") var numCopies: Int = 1
 }
