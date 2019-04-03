@@ -25,7 +25,7 @@ class DeckManagerPage : Fragment() {
         val testData = ArrayOfDecks.buildDecks()
 
         viewManager = LinearLayoutManager(context)
-        viewAdapter = DeckAdapter(testData)
+        viewAdapter = DeckAdapter(context!!, testData)
 
         recyclerView = view.findViewById<RecyclerView>(R.id.deck_recyclerView).apply {
 

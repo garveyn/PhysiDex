@@ -4,6 +4,11 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
+    <!-- Common Colors for various usages -->
+    <color name="play">#4CAF50</color>
+    <color name="edit">#68686B</color>
+
+
     <!-- Card Type Colors -->
     <color name="cardFire">#E24242</color>
     <color name="cardGrass">#7DB808</color>
