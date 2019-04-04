@@ -22,7 +22,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DisplayCardActivity"></activity>
+        <activity android:name=".DisplaySearchActivity"></activity>
     </application>
 
 </manifest>

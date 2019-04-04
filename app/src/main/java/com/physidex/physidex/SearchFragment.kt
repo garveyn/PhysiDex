@@ -32,7 +32,9 @@ class SearchFragment : Fragment(), View.OnClickListener {
         // do something in response to the button
         val editText = getView()!!.findViewById<EditText>(R.id.editText)
         val cardName = editText.text.toString()
-        val intent = Intent(activity, DisplayCardActivity::class.java).apply {
+
+
+        val intent = Intent(activity, DisplaySearchActivity::class.java).apply {
             putExtra(DISPLAY_CARD, cardName)
         }
         startActivity(intent)

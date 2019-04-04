@@ -23,18 +23,6 @@ fun consolidateEffects(effects: List<Effect>?): PokeEffect? {
     return null
 }
 
-//@Entity
-//class PokeCardEntity
-//constructor(cardName: String, nationalPokedexNumber: Int?,
-//                           imageUrl: String, imageUrlHiRes: String,
-//                           types: List<Type>, supertype: SuperType,
-//                           subtype: SubType, evolvesFrom: String?,
-//                           hp: Int?, retreatCost: List<Type>? ,
-//                           number: String, rarity: String?,
-//                           series: String, set: String,
-//                           text: List<String>, attacks: List<Attack>?,
-//                           weaknesses: List<Effect>?, resistances: List<Effect>?,
-//                           ability: Ability?) {
 @Entity
 class PokeCardEntity
 constructor(card: Card) {

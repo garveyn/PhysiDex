@@ -12,15 +12,11 @@ import com.physidex.physidex.database.entities.FullPokeCard
 import io.pokemontcg.model.Card
 import kotlinx.android.synthetic.main.activity_display_card.*
 
-class DisplayCardActivity : AppCompatActivity() {
-
-//    var cardImageView: ImageView = findViewById(R.id.cardImageView)
-    //var response: String = ""
-    //var responseView: TextView = findViewById(R.id.cardResponse)
-    //private lateinit var mCardImageView: ImageView
+class DisplaySearchActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: DisplaySearchAdapter
+    val fullPokeCards: MutableList<FullPokeCard> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +27,15 @@ class DisplayCardActivity : AppCompatActivity() {
 
         // Set up RecyclerView
         recyclerView = searchResultView
-        adapter = DisplaySearchAdapter(this)
+        adapter = DisplaySearchAdapter(this) { index ->
+            // when a card is selected, open detail fragment
+            val fragmentManager = supportFragmentManager
+            val fragmentTransaction = fragmentManager.beginTransaction()
+            var detail = CardDetailFragment()
+            detail.setCard(fullPokeCards[index])
+            fragmentTransaction.replace(R.id.display_cards, detail)
+            fragmentTransaction.commit()
+        }
         recyclerView.adapter = adapter
         recyclerView.layoutManager = GridLayoutManager(this, 2)
         //recyclerView.addItemDecoration(GridItemDecoration(1, 2))
@@ -60,7 +64,6 @@ class DisplayCardActivity : AppCompatActivity() {
 
         override fun doInBackground(vararg params: String): List<Card>? {
             val pokemon = Pokemon()
-            Log.d("PARAM", params[0])
             val cardsReturned = pokemon.card()
                     .where {
                         name = params[0]
@@ -68,8 +71,6 @@ class DisplayCardActivity : AppCompatActivity() {
 
             if (cardsReturned.isNotEmpty()) {
                 Log.d("FIRST CARD", cardsReturned[0].toString())
-                // response = cards[0].toString()
-                // cardsReturned = cards
                 return cardsReturned
             } else {
                 Log.d("FIRST CARD", "No cards were returned")
@@ -81,15 +82,13 @@ class DisplayCardActivity : AppCompatActivity() {
         override fun onPostExecute(result: List<Card>?) {
             // TODO: check if cards are already owned
             super.onPostExecute(result)
-            Log.d("DOWNLOAD","Downloaded $result bytes")
-            //cardImageView.setImageBitmap(result)
 
             progressBar.visibility = View.INVISIBLE
             if (result != null && result.isNotEmpty()) {
                 Log.d("OnPostExecute", "Cards received.")
                 resultText.text = String.format(getString(R.string.results_number), result.size)
                 ArrayOfDecks.loadCards(result)
-                val fullPokeCards: MutableList<FullPokeCard> = mutableListOf()
+
                 for (card in result) {
                     fullPokeCards.add(FullPokeCard(card))
                 }
