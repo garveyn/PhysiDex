@@ -13,6 +13,7 @@ class DeckManagerPage : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
+    private lateinit var itemDecoration: SeparatorItemDecoration
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -25,11 +26,14 @@ class DeckManagerPage : Fragment() {
         val testData = ArrayOfDecks.buildDecks()
 
         viewManager = LinearLayoutManager(context)
-        viewAdapter = DeckAdapter(context!!, testData)
+        viewAdapter = DeckAdapter(testData)
+        itemDecoration = SeparatorItemDecoration(resources.getDimension(R.dimen.fab_margin).toInt())
 
         recyclerView = view.findViewById<RecyclerView>(R.id.deck_recyclerView).apply {
 
             setHasFixedSize(true)
+
+            addItemDecoration(itemDecoration)
 
             layoutManager = viewManager
 

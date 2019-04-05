@@ -2,12 +2,14 @@
 <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <ImageView
         android:id="@+id/cardSearchResult"
         android:layout_width="171dp"
         android:layout_height="265dp"
+        tools:src="@drawable/ic_edit"
         android:contentDescription="@string/image_description"/>
 
 </GridLayout>
