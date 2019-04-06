@@ -38,6 +38,13 @@ object ArrayOfDecks {
             }
         }
 
+        if (salamanceDeck.deckList.size > 0)
+        {
+            salamanceDeck.deckName = "Deck ${salamanceDeck.deckList[0].cardName}"
+            arrayListOfDecks.add(salamanceDeck)
+        }
+
+
         print(arrCard.toString())
 
         return arrayListOfDecks
