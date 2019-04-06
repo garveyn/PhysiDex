@@ -38,7 +38,7 @@ constructor(card: Card) {
     @ColumnInfo(name = "subtype") var subtype: SubType = card.subtype
     @ColumnInfo(name = "evolves_from") var evolvesFrom: String? = card.evolvesFrom
     @ColumnInfo(name = "hp") var hp: Int? = card.hp
-    @ColumnInfo(name = "retreat_cost") var retreatCost: Int = card.retreatCost?.size ?: 0
+    @ColumnInfo(name = "retreat_cost") var retreatCost: Int? = card.retreatCost?.size
     @ColumnInfo(name = "number_in_set") var numberInSet: String = card.number
     @ColumnInfo(name = "rarity") var rarity: String? = card.rarity
     @ColumnInfo(name = "series") var series: String = card.series
