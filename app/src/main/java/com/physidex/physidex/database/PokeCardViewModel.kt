@@ -22,7 +22,7 @@ class PokeCardViewModel(application: Application): AndroidViewModel(application)
     val allCards: LiveData<List<FullPokeCard>>
 
     init {
-        val cardDao = PhysiDexDatabase.getDatabase(application, scope).pokeCardDao()
+        val cardDao = PhysiDexDatabase.getDatabase(application, scope).fullCardDao()
         repository = PokeCardRepository(cardDao)
         allCards = repository.allCards
     }

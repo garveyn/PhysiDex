@@ -63,10 +63,10 @@ class CardDetailFragment : Fragment(), View.OnClickListener {
     }
 
     override fun onClick(view: View) {
-        if (detailedCard.pokeCard != null) {
-            val previousNumCopies = detailedCard.pokeCard?.numCopies as Int
-            detailedCard.pokeCard?.numCopies = previousNumCopies + 1
-        }
+
+        val previousNumCopies = detailedCard.pokeCard.numCopies
+        detailedCard.pokeCard.numCopies = previousNumCopies + 1
+        
         // cardViewModel.insert(detailedCard)
     }
 

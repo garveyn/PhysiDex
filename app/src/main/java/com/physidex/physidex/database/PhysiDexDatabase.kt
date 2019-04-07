@@ -3,16 +3,22 @@ package com.physidex.physidex.database
 import android.content.Context
 import androidx.room.*
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.physidex.physidex.database.daos.PokeCardDao
+import com.physidex.physidex.database.daos.FullCardDao
+//import com.physidex.physidex.database.daos.PokeAttackDao
+//import com.physidex.physidex.database.daos.PokeCardDao
 import com.physidex.physidex.database.entities.FullPokeCard
+import com.physidex.physidex.database.entities.PokeAttackEntity
+import com.physidex.physidex.database.entities.PokeCardEntity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-@Database(entities = [FullPokeCard::class], version = 1)
+@Database(entities = [PokeCardEntity::class, PokeAttackEntity::class], version = 1)
 abstract class PhysiDexDatabase : RoomDatabase() {
 
-    abstract fun pokeCardDao(): PokeCardDao
+    abstract fun fullCardDao(): FullCardDao
+//    abstract fun pokeCardDao(): PokeCardDao
+//    abstract fun pokeAttackDao(): PokeAttackDao
 
     companion object {
         @Volatile
@@ -43,13 +49,13 @@ abstract class PhysiDexDatabase : RoomDatabase() {
                 super.onOpen(db)
                 INSTANCE?.let { database ->
                     scope.launch(Dispatchers.IO) {
-                        populateDatabase(database.pokeCardDao())
+                        populateDatabase(database.fullCardDao())
                     }
                 }
             }
         }
 
-        fun populateDatabase(cardDao: PokeCardDao) {
+        fun populateDatabase(cardDao: FullCardDao) {
             //TODO: get data???
         }
     }
