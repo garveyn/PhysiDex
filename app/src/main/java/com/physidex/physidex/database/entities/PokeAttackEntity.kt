@@ -15,7 +15,7 @@ import io.pokemontcg.model.Type
         )
     ]
 )
-class PokeAttackEntity constructor(attack: Attack, cardId: Int){
+class PokeAttackEntity constructor(attack: Attack, cardId: String){
 
     @PrimaryKey(autoGenerate = true) var id: Int = 0
     @ColumnInfo(name = "name") var name: String = attack.name
@@ -23,5 +23,5 @@ class PokeAttackEntity constructor(attack: Attack, cardId: Int){
     @ColumnInfo(name = "cost") var cost: String = attack.cost?.joinToString(",") ?: ""
     @ColumnInfo(name = "damage") var damage: String? = attack.damage
     @ColumnInfo(name = "converted_energy_cost") var convEnergyCost: Int = attack.convertedEnergyCost
-    @ColumnInfo(name = "card_id") var cardId: Int = cardId
+    @ColumnInfo(name = "card_id") var cardId: String = cardId
 }

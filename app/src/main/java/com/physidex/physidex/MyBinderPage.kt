@@ -31,7 +31,7 @@ class MyBinderPage : Fragment() {
         val view = inflater.inflate(R.layout.my_binder_main, container, false)
 
         recentViewManager = LinearLayoutManager(view.context)
-        recentViewAdapter = DisplaySearchAdapter(view.context)
+        recentViewAdapter = DisplaySearchAdapter(view.context) {}
 
         recentRecyclerView
 

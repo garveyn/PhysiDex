@@ -31,9 +31,11 @@ class DisplaySearchActivity : AppCompatActivity() {
             // when a card is selected, open detail fragment
             val fragmentManager = supportFragmentManager
             val fragmentTransaction = fragmentManager.beginTransaction()
-            var detail = CardDetailFragment()
-            detail.setCard(fullPokeCards[index])
+            val detail = CardDetailFragment()
+            detail.detailedCard = fullPokeCards[index]
+            //detail.setCard(fullPokeCards[index])
             fragmentTransaction.replace(R.id.display_cards, detail)
+            fragmentTransaction.addToBackStack(null)
             fragmentTransaction.commit()
         }
         recyclerView.adapter = adapter

@@ -27,7 +27,7 @@ fun consolidateEffects(effects: List<Effect>?): PokeEffect? {
 class PokeCardEntity
 constructor(card: Card) {
 
-    @PrimaryKey(autoGenerate = true) var id: Int = 0
+    @PrimaryKey var id: String = card.id
     @ColumnInfo(name = "card_name") var cardName: String = card.name
     @ColumnInfo(name = "national_pokedex_number") var nationalDexNum: Int? = card.nationalPokedexNumber
     @ColumnInfo(name = "image_url") var imageUrl: String = card.imageUrl

@@ -3,6 +3,7 @@ package com.physidex.physidex.database.entities
 import android.util.Log
 import androidx.room.*
 import com.physidex.physidex.GenericCard
+import com.physidex.physidex.database.daos.PokeCardDao
 import io.pokemontcg.model.Ability
 import io.pokemontcg.model.Attack
 import io.pokemontcg.model.Card
@@ -11,6 +12,7 @@ import kotlin.reflect.full.memberProperties
 class FullPokeCard {
 
     constructor(card: Card) {
+        //TODO: check if card is already in database and update numCopies
         val cardEntity: PokeCardEntity = PokeCardEntity(card)
         this.pokeCard = cardEntity
         if (card.attacks != null) {
@@ -19,6 +21,7 @@ class FullPokeCard {
                 this.attacks.add(PokeAttackEntity(attack, cardEntity.id))
             }
         }
+        // this.pokeCard.numCopies =
     }
 
     @Embedded

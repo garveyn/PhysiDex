@@ -19,16 +19,20 @@ class PokeCardViewModel(application: Application): AndroidViewModel(application)
     private val scope = CoroutineScope(coroutineContext)
 
     private val repository: PokeCardRepository
-    val allWords: LiveData<List<FullPokeCard>>
+    val allCards: LiveData<List<FullPokeCard>>
 
     init {
-        val cardDao = PhysiDexDatabase.getDatabase(application).pokeCardDao()
+        val cardDao = PhysiDexDatabase.getDatabase(application, scope).pokeCardDao()
         repository = PokeCardRepository(cardDao)
-        allWords = repository.allCards
+        allCards = repository.allCards
     }
 
     fun insert(card: FullPokeCard) = scope.launch(Dispatchers.IO) {
-        repository.insert(card)
+        if (card.pokeCard != null) {
+            val previousNumCopies = card.pokeCard?.numCopies as Int
+            card.pokeCard?.numCopies = previousNumCopies + 1
+            repository.insert(card)
+        }
     }
 
     override fun onCleared() {

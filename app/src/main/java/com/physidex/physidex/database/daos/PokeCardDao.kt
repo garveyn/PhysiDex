@@ -7,7 +7,7 @@ import com.physidex.physidex.database.entities.*
 @Dao
 interface PokeCardDao {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addCard(card: FullPokeCard)
 
     @Delete
@@ -22,5 +22,6 @@ interface PokeCardDao {
     @Query("SELECT * FROM PokeCardEntity")
     fun getFullCards(): LiveData<List<FullPokeCard>>
 
-    // @Query("")
+    @Query("SELECT * FROM PokeCardEntity WHERE id == :id")
+    fun getCard(id: String): List<FullPokeCard>
 }
