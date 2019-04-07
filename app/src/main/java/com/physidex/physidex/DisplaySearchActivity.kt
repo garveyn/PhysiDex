@@ -87,7 +87,7 @@ class DisplaySearchActivity : AppCompatActivity() {
             if (result != null && result.isNotEmpty()) {
                 Log.d("OnPostExecute", "Cards received.")
                 resultText.text = String.format(getString(R.string.results_number), result.size)
-                ArrayOfDecks.loadCards(result)
+                TestData.loadCards(result)
 
                 for (card in result) {
                     fullPokeCards.add(FullPokeCard(card))

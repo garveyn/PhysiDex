@@ -1,8 +1,9 @@
 package com.physidex.physidex
 
+import com.physidex.physidex.database.entities.FullPokeCard
 import io.pokemontcg.model.Card
 
-object ArrayOfDecks {
+object TestData {
 
 
     var cards = ArrayList<Card>()
@@ -49,5 +50,13 @@ object ArrayOfDecks {
 
         return arrayListOfDecks
 
+    }
+
+    fun buildFullCards() : MutableList<FullPokeCard> {
+        val list = mutableListOf<FullPokeCard>()
+        for (card in cards) {
+            list.add(FullPokeCard(card))
+        }
+        return list
     }
 }

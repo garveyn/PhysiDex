@@ -23,7 +23,7 @@ class DeckManagerPage : Fragment() {
         // Inflate the layout for this fragment
         var view = inflater.inflate(R.layout.deck_manager_main, container, false)
 
-        val testData = ArrayOfDecks.buildDecks()
+        val testData = TestData.buildDecks()
 
         viewManager = LinearLayoutManager(context)
         viewAdapter = DeckAdapter(testData)
