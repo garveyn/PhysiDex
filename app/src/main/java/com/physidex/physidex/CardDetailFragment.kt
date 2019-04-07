@@ -41,7 +41,8 @@ class CardDetailFragment : Fragment() {
 
     fun fillTable(cardSelected: FullPokeCard) {
 
-        cardSelected.getInfo()
+        val info: Map<String, String> = cardSelected.getInfo()
+        //TODO: Fill table with info in map. 
     }
 
 }
