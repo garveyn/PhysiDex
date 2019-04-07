@@ -1,92 +1,160 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView
+    android:layout_height="wrap_content"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <androidx.cardview.widget.CardView
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="166dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="282dp">
+        android:layout_height="wrap_content">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/binder_most_used_recyclerview"
-            android:layout_width="379dp"
-            android:layout_height="150dp"
-            android:layout_gravity="center"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:scrollbars="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/my_binder_previews" />
-
-        <TextView
-            android:id="@+id/binder_most_used_text"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/binder_most_used_card"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:contentDescription="@string/binder_most_used"
-            android:text="@string/binder_most_used"
-            app:layout_constraintBottom_toTopOf="@+id/binder_most_used_recyclerview"
-            app:layout_constraintStart_toStartOf="@+id/binder_most_used_recyclerview"
-            tools:text="@string/binder_most_used" />
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="@dimen/fab_margin"
+            android:layout_marginBottom="@dimen/fab_margin"
+            app:layout_constraintBottom_toTopOf="@+id/binder_all_card"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/binder_recent_card">
 
-    </androidx.cardview.widget.CardView>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_height="match_parent"
+                android:layout_width="match_parent">
+
+                <TextView
+                    android:id="@+id/binder_most_used_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:contentDescription="@string/binder_most_used"
+                    android:text="@string/binder_most_used"
+                    app:layout_constraintStart_toStartOf="@+id/binder_most_used_recyclerview"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="@string/binder_most_used" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/binder_most_used_recyclerview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:scrollbars="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/binder_most_used_text"
+                    tools:listitem="@layout/my_binder_previews" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/binder_recent_recyclerview"
-        android:layout_width="379dp"
-        android:layout_height="150dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:scrollbars="horizontal"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="100dp"
-        tools:listitem="@layout/my_binder_previews" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/binder_all_recyclerview"
-        android:layout_width="379dp"
-        android:layout_height="150dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="48dp"
-        android:scrollbars="horizontal"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:listitem="@layout/my_binder_previews" />
+        </androidx.cardview.widget.CardView>
 
 
+        <androidx.cardview.widget.CardView
+            android:id="@+id/binder_recent_card"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="@dimen/fab_margin"
+            android:layout_marginBottom="@dimen/fab_margin"
+            app:layout_constraintBottom_toTopOf="@+id/binder_most_used_card"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:contentDescription="@string/binder_recent"
-        android:text="@string/binder_recent"
-        app:layout_constraintBottom_toTopOf="@+id/binder_recent_recyclerview"
-        app:layout_constraintStart_toStartOf="@+id/binder_recent_recyclerview" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_height="match_parent"
+                android:layout_width="match_parent">
 
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:contentDescription="@string/binder_all"
-        android:text="@string/binder_all"
-        app:layout_constraintBottom_toTopOf="@+id/binder_all_recyclerview"
-        app:layout_constraintStart_toStartOf="@+id/binder_all_recyclerview" />
+                <TextView
+                    android:id="@+id/binder_recent_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:contentDescription="@string/binder_recent"
+                    android:text="@string/binder_recent"
+                    app:layout_constraintStart_toStartOf="@+id/binder_recent_recyclerview"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/binder_recent_recyclerview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:scrollbars="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/binder_recent_text"
+                    tools:listitem="@layout/my_binder_previews" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/binder_all_card"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="@dimen/fab_margin"
+            android:layout_marginBottom="@dimen/fab_margin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/binder_most_used_card">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_height="match_parent"
+                android:layout_width="match_parent">
+
+                <TextView
+                    android:id="@+id/binder_all_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:contentDescription="@string/binder_all"
+                    android:text="@string/binder_all"
+                    app:layout_constraintBottom_toTopOf="@+id/binder_all_recyclerview"
+                    app:layout_constraintStart_toStartOf="@+id/binder_all_recyclerview"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/binder_all_recyclerview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:scrollbars="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:listitem="@layout/my_binder_previews" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
