@@ -29,7 +29,7 @@ class CardDetailFragment : Fragment(), View.OnClickListener {
         val view = inflater.inflate(R.layout.card_detail, container, false)
 
         // Set up view model (used if added to binder)
-        // cardViewModel = ViewModelProviders.of(this).get(PokeCardViewModel::class.java)
+        cardViewModel = ViewModelProviders.of(this).get(PokeCardViewModel::class.java)
 
         // add to binder
         val button: Button = view.findViewById(R.id.add_button)
