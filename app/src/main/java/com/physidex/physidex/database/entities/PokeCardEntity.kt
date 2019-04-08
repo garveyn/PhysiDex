@@ -3,17 +3,6 @@ package com.physidex.physidex.database.entities
 import androidx.room.*
 import io.pokemontcg.model.*
 
-//// We need to use PokeAbility in order to get
-//data class PokeAbility(
-//    val abilityName: String,
-//    val abilityText: String,
-//    val abilityType: String?
-//)
-//
-//fun abilityToPokeability(ability: Ability?): PokeAbility? {
-//
-//}
-
 data class PokeEffect(
     var type: String,
     var value: String

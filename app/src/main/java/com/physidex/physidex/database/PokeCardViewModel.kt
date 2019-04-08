@@ -28,16 +28,13 @@ class PokeCardViewModel(application: Application): AndroidViewModel(application)
     }
 
     fun insert(card: FullPokeCard) = scope.launch(Dispatchers.IO) {
-        if (card.pokeCard != null) {
-            val previousNumCopies = card.pokeCard?.numCopies as Int
-            card.pokeCard?.numCopies = previousNumCopies + 1
-            repository.insert(card)
-        }
+        val previousNumCopies = card.pokeCard.numCopies
+        card.pokeCard.numCopies = previousNumCopies + 1
+        repository.insert(card)
     }
 
     override fun onCleared() {
         super.onCleared()
         parentJob.cancel()
     }
-
 }

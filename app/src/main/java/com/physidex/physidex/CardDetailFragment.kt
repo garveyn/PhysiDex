@@ -39,7 +39,7 @@ class CardDetailFragment : Fragment(), View.OnClickListener {
         if (this::detailedCard.isInitialized) {
             val cardDetailImage = view.findViewById<ImageView>(R.id.card_detail_image)
             Picasso.with(context)
-                    .load(detailedCard.pokeCard?.imageUrlHiRes)
+                    .load(detailedCard.pokeCard.imageUrlHiRes)
                     .into(cardDetailImage)
 
             val info: Map<String, String> = detailedCard.getInfo()
@@ -66,8 +66,8 @@ class CardDetailFragment : Fragment(), View.OnClickListener {
 
         val previousNumCopies = detailedCard.pokeCard.numCopies
         detailedCard.pokeCard.numCopies = previousNumCopies + 1
-        
-        // cardViewModel.insert(detailedCard)
+
+        cardViewModel.insert(detailedCard)
     }
 
 }
