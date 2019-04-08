@@ -8,8 +8,12 @@ import android.os.AsyncTask
 import android.view.View
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.widget.Toolbar
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.physidex.physidex.database.PokeCardViewModel
+import com.physidex.physidex.database.daos.FullCardDao
 import com.physidex.physidex.database.entities.FullPokeCard
 import io.pokemontcg.model.Card
 import kotlinx.android.synthetic.main.activity_display_card.*
@@ -18,6 +22,7 @@ class DisplaySearchActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: DisplaySearchAdapter
+    private lateinit var cardViewModel: PokeCardViewModel
     val fullPokeCards: MutableList<FullPokeCard> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,7 +43,6 @@ class DisplaySearchActivity : AppCompatActivity() {
         // Get the Intent that started this activity and extract the string
         val card = intent.getStringExtra(DISPLAY_CARD)
 
-
         // Set up RecyclerView
         recyclerView = searchResultView
         adapter = DisplaySearchAdapter(this) { index ->
@@ -55,6 +59,12 @@ class DisplaySearchActivity : AppCompatActivity() {
         recyclerView.adapter = adapter
         recyclerView.layoutManager = GridLayoutManager(this, 2)
         //recyclerView.addItemDecoration(GridItemDecoration(1, 2))
+
+        // Set up view model (used to check numCopies of each card)
+        cardViewModel = ViewModelProviders.of(this).get(PokeCardViewModel::class.java)
+        cardViewModel.allCardIds.observe(this, Observer { cards ->
+            cards?.let { adapter.updateResults(it)}
+        })
 
         // Capture the layout's TextView and set the string as its text
         cardSearch(card)
@@ -106,10 +116,21 @@ class DisplaySearchActivity : AppCompatActivity() {
                 TestData.loadCards(result)
 
                 for (card in result) {
+                    //TODO: check allCardIds to fill in numCopies. listener should be somewhere too...
+//                    val newCard = FullPokeCard(card)
+//                    if (existingCards.containsKey(card.id)) {
+//                        newCard.pokeCard.numCopies = existingCards[card.id] ?: 0
+//                    }
                     fullPokeCards.add(FullPokeCard(card))
                 }
                 searchResultView.visibility = View.VISIBLE
                 adapter.setResults(fullPokeCards)
+
+                var existingCards: List<FullCardDao.CopiesPerId> = emptyList()
+                if (cardViewModel.allCardIds.value != null) {
+                    existingCards = cardViewModel.allCardIds.value as List<FullCardDao.CopiesPerId>
+                    adapter.updateResults(existingCards)
+                }
 
             } else {
                resultText.text = getString(R.string.no_cards_found)

@@ -22,7 +22,6 @@ class CardDetailFragment : Fragment(), View.OnClickListener {
     lateinit var linearLayout: LinearLayout
 
 
-
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
@@ -31,7 +30,7 @@ class CardDetailFragment : Fragment(), View.OnClickListener {
         val view = inflater.inflate(R.layout.card_detail, container, false)
 
         // Set up view model (used if added to binder)
-        //cardViewModel = ViewModelProviders.of(this).get(PokeCardViewModel::class.java)
+        cardViewModel = ViewModelProviders.of(this).get(PokeCardViewModel::class.java)
 
         // add to binder
         val button: Button = view.findViewById(R.id.add_button)
@@ -81,8 +80,9 @@ class CardDetailFragment : Fragment(), View.OnClickListener {
 
     override fun onClick(view: View) {
 
-        val previousNumCopies = detailedCard.pokeCard.numCopies
-        detailedCard.pokeCard.numCopies = previousNumCopies + 1
+        //
+        // val previousNumCopies = detailedCard.pokeCard.numCopies
+        //detailedCard.pokeCard.numCopies = previousNumCopies + 1
 
         cardViewModel.insert(detailedCard)
     }

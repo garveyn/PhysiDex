@@ -9,13 +9,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.physidex.physidex.database.daos.FullCardDao
 import com.physidex.physidex.database.entities.FullPokeCard
 import com.squareup.picasso.Picasso
 
 //TODO: rename to displayCard, lmao
 class DisplaySearchAdapter(var context: Context, val itemClick: (Int) -> Unit) :
     RecyclerView.Adapter<DisplaySearchAdapter.DisplaySearchViewHolder> () {
-
 
     val inflater: LayoutInflater = LayoutInflater.from(context)
     var cards = emptyList<FullPokeCard>()
@@ -26,20 +26,10 @@ class DisplaySearchAdapter(var context: Context, val itemClick: (Int) -> Unit) :
     }
 
     inner class DisplaySearchViewHolder(itemView: View) :
-            RecyclerView.ViewHolder(itemView), View.OnClickListener {
+            RecyclerView.ViewHolder(itemView){
 
         val cardImageView: ImageView = itemView.findViewById(R.id.card_image_view)
         val cardOwnedTextView: TextView = itemView.findViewById(R.id.card_owned)
-
-        init {
-            itemView.setOnClickListener(this)
-        }
-
-        override fun onClick(v: View) {
-            val context = v.context
-            //itemClick()
-
-        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DisplaySearchViewHolder {
@@ -53,11 +43,11 @@ class DisplaySearchAdapter(var context: Context, val itemClick: (Int) -> Unit) :
         holder.itemView.setOnClickListener{ itemClick(position) }
 
         holder.cardOwnedTextView.text = String.format(context.getString(R.string.binder_owned),
-                currentCard.pokeCard!!.numCopies)
+                currentCard.pokeCard.numCopies)
 
 
         Picasso.with(context)
-                .load(currentCard.pokeCard?.imageUrl)
+                .load(currentCard.pokeCard.imageUrl)
                 .into(holder.cardImageView)
     }
 
@@ -65,6 +55,16 @@ class DisplaySearchAdapter(var context: Context, val itemClick: (Int) -> Unit) :
 
     fun setResults(cardsReturned: List<FullPokeCard>) {
         this.cards = cardsReturned
+        notifyDataSetChanged()
+    }
+
+    fun updateResults(allCards: List<FullCardDao.CopiesPerId>) {
+        val cardsOwned: Map<String, Int> = allCards.map { it.id to it.numCopies}.toMap()
+        for (card in this.cards) {
+            if (cardsOwned.contains(card.pokeCard.id) ) {
+                card.pokeCard.numCopies = cardsOwned[card.pokeCard.id] as Int
+            }
+        }
         notifyDataSetChanged()
     }
 

@@ -9,10 +9,16 @@ class PokeCardRepository(private val cardDao: FullCardDao) {
 
     // execute query asynchronously
     val allCards: LiveData<List<FullPokeCard>> = cardDao.getFullCards()
+    val allCardIds: LiveData<List<FullCardDao.CopiesPerId>> = cardDao.getAllIds()
 
     // on a non-UI thread, add card into the db
     @WorkerThread
     suspend fun insert(card: FullPokeCard) {
         cardDao.addCard(card)
+    }
+
+    @WorkerThread
+    suspend fun update(card: FullPokeCard) {
+        cardDao.updateCard(card.pokeCard)
     }
 }

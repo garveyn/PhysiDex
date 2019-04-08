@@ -2,6 +2,7 @@ package com.physidex.physidex.database.daos
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.physidex.physidex.PokeCard
 import com.physidex.physidex.database.entities.*
 
 @Dao
@@ -18,6 +19,9 @@ abstract class FullCardDao {
     @Insert
     abstract fun insertCard(card: PokeCardEntity)
 
+    @Update
+    abstract fun updateCard(card: PokeCardEntity)
+
 //    @Delete
 //    abstract fun removeCard(card: FullPokeCard)
 
@@ -32,4 +36,19 @@ abstract class FullCardDao {
 
     @Query("SELECT * FROM PokeCardEntity WHERE id == :id")
     abstract fun getCard(id: String): List<FullPokeCard>
+
+
+    data class CopiesPerId(var id: String, var numCopies: Int)
+
+    @Query("SELECT id, num_copies AS numCopies FROM PokeCardEntity")
+    abstract fun getAllIds(): LiveData<List<CopiesPerId>>
+
+//    fun getIdMap(): Map<String, Int> {
+//        val ids = getAllIds()
+//        val map: MutableMap<String, Int> = mutableMapOf()
+//        //ids.value
+//        for (copyPerId in ids) {
+//
+//        }
+//    }
 }
