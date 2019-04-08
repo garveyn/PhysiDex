@@ -1,24 +1,21 @@
 package com.physidex.physidex
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
-import com.physidex.physidex.database.PokeCardViewModel
 import com.physidex.physidex.database.entities.FullPokeCard
+import com.physidex.physidex.database.viewmodels.SearchViewModel
 import com.squareup.picasso.Picasso
 
 
 class CardDetailFragment : Fragment(), View.OnClickListener {
 
     lateinit var detailedCard: FullPokeCard
-    private lateinit var cardViewModel: PokeCardViewModel
+    private lateinit var cardViewModel: SearchViewModel
     lateinit var linearLayout: LinearLayout
 
 
@@ -30,7 +27,7 @@ class CardDetailFragment : Fragment(), View.OnClickListener {
         val view = inflater.inflate(R.layout.card_detail, container, false)
 
         // Set up view model (used if added to binder)
-        cardViewModel = ViewModelProviders.of(this).get(PokeCardViewModel::class.java)
+        cardViewModel = ViewModelProviders.of(this).get(SearchViewModel::class.java)
 
         // add to binder
         val button: Button = view.findViewById(R.id.add_button)
@@ -80,11 +77,8 @@ class CardDetailFragment : Fragment(), View.OnClickListener {
 
     override fun onClick(view: View) {
 
-        //
-        // val previousNumCopies = detailedCard.pokeCard.numCopies
-        //detailedCard.pokeCard.numCopies = previousNumCopies + 1
-
-        cardViewModel.insert(detailedCard)
+        cardViewModel.insert(detailedCard, 1)
+        //detailedCard.pokeCard.numCopies++
     }
 
 }

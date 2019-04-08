@@ -2,6 +2,9 @@ package com.physidex.physidex.database.entities
 
 import androidx.room.*
 import io.pokemontcg.model.*
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.util.*
 
 data class PokeEffect(
     var type: String,
@@ -29,7 +32,8 @@ constructor(id: String, cardName: String, nationalDexNum: Int?, imageUrl: String
             imageUrlHiRes: String, type1: String?, type2: String?, supertype: String, subtype: String,
             evolvesFrom: String?, hp: Int?, retreatCost: Int?, numberInSet: String,
             rarity: String?, series: String, set: String, cardText: String?,
-            weakness: PokeEffect?, resistance: PokeEffect?, ability: Ability?, numCopies: Int) {
+            weakness: PokeEffect?, resistance: PokeEffect?, ability: Ability?, dateAdded: String,
+            numCopies: Int) {
 
     @PrimaryKey var id: String = id
     @ColumnInfo(name = "card_name") var cardName: String = cardName
@@ -52,6 +56,7 @@ constructor(id: String, cardName: String, nationalDexNum: Int?, imageUrl: String
     @Embedded(prefix = "res_") var resistance: PokeEffect? = resistance
     @Embedded(prefix = "ability_") var ability: Ability? = ability
     @ColumnInfo(name = "num_copies") var numCopies: Int = numCopies
+    @ColumnInfo(name = "first_added") var dateAdded: String = dateAdded
 
     @Ignore
     constructor(card: Card, numCopies: Int?):
@@ -61,5 +66,14 @@ constructor(id: String, cardName: String, nationalDexNum: Int?, imageUrl: String
                     card.subtype.toString(), card.evolvesFrom, card.hp, card.retreatCost?.size,
                     card.number, card.rarity, card.series, card.set,
                     card.text?.joinToString(","), consolidateEffects(card.weaknesses),
-                    consolidateEffects(card.resistances), card.ability, numCopies ?: 0)
+                    consolidateEffects(card.resistances), card.ability, "",
+                    numCopies ?: 0) {
+        // First Added will be automatically set to the current date.
+        // If this card is a duplicate, only numCopies will be updated in the database, so
+        // this field will only be saved if this card is inserted for the first time.
+        val currentDate = Calendar.getInstance().time
+        val format = SimpleDateFormat("yyyy-MM-dd")
+        this.dateAdded = format.format(currentDate).toString()
+
+    }
 }

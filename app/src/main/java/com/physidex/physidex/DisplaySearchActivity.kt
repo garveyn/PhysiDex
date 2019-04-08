@@ -12,9 +12,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.physidex.physidex.database.PokeCardViewModel
+import com.physidex.physidex.database.viewmodels.MyBinderViewModel
 import com.physidex.physidex.database.daos.FullCardDao
 import com.physidex.physidex.database.entities.FullPokeCard
+import com.physidex.physidex.database.viewmodels.SearchViewModel
 import io.pokemontcg.model.Card
 import kotlinx.android.synthetic.main.activity_display_card.*
 
@@ -22,7 +23,7 @@ class DisplaySearchActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: DisplaySearchAdapter
-    private lateinit var cardViewModel: PokeCardViewModel
+    private lateinit var cardViewModel: SearchViewModel
     val fullPokeCards: MutableList<FullPokeCard> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,7 +62,7 @@ class DisplaySearchActivity : AppCompatActivity() {
         //recyclerView.addItemDecoration(GridItemDecoration(1, 2))
 
         // Set up view model (used to check numCopies of each card)
-        cardViewModel = ViewModelProviders.of(this).get(PokeCardViewModel::class.java)
+        cardViewModel = ViewModelProviders.of(this).get(SearchViewModel::class.java)
         cardViewModel.allCardIds.observe(this, Observer { cards ->
             cards?.let { adapter.updateResults(it)}
         })

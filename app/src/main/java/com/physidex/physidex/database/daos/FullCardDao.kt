@@ -19,11 +19,15 @@ abstract class FullCardDao {
     @Insert
     abstract fun insertCard(card: PokeCardEntity)
 
-    @Update
-    abstract fun updateCard(card: PokeCardEntity)
+    // Update query- custom query because the only field changed is the number of copies.
+    @Query("UPDATE PokeCardEntity SET num_copies = :numberOfNewCopies WHERE id = :cardId")
+    abstract fun updateCard(cardId: String, numberOfNewCopies: Int)
 
 //    @Delete
 //    abstract fun removeCard(card: FullPokeCard)
+
+    @Query("DELETE FROM PokeCardEntity")
+    abstract fun deleteAll()
 
     @Query("SELECT * FROM PokeCardEntity")
     abstract fun getCards(): List<PokeCardEntity>
@@ -43,12 +47,4 @@ abstract class FullCardDao {
     @Query("SELECT id, num_copies AS numCopies FROM PokeCardEntity")
     abstract fun getAllIds(): LiveData<List<CopiesPerId>>
 
-//    fun getIdMap(): Map<String, Int> {
-//        val ids = getAllIds()
-//        val map: MutableMap<String, Int> = mutableMapOf()
-//        //ids.value
-//        for (copyPerId in ids) {
-//
-//        }
-//    }
 }

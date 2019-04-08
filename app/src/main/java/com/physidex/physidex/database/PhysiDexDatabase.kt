@@ -4,16 +4,13 @@ import android.content.Context
 import androidx.room.*
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.physidex.physidex.database.daos.FullCardDao
-//import com.physidex.physidex.database.daos.PokeAttackDao
-//import com.physidex.physidex.database.daos.PokeCardDao
-import com.physidex.physidex.database.entities.FullPokeCard
 import com.physidex.physidex.database.entities.PokeAttackEntity
 import com.physidex.physidex.database.entities.PokeCardEntity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-@Database(entities = [PokeCardEntity::class, PokeAttackEntity::class], version = 1)
+@Database(entities = [PokeCardEntity::class, PokeAttackEntity::class], version = 2)
 abstract class PhysiDexDatabase : RoomDatabase() {
 
     abstract fun fullCardDao(): FullCardDao
@@ -36,6 +33,7 @@ abstract class PhysiDexDatabase : RoomDatabase() {
                         "PhysiDexDatabase"
                 )
                         .addCallback(PhysiDexDatabaseCallback(scope))
+                        .fallbackToDestructiveMigration()
                         .build()
                 INSTANCE = instance
                 return instance
@@ -57,6 +55,7 @@ abstract class PhysiDexDatabase : RoomDatabase() {
 
         fun populateDatabase(cardDao: FullCardDao) {
             //TODO: get data???
+            cardDao.deleteAll()
         }
     }
 }

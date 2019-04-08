@@ -19,6 +19,6 @@ class PokeCardRepository(private val cardDao: FullCardDao) {
 
     @WorkerThread
     suspend fun update(card: FullPokeCard) {
-        cardDao.updateCard(card.pokeCard)
+        cardDao.updateCard(card.pokeCard.id, card.pokeCard.numCopies)
     }
 }

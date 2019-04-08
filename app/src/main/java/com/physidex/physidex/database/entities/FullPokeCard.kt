@@ -9,16 +9,11 @@ class FullPokeCard(pokeCard: PokeCardEntity) {
 
     @Ignore
     constructor(card: Card): this(PokeCardEntity(card, 0)) {
-        //TODO: check if card is already in database and update numCopies
-//        val cardEntity: PokeCardEntity = PokeCardEntity(card)
-//        this.pokeCard = cardEntity
         if (card.attacks != null) {
-            //val  = card.attacks as List<Attack>
             for (attack in card.attacks as List<Attack>) {
                 this.attacks.add(PokeAttackEntity(attack, this.pokeCard.id))
             }
         }
-        // this.pokeCard.numCopies =
     }
 
     @Embedded
@@ -73,6 +68,7 @@ class FullPokeCard(pokeCard: PokeCardEntity) {
         info["Series"] = card.series
         info["Set"] = card.set
         info["Number of Copies in My Binder"] = card.numCopies.toString()
+        //info["Date First Added"] = card.dateAdded // testing purposes only
 
         return info
     }
