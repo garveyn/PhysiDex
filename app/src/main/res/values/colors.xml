@@ -7,6 +7,7 @@
     <!-- Common Colors for various usages -->
     <color name="play">#4CAF50</color>
     <color name="edit">#68686B</color>
+    <color name="titleText">#E9E9E9</color>
 
 
     <!-- Card Type Colors -->
