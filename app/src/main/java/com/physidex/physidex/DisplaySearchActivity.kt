@@ -6,6 +6,8 @@ import android.util.Log
 import io.pokemontcg.Pokemon
 import android.os.AsyncTask
 import android.view.View
+import androidx.appcompat.app.ActionBar
+import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.physidex.physidex.database.entities.FullPokeCard
@@ -22,8 +24,20 @@ class DisplaySearchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_display_card)
 
+        // Create Action bar
+        val toolbar: Toolbar = findViewById(R.id.search_toolbar)
+        setSupportActionBar(toolbar)
+        val actionbar: ActionBar? = supportActionBar
+        actionbar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            setHomeAsUpIndicator(R.drawable.ic_menu)
+        }
+
+        toolbar.title = getString(R.string.search_results)
+
         // Get the Intent that started this activity and extract the string
         val card = intent.getStringExtra(DISPLAY_CARD)
+
 
         // Set up RecyclerView
         recyclerView = searchResultView

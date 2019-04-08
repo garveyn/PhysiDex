@@ -56,11 +56,26 @@ open class MainActivity : AppCompatActivity() {
             val newFragment: Fragment
 
             when (menuItem.itemId) {
-                R.id.action_settings -> newFragment = SettingsPage()
-                R.id.my_binder_menu -> newFragment = MyBinderPage()
-                R.id.game_manager_menu -> newFragment = GameManagerPage()
-                R.id.deck_manager_menu -> newFragment = DeckManagerPage()
-                R.id.search_page -> newFragment = SearchFragment()
+                R.id.action_settings -> {
+                    newFragment = SettingsPage()
+                    toolbar.title = getString(R.string.action_settings)
+                }
+                R.id.my_binder_menu -> {
+                    newFragment = MyBinderPage()
+                    toolbar.title = getString(R.string.my_binder)
+                }
+                R.id.game_manager_menu -> {
+                    newFragment = GameManagerPage()
+                    toolbar.title = getString(R.string.game_manager)
+                }
+                R.id.deck_manager_menu -> {
+                    newFragment = DeckManagerPage()
+                    toolbar.title = getString(R.string.deck_manager)
+                }
+                R.id.search_page -> {
+                    newFragment = SearchFragment()
+                    toolbar.title = getString(R.string.search)
+                }
                 else -> newFragment = Fragment()
             }
 
