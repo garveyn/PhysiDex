@@ -22,6 +22,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.drawer_test.*
 
 const val DISPLAY_CARD = "com.physidex.physidex.CARD"
+const val MY_BINDER_CARDS = "com.physidex.physidex.BINDER_CARDS"
 
 open class MainActivity : AppCompatActivity() {
 

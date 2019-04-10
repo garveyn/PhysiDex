@@ -12,7 +12,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.physidex.physidex.database.viewmodels.MyBinderViewModel
 import com.physidex.physidex.database.daos.FullCardDao
 import com.physidex.physidex.database.entities.FullPokeCard
 import com.physidex.physidex.database.viewmodels.SearchViewModel
@@ -22,7 +21,7 @@ import kotlinx.android.synthetic.main.activity_display_card.*
 class DisplaySearchActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: DisplaySearchAdapter
+    private lateinit var adapter: DisplayCardAdapter
     private lateinit var cardViewModel: SearchViewModel
     val fullPokeCards: MutableList<FullPokeCard> = mutableListOf()
 
@@ -46,13 +45,12 @@ class DisplaySearchActivity : AppCompatActivity() {
 
         // Set up RecyclerView
         recyclerView = searchResultView
-        adapter = DisplaySearchAdapter(this) { index ->
+        adapter = DisplayCardAdapter(this) { index ->
             // when a card is selected, open detail fragment
             val fragmentManager = supportFragmentManager
             val fragmentTransaction = fragmentManager.beginTransaction()
             val detail = CardDetailFragment()
             detail.detailedCard = fullPokeCards[index]
-            //detail.setCard(fullPokeCards[index])
             fragmentTransaction.replace(R.id.display_cards, detail)
             fragmentTransaction.addToBackStack(null)
             fragmentTransaction.commit()
@@ -97,11 +95,12 @@ class DisplaySearchActivity : AppCompatActivity() {
                     }.all()
 
             if (cardsReturned.isNotEmpty()) {
-                Log.d("FIRST CARD", cardsReturned[0].toString())
+                //Log.d("FIRST CARD", cardsReturned[0].toString())
                 return cardsReturned
-            } else {
-                Log.d("FIRST CARD", "No cards were returned")
             }
+//            } else {
+//                Log.d("FIRST CARD", "No cards were returned")
+//            }
 
             return null
         }

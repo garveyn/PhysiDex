@@ -1,21 +1,19 @@
 package com.physidex.physidex
 
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.physidex.physidex.database.daos.FullCardDao
 import com.physidex.physidex.database.entities.FullPokeCard
 import com.squareup.picasso.Picasso
 
 //TODO: rename to displayCard, lmao
-class DisplaySearchAdapter(var context: Context, val itemClick: (Int) -> Unit) :
-    RecyclerView.Adapter<DisplaySearchAdapter.DisplaySearchViewHolder> () {
+class DisplayCardAdapter(var context: Context, val itemClick: (Int) -> Unit) :
+    RecyclerView.Adapter<DisplayCardAdapter.DisplaySearchViewHolder> () {
 
     val inflater: LayoutInflater = LayoutInflater.from(context)
     var cards = emptyList<FullPokeCard>()

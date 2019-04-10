@@ -3,7 +3,6 @@ package com.physidex.physidex.database.entities
 import androidx.room.*
 import io.pokemontcg.model.*
 import java.text.SimpleDateFormat
-import java.time.LocalDate
 import java.util.*
 
 data class PokeEffect(
@@ -68,6 +67,7 @@ constructor(id: String, cardName: String, nationalDexNum: Int?, imageUrl: String
                     card.text?.joinToString(","), consolidateEffects(card.weaknesses),
                     consolidateEffects(card.resistances), card.ability, "",
                     numCopies ?: 0) {
+
         // First Added will be automatically set to the current date.
         // If this card is a duplicate, only numCopies will be updated in the database, so
         // this field will only be saved if this card is inserted for the first time.
