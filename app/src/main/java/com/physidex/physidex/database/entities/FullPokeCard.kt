@@ -68,7 +68,7 @@ class FullPokeCard(pokeCard: PokeCardEntity) {
         info["Series"] = card.series
         info["Set"] = card.set
         info["Number of Copies in My Binder"] = card.numCopies.toString()
-        //info["Date First Added"] = card.dateAdded // testing purposes only
+        info["Date First Added"] = card.dateAdded // testing purposes only
 
         return info
     }

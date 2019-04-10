@@ -2,6 +2,7 @@ package com.physidex.physidex
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -19,17 +20,17 @@ class MyBinderPage : Fragment() {
 
     private lateinit var recentCards:           List<FullPokeCard>
     private lateinit var recentRecyclerView:    RecyclerView
-    private lateinit var recentViewAdapter:     RecyclerView.Adapter<*>
+    private lateinit var recentViewAdapter:     DisplayCardAdapter
     private lateinit var recentViewManager:     RecyclerView.LayoutManager
 
     private lateinit var mostUsedCards:         List<FullPokeCard>
     private lateinit var mostUsedRecyclerView:  RecyclerView
-    private lateinit var mostUsedViewAdapter:   RecyclerView.Adapter<*>
+    private lateinit var mostUsedViewAdapter:   DisplayCardAdapter
     private lateinit var mostUsedViewManager:   RecyclerView.LayoutManager
 
     private lateinit var allCards:              List<FullPokeCard>
     private lateinit var allRecyclerView:       RecyclerView
-    private lateinit var allViewAdapter:        RecyclerView.Adapter<*>
+    private lateinit var allViewAdapter:        DisplayCardAdapter
     private lateinit var allViewManager:        RecyclerView.LayoutManager
 
     private lateinit var binderViewModel: MyBinderViewModel
@@ -76,19 +77,6 @@ class MyBinderPage : Fragment() {
 
         //region RecyclerView #1 - Recently added cards
 
-        // used in recyclerviews to find max # of cards that can be displayed (less than 10)
-        var maxIndex = 10
-
-        // load in data from database
-        binderViewModel.allCardsByDate.observe(this, Observer { cards ->
-            cards?.let {
-                if (it.size - 1 < maxIndex) {
-                    maxIndex = it.size - 1
-                }
-                recentCards = it.subList(0, maxIndex)
-            }
-        })
-
         recentViewManager = LinearLayoutManager(view.context,
                 LinearLayoutManager.HORIZONTAL, false)
         recentViewAdapter = DisplayCardAdapter(view.context, recentCards) { index ->
@@ -109,6 +97,20 @@ class MyBinderPage : Fragment() {
         view.findViewById<ConstraintLayout>(R.id.binder_recent).setOnClickListener {
             displayCardList("RECENT")
         }
+
+        // used in recyclerviews to find max # of cards that can be displayed (less than 10)
+        var maxIndex = 10
+
+        // load in data from database
+        binderViewModel.allCardsByDate.observe(this, Observer { cards ->
+            cards?.let {
+                if (it.size < maxIndex) {
+                    maxIndex = it.size
+                }
+                recentCards = it.subList(0, maxIndex)
+                recentViewAdapter.setResults(recentCards)
+            }
+        })
         //endregion
 
         //region RecyclerView #2 - Most Used Cards
@@ -138,15 +140,6 @@ class MyBinderPage : Fragment() {
         //region RecyclerView #3 - All Cards
 
         // load in data from database
-        maxIndex = 10
-        binderViewModel.allCards.observe(this, Observer { cards ->
-            cards?.let {
-                if (it.size - 1 < maxIndex) {
-                    maxIndex = it.size - 1
-                }
-                allCards = it.subList(0, maxIndex)
-            }
-        })
 
         allViewManager = LinearLayoutManager(view.context,
                 LinearLayoutManager.HORIZONTAL, false)
@@ -168,6 +161,17 @@ class MyBinderPage : Fragment() {
         view.findViewById<ConstraintLayout>(R.id.binder_all).setOnClickListener {
             displayCardList("ALL")
         }
+
+        maxIndex = 10
+        binderViewModel.allCards.observe(this, Observer { cards ->
+            cards?.let {
+                if (it.size < maxIndex) {
+                    maxIndex = it.size
+                }
+                allCards = it.subList(0, maxIndex)
+                allViewAdapter.setResults(allCards)
+            }
+        })
         //endregion
 
         return view

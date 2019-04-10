@@ -72,7 +72,7 @@ constructor(id: String, cardName: String, nationalDexNum: Int?, imageUrl: String
         // If this card is a duplicate, only numCopies will be updated in the database, so
         // this field will only be saved if this card is inserted for the first time.
         val currentDate = Calendar.getInstance().time
-        val format = SimpleDateFormat("yyyy-MM-dd")
+        val format = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
         this.dateAdded = format.format(currentDate).toString()
 
     }

@@ -43,7 +43,7 @@ abstract class FullCardDao {
     abstract fun getCard(id: String): List<FullPokeCard>
 
     @Transaction
-    @Query("SELECT * FROM PokeCardEntity ORDER BY first_added ASC")
+    @Query("SELECT * FROM PokeCardEntity ORDER BY first_added DESC")
     abstract fun getCardsByDate(): LiveData<List<FullPokeCard>>
 
     data class CopiesPerId(var id: String, var numCopies: Int)
