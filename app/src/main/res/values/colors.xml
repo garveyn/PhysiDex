@@ -11,6 +11,7 @@
 
 
     <!-- Card Type Colors -->
+    <color name="cardColorless">#E5D6D0</color>
     <color name="cardFire">#E24242</color>
     <color name="cardGrass">#7DB808</color>
     <color name="cardLightning">#FAB536</color>

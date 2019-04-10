@@ -4,14 +4,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/cardMetal"
     android:layout_height="wrap_content"
     android:layout_width="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/details_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/cardMetal"
+        android:layout_height="wrap_content"
         android:visibility="visible">
 
         <ImageView
@@ -44,6 +44,13 @@
                 android:layout_height="wrap_content"
                 android:text="@string/add_to_binder"
                 android:layout_marginBottom="@dimen/default_gap" />
+            
+            <TableLayout
+                android:id="@+id/detail_table"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/default_gap"
+                android:layout_marginEnd="@dimen/default_gap"/>
 
 
 

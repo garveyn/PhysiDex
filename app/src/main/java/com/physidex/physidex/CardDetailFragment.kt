@@ -5,18 +5,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.core.content.ContextCompat.getColor
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.physidex.physidex.database.entities.FullPokeCard
 import com.physidex.physidex.database.viewmodels.SearchViewModel
 import com.squareup.picasso.Picasso
+import io.pokemontcg.model.Type
 
 
 class CardDetailFragment : Fragment(), View.OnClickListener {
 
     lateinit var detailedCard: FullPokeCard
     private lateinit var cardViewModel: SearchViewModel
-    lateinit var linearLayout: LinearLayout
+    private lateinit var tableLayout: TableLayout
 
 
     override fun onCreateView(
@@ -42,9 +44,11 @@ class CardDetailFragment : Fragment(), View.OnClickListener {
 
             val info: Map<String, String> = detailedCard.getInfo()
 
-            // Load LinearLayout
-            linearLayout = view.findViewById(R.id.card_detail_linear_layout)
-            linearLayout.orientation = LinearLayout.VERTICAL
+            // TODO Set background color
+
+
+            // Load TableLayout
+            tableLayout = view.findViewById(R.id.detail_table)
 
             this.fillTable(detailedCard, info)
         }
@@ -59,19 +63,19 @@ class CardDetailFragment : Fragment(), View.OnClickListener {
     fun fillTable(cardSelected: FullPokeCard, info: Map<String, String>) {
 
         //TODO: Fill table with info in map.
-        var rowView: View?
+        var fieldLayout: View
         var nameField: TextView
         var dataField: TextView
 
         for ((key, value) in info) {
-            rowView = this.layoutInflater.inflate(R.layout.card_detail_field, null)
-            nameField = rowView.findViewById(R.id.field_name)
-            dataField = rowView.findViewById(R.id.field_data)
+            fieldLayout = this.layoutInflater.inflate(R.layout.card_detail_field, null)
+            nameField = fieldLayout.findViewById(R.id.field_name)
+            dataField = fieldLayout.findViewById(R.id.field_data)
 
             nameField.text = key
             dataField.text = value
 
-            linearLayout.addView(rowView)
+            tableLayout.addView(fieldLayout)
         }
     }
 
