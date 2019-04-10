@@ -23,6 +23,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".DisplaySearchActivity"></activity>
+        <activity android:name=".MyBinderGrid"></activity>
     </application>
 
 </manifest>

@@ -18,11 +18,13 @@ class MyBinderViewModel(application: Application): CardViewModel(application) {
 
     private val repository: PokeCardRepository
     val allCards: LiveData<List<FullPokeCard>>
+    val allCardsByDate: LiveData<List<FullPokeCard>>
 
     init {
         val cardDao = PhysiDexDatabase.getDatabase(application, scope).fullCardDao()
         repository = PokeCardRepository(cardDao)
         allCards = repository.allCards
+        allCardsByDate = repository.allCardsByDate
     }
 
 //    fun insert(card: FullPokeCard) = scope.launch(Dispatchers.IO) {

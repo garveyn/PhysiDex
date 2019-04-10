@@ -86,7 +86,7 @@ class MyBinderPage : Fragment() {
             adapter = recentViewAdapter
         }
 
-        view.findViewById<ConstraintLayout>(R.id.binder_recent_card).setOnClickListener {
+        view.findViewById<ConstraintLayout>(R.id.binder_recent).setOnClickListener {
             displayCardList("RECENT")
         }
         //endregion
@@ -107,7 +107,7 @@ class MyBinderPage : Fragment() {
             adapter = mostUsedViewAdapter
         }
 
-        view.findViewById<ConstraintLayout>(R.id.binder_recent_card).setOnClickListener {
+        view.findViewById<ConstraintLayout>(R.id.binder_most_used).setOnClickListener {
             displayCardList("MOST_USED")
         }
         //endregion
@@ -128,7 +128,7 @@ class MyBinderPage : Fragment() {
             adapter = allViewAdapter
         }
 
-        view.findViewById<ConstraintLayout>(R.id.binder_recent_card).setOnClickListener {
+        view.findViewById<ConstraintLayout>(R.id.binder_all).setOnClickListener {
             displayCardList("ALL")
         }
         //endregion

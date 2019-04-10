@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/my_binder_main_scroll"
+<ScrollView
+    android:layout_height="wrap_content"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -16,8 +16,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="@dimen/fab_margin"
             android:layout_marginEnd="8dp"
+            android:layout_marginTop="@dimen/fab_margin"
             android:layout_marginBottom="@dimen/fab_margin"
             app:layout_constraintBottom_toTopOf="@+id/binder_all_card"
             app:layout_constraintEnd_toEndOf="parent"
@@ -26,8 +26,9 @@
             app:layout_constraintTop_toBottomOf="@+id/binder_recent_card">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:id="@+id/binder_most_used"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent">
 
                 <TextView
                     android:id="@+id/binder_most_used_text"
@@ -67,8 +68,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="@dimen/fab_margin"
             android:layout_marginEnd="8dp"
+            android:layout_marginTop="@dimen/fab_margin"
             android:layout_marginBottom="@dimen/fab_margin"
             app:layout_constraintBottom_toTopOf="@+id/binder_most_used_card"
             app:layout_constraintEnd_toEndOf="parent"
@@ -77,8 +78,9 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:id="@+id/binder_recent"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent">
 
                 <TextView
                     android:id="@+id/binder_recent_text"
@@ -115,8 +117,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="@dimen/fab_margin"
             android:layout_marginEnd="8dp"
+            android:layout_marginTop="@dimen/fab_margin"
             android:layout_marginBottom="@dimen/fab_margin"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -125,8 +127,9 @@
             app:layout_constraintTop_toBottomOf="@+id/binder_most_used_card">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:id="@+id/binder_all"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent">
 
                 <TextView
                     android:id="@+id/binder_all_text"

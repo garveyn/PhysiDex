@@ -38,9 +38,13 @@ abstract class FullCardDao {
     @Query("SELECT * FROM PokeCardEntity")
     abstract fun getFullCards(): LiveData<List<FullPokeCard>>
 
+    @Transaction
     @Query("SELECT * FROM PokeCardEntity WHERE id == :id")
     abstract fun getCard(id: String): List<FullPokeCard>
 
+    @Transaction
+    @Query("SELECT * FROM PokeCardEntity ORDER BY first_added ASC")
+    abstract fun getCardsByDate(): LiveData<List<FullPokeCard>>
 
     data class CopiesPerId(var id: String, var numCopies: Int)
 
