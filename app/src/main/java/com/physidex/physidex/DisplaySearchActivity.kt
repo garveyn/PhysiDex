@@ -117,11 +117,6 @@ class DisplaySearchActivity : AppCompatActivity() {
                 val loadedCards = mutableListOf<FullPokeCard>()
 
                 for (card in result) {
-                    //TODO: check allCardIds to fill in numCopies. listener should be somewhere too...
-//                    val newCard = FullPokeCard(card)
-//                    if (existingCards.containsKey(card.id)) {
-//                        newCard.pokeCard.numCopies = existingCards[card.id] ?: 0
-//                    }
                     loadedCards.add(FullPokeCard(card))
                 }
                 fullPokeCards = loadedCards
