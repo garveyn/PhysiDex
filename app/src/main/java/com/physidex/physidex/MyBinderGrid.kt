@@ -36,17 +36,17 @@ class MyBinderGrid : AppCompatActivity() {
 
         when (query) {
             "ALL" -> {
-                if (binderViewModel.allCards.value != null) {
-                    adapter.setResults(binderViewModel.allCards.value as List<FullPokeCard>)
-                }
+//                if (binderViewModel.allCards.value != null) {
+//                    adapter.setResults(binderViewModel.allCards.value as List<FullPokeCard>)
+//                }
                 binderViewModel.allCards.observe(this, Observer { cards ->
                     cards?.let { adapter.setResults(it)}
                 })
             }
             "RECENT" -> {
-                if (binderViewModel.allCardsByDate.value != null) {
-                    adapter.setResults(binderViewModel.allCardsByDate.value as List<FullPokeCard>)
-                }
+//                if (binderViewModel.allCardsByDate.value != null) {
+//                    adapter.setResults(binderViewModel.allCardsByDate.value as List<FullPokeCard>)
+//                }
                 binderViewModel.allCardsByDate.observe(this, Observer { cards ->
                     cards?.let { adapter.setResults(it)}
                 })

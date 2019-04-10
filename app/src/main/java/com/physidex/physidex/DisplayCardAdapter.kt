@@ -18,7 +18,7 @@ class DisplayCardAdapter(var context: Context, val itemClick: (Int) -> Unit) :
     val inflater: LayoutInflater = LayoutInflater.from(context)
     var cards = emptyList<FullPokeCard>()
 
-    constructor(context: Context,  cardList: MutableList<FullPokeCard>,
+    constructor(context: Context,  cardList: List<FullPokeCard>,
                 itemClick: (Int) -> Unit) : this(context, itemClick) {
         setResults(cardList)
     }

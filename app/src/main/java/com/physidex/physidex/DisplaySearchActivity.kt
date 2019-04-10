@@ -23,7 +23,7 @@ class DisplaySearchActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: DisplayCardAdapter
     private lateinit var cardViewModel: SearchViewModel
-    val fullPokeCards: MutableList<FullPokeCard> = mutableListOf()
+    var fullPokeCards: List<FullPokeCard> = emptyList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -114,6 +114,7 @@ class DisplaySearchActivity : AppCompatActivity() {
                 Log.d("OnPostExecute", "Cards received.")
                 resultText.text = String.format(getString(R.string.results_number), result.size)
                 TestData.loadCards(result)
+                val loadedCards = mutableListOf<FullPokeCard>()
 
                 for (card in result) {
                     //TODO: check allCardIds to fill in numCopies. listener should be somewhere too...
@@ -121,8 +122,9 @@ class DisplaySearchActivity : AppCompatActivity() {
 //                    if (existingCards.containsKey(card.id)) {
 //                        newCard.pokeCard.numCopies = existingCards[card.id] ?: 0
 //                    }
-                    fullPokeCards.add(FullPokeCard(card))
+                    loadedCards.add(FullPokeCard(card))
                 }
+                fullPokeCards = loadedCards
                 searchResultView.visibility = View.VISIBLE
                 adapter.setResults(fullPokeCards)
 

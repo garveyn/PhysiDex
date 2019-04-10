@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.FragmentTransaction
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.physidex.physidex.database.entities.FullPokeCard
@@ -15,17 +17,17 @@ import com.physidex.physidex.database.viewmodels.MyBinderViewModel
 
 class MyBinderPage : Fragment() {
 
-    private lateinit var recentCards:           MutableList<FullPokeCard>
+    private lateinit var recentCards:           List<FullPokeCard>
     private lateinit var recentRecyclerView:    RecyclerView
     private lateinit var recentViewAdapter:     RecyclerView.Adapter<*>
     private lateinit var recentViewManager:     RecyclerView.LayoutManager
 
-    private lateinit var mostUsedCards:         MutableList<FullPokeCard>
+    private lateinit var mostUsedCards:         List<FullPokeCard>
     private lateinit var mostUsedRecyclerView:  RecyclerView
     private lateinit var mostUsedViewAdapter:   RecyclerView.Adapter<*>
     private lateinit var mostUsedViewManager:   RecyclerView.LayoutManager
 
-    private lateinit var allCards:              MutableList<FullPokeCard>
+    private lateinit var allCards:              List<FullPokeCard>
     private lateinit var allRecyclerView:       RecyclerView
     private lateinit var allViewAdapter:        RecyclerView.Adapter<*>
     private lateinit var allViewManager:        RecyclerView.LayoutManager
@@ -47,30 +49,46 @@ class MyBinderPage : Fragment() {
         // They are in the following regions: TODO Initialize cards for all three
 
         // Initialize view model
-        //binderViewModel = ViewModelProviders.of(this).get(MyBinderViewModel::class.java)
+        binderViewModel = ViewModelProviders.of(this).get(MyBinderViewModel::class.java)
 
 
         //region TODO : Remove, only for testing
 
-        val data = TestData.buildFullCards()
+//        val data = TestData.buildFullCards()
 
-        recentCards = mutableListOf()
-        mostUsedCards = mutableListOf()
-        allCards = mutableListOf()
+        recentCards = emptyList<FullPokeCard>()
+        mostUsedCards = emptyList<FullPokeCard>()
+        allCards = emptyList<FullPokeCard>()
 
-        loadingTestData@ for (card in data) {
-            when
-            {
-                recentCards.size < 10 -> recentCards.add(card)
-                mostUsedCards.size < 10 -> mostUsedCards.add(card)
-                allCards.size < 10 -> allCards.add(card)
-                else -> break@loadingTestData
-            }
-        }
+//        loadingTestData@ for (card in data) {
+//            when
+//            {
+//                recentCards.size < 10 -> recentCards.add(card)
+//                mostUsedCards.size < 10 -> mostUsedCards.add(card)
+//                allCards.size < 10 -> allCards.add(card)
+//                else -> break@loadingTestData
+//            }
+//        }
 
         //endregion
 
+
+
         //region RecyclerView #1 - Recently added cards
+
+        // used in recyclerviews to find max # of cards that can be displayed (less than 10)
+        var maxIndex = 10
+
+        // load in data from database
+        binderViewModel.allCardsByDate.observe(this, Observer { cards ->
+            cards?.let {
+                if (it.size - 1 < maxIndex) {
+                    maxIndex = it.size - 1
+                }
+                recentCards = it.subList(0, maxIndex)
+            }
+        })
+
         recentViewManager = LinearLayoutManager(view.context,
                 LinearLayoutManager.HORIZONTAL, false)
         recentViewAdapter = DisplayCardAdapter(view.context, recentCards) { index ->
@@ -86,6 +104,8 @@ class MyBinderPage : Fragment() {
             adapter = recentViewAdapter
         }
 
+        // set onclicklistener so when the user clicks on this recyclerview, it will
+        // bring them to the full view of these cards
         view.findViewById<ConstraintLayout>(R.id.binder_recent).setOnClickListener {
             displayCardList("RECENT")
         }
@@ -107,12 +127,27 @@ class MyBinderPage : Fragment() {
             adapter = mostUsedViewAdapter
         }
 
+        // set onclicklistener so when the user clicks on this recyclerview, it will
+        // bring them to the full view of these cards
         view.findViewById<ConstraintLayout>(R.id.binder_most_used).setOnClickListener {
             displayCardList("MOST_USED")
         }
+
         //endregion
 
         //region RecyclerView #3 - All Cards
+
+        // load in data from database
+        maxIndex = 10
+        binderViewModel.allCards.observe(this, Observer { cards ->
+            cards?.let {
+                if (it.size - 1 < maxIndex) {
+                    maxIndex = it.size - 1
+                }
+                allCards = it.subList(0, maxIndex)
+            }
+        })
+
         allViewManager = LinearLayoutManager(view.context,
                 LinearLayoutManager.HORIZONTAL, false)
         allViewAdapter = DisplayCardAdapter(view.context, allCards) { index ->
@@ -128,6 +163,8 @@ class MyBinderPage : Fragment() {
             adapter = allViewAdapter
         }
 
+        // set onclicklistener so when the user clicks on this recyclerview, it will
+        // bring them to the full view of these cards
         view.findViewById<ConstraintLayout>(R.id.binder_all).setOnClickListener {
             displayCardList("ALL")
         }
@@ -136,7 +173,7 @@ class MyBinderPage : Fragment() {
         return view
     }
 
-    fun displayCardDetails(index: Int, cardList: MutableList<FullPokeCard>) {
+    fun displayCardDetails(index: Int, cardList: List<FullPokeCard>) {
         // when a card is selected, open detail fragment
         if (fragmentManager != null) {
             val fragmentTransaction: FragmentTransaction = fragmentManager!!.beginTransaction()
