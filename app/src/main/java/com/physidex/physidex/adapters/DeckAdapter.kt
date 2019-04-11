@@ -13,10 +13,12 @@ import androidx.core.content.ContextCompat.getColor
 import androidx.core.content.ContextCompat.getDrawable
 import com.physidex.physidex.testClasses.Deck
 import com.physidex.physidex.R
+import com.physidex.physidex.database.entities.PokeDeckInfoEntity
 
-class DeckAdapter(val decks: ArrayList<Deck>) :
+class DeckAdapter :
         RecyclerView.Adapter<DeckAdapter.DeckViewHolder>() {
 
+    var decks = emptyList<PokeDeckInfoEntity>()
 
     class DeckViewHolder(val view: View) : RecyclerView.ViewHolder(view){
 
@@ -49,17 +51,17 @@ class DeckAdapter(val decks: ArrayList<Deck>) :
     }
 
     override fun onBindViewHolder(holder: DeckViewHolder, position: Int) {
-        var deck: Deck = decks[position]
+        var deck: PokeDeckInfoEntity = decks[position]
         holder.nameField.text = deck.deckName
-        holder.dateModified.text = deck.lastModifiedDate.toString()
+        holder.dateModified.text = deck.lastModified
 
         // Set click events
         holder.view.isClickable = true
         holder.view.isLongClickable = true
-        holder.view.setOnClickListener  { editDeck(deck) }
-        holder.view.setOnLongClickListener { markDeck(deck) }
+//        holder.view.setOnClickListener  { editDeck(deck) }
+//        holder.view.setOnLongClickListener { markDeck(deck) }
 
-        if (deck.deckList.size > 0) {
+//        if (deck.deckList.size > 0) {
             when (position % 10) // TODO change to be based on energy types
             {
                 1 -> {
@@ -75,9 +77,9 @@ class DeckAdapter(val decks: ArrayList<Deck>) :
                 9 -> holder.view.setBackgroundColor(getColor(holder.context, R.color.cardPsychic))
                 0 -> holder.view.setBackgroundColor(getColor(holder.context, R.color.cardLightning))
             }
-        }
+//        }
 
-        if (deck.isReadyToPlay) {
+        if (true) {
             holder.playDeckButton.text = holder.context.getString(R.string.deck_play)
             holder.playDeckButton.background = getDrawable(holder.context, R.drawable.ic_play_arrow)
             holder.playDeckButton.background.setTint(getColor(holder.context, R.color.play))

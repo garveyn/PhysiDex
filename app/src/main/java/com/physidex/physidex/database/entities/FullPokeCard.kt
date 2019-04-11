@@ -21,12 +21,21 @@ class FullPokeCard(pokeCard: PokeCardEntity) {
         }
     }
 
+//    constructor(pokeCard: PokeCardEntity, cardPerDeck: PokeCardPerDeckEntity) : this(pokeCard) {
+//        this.cardPerDeck = cardPerDeck
+//    }
+
     @Embedded
     var pokeCard: PokeCardEntity = pokeCard
 
     @Relation(parentColumn = "id",
               entityColumn = "card_id")
     var attacks: MutableList<PokeAttackEntity> = ArrayList()
+
+//    @Relation(parentColumn = "id",
+//              entityColumn = "card_id",
+//              entity = PokeCardPerDeckEntity::class)
+//    var cardPerDeck: PokeCardPerDeckEntity? = null
 
     // TODO: add isPokemon, isTrainer, isBasicEnergy
 
