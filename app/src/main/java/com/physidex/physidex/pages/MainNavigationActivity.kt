@@ -50,7 +50,7 @@ open class MainActivity : AppCompatActivity() {
 
             when (menuItem.itemId) {
                 R.id.action_settings -> {
-                    newFragment = SettingsPage()
+                    newFragment = SettingsFragment()
                     toolbar.title = getString(R.string.action_settings)
                 }
                 R.id.my_binder_menu -> {

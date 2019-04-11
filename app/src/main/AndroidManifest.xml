@@ -24,6 +24,7 @@
         </activity>
         <activity android:name=".pages.SearchResultsActivity"></activity>
         <activity android:name=".pages.MyBinderGridActivity"></activity>
+        <activity android:name=".pages.DeckDetailActivity"></activity>
     </application>
 
 </manifest>

@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.physidex.physidex.R
 
-class SettingsPage : Fragment() {
+class SettingsFragment : Fragment() {
 
     override fun onCreateView(
             inflater: LayoutInflater,

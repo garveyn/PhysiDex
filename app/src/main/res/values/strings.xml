@@ -25,6 +25,9 @@
     <!-- Deck Manager Page -->
     <string name="deck_play">Play!</string>
     <string name="deck_cannot_play">Edit</string>
+    <string name="deck_energy">Energy: </string>
+    <string name="deck_trainer">Trainers: </string>
+    <string name="deck_pokemon">Pokemon: </string>
 
     <!-- My Binder -->
     <string name="binder_recent">Recently Added</string>

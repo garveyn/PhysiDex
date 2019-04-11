@@ -24,8 +24,7 @@ class DisplayCardAdapter(var context: Context, val itemClick: (Int) -> Unit) :
         setResults(cardList)
     }
 
-    inner class DisplaySearchViewHolder(itemView: View) :
-            RecyclerView.ViewHolder(itemView){
+    inner class DisplaySearchViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
 
         val cardImageView: ImageView = itemView.findViewById(R.id.card_image_view)
         val cardOwnedTextView: TextView = itemView.findViewById(R.id.card_owned)
