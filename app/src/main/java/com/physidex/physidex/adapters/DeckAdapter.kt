@@ -1,4 +1,4 @@
-package com.physidex.physidex
+package com.physidex.physidex.adapters
 
 
 import android.content.Context
@@ -11,6 +11,8 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.core.content.ContextCompat.getColor
 import androidx.core.content.ContextCompat.getDrawable
+import com.physidex.physidex.testClasses.Deck
+import com.physidex.physidex.R
 
 class DeckAdapter(val decks: ArrayList<Deck>) :
         RecyclerView.Adapter<DeckAdapter.DeckViewHolder>() {

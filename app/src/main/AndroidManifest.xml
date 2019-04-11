@@ -13,7 +13,7 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         tools:ignore="GoogleAppIndexingWarning"><!-- TODO Remove this -->
         <activity
-            android:name=".MainActivity"
+            android:name=".pages.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -22,8 +22,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DisplaySearchActivity"></activity>
-        <activity android:name=".MyBinderGrid"></activity>
+        <activity android:name=".pages.SearchResultsActivity"></activity>
+        <activity android:name=".pages.MyBinderGridActivity"></activity>
     </application>
 
 </manifest>

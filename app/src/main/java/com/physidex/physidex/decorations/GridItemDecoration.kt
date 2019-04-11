@@ -1,4 +1,4 @@
-package com.physidex.physidex
+package com.physidex.physidex.decorations
 
 import android.graphics.Rect
 import android.view.View

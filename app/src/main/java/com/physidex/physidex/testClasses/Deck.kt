@@ -1,4 +1,4 @@
-package com.physidex.physidex
+package com.physidex.physidex.testClasses
 
 import java.util.*
 

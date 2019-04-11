@@ -1,4 +1,4 @@
-package com.physidex.physidex
+package com.physidex.physidex.pages
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,8 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import com.physidex.physidex.R
 
-class SearchFragment : Fragment(), View.OnClickListener {
+class SearchHomeFragment : Fragment(), View.OnClickListener {
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -34,7 +35,7 @@ class SearchFragment : Fragment(), View.OnClickListener {
         val cardName = editText.text.toString()
 
 
-        val intent = Intent(activity, DisplaySearchActivity::class.java).apply {
+        val intent = Intent(activity, SearchResultsActivity::class.java).apply {
             putExtra(DISPLAY_CARD, cardName)
         }
         startActivity(intent)

@@ -1,4 +1,4 @@
-package com.physidex.physidex
+package com.physidex.physidex.decorations
 
 // Code adapted from:
 // https://medium.com/@elye.project/right-way-of-setting-margin-on-recycler-views-cell-319da259b641

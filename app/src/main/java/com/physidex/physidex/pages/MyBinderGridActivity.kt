@@ -1,4 +1,4 @@
-package com.physidex.physidex
+package com.physidex.physidex.pages
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -6,11 +6,12 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.physidex.physidex.database.entities.FullPokeCard
+import com.physidex.physidex.R
+import com.physidex.physidex.adapters.DisplayCardAdapter
 import com.physidex.physidex.database.viewmodels.MyBinderViewModel
 import kotlinx.android.synthetic.main.my_binder_grid.*
 
-class MyBinderGrid : AppCompatActivity() {
+class MyBinderGridActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: DisplayCardAdapter

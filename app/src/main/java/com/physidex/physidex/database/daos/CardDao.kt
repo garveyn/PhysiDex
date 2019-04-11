@@ -2,11 +2,10 @@ package com.physidex.physidex.database.daos
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.physidex.physidex.PokeCard
 import com.physidex.physidex.database.entities.*
 
 @Dao
-abstract class FullCardDao {
+abstract class CardDao {
 
     fun addCard(card: FullPokeCard) {
         insertCard(card.pokeCard)

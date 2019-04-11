@@ -1,17 +1,16 @@
-package com.physidex.physidex
+package com.physidex.physidex.pages
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.core.content.ContextCompat.getColor
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import com.physidex.physidex.R
 import com.physidex.physidex.database.entities.FullPokeCard
 import com.physidex.physidex.database.viewmodels.SearchViewModel
 import com.squareup.picasso.Picasso
-import io.pokemontcg.model.Type
 
 
 class CardDetailFragment : Fragment(), View.OnClickListener {

@@ -1,4 +1,4 @@
-package com.physidex.physidex
+package com.physidex.physidex.pages
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,8 +7,12 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.physidex.physidex.R
+import com.physidex.physidex.adapters.DeckAdapter
+import com.physidex.physidex.decorations.SeparatorItemDecoration
+import com.physidex.physidex.testClasses.TestData
 
-class DeckManagerPage : Fragment() {
+class DeckManagerFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>

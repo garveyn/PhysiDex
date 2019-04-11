@@ -1,37 +1,37 @@
-package com.physidex.physidex
+package com.physidex.physidex.pages
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.physidex.physidex.R
+import com.physidex.physidex.adapters.DisplayCardAdapter
 import com.physidex.physidex.database.entities.FullPokeCard
 import com.physidex.physidex.database.viewmodels.MyBinderViewModel
 
-class MyBinderPage : Fragment() {
+class MyBinderHomeFragment : Fragment() {
 
     private lateinit var recentCards:           List<FullPokeCard>
     private lateinit var recentRecyclerView:    RecyclerView
-    private lateinit var recentViewAdapter:     DisplayCardAdapter
+    private lateinit var recentViewAdapter: DisplayCardAdapter
     private lateinit var recentViewManager:     RecyclerView.LayoutManager
 
     private lateinit var mostUsedCards:         List<FullPokeCard>
     private lateinit var mostUsedRecyclerView:  RecyclerView
-    private lateinit var mostUsedViewAdapter:   DisplayCardAdapter
+    private lateinit var mostUsedViewAdapter: DisplayCardAdapter
     private lateinit var mostUsedViewManager:   RecyclerView.LayoutManager
 
     private lateinit var allCards:              List<FullPokeCard>
     private lateinit var allRecyclerView:       RecyclerView
-    private lateinit var allViewAdapter:        DisplayCardAdapter
+    private lateinit var allViewAdapter: DisplayCardAdapter
     private lateinit var allViewManager:        RecyclerView.LayoutManager
 
     private lateinit var binderViewModel: MyBinderViewModel
@@ -189,7 +189,7 @@ class MyBinderPage : Fragment() {
 
     fun displayCardList(list: String) {
         // send a string for which list is displayed and start the mybindergrid intent
-        val intent = Intent(activity, MyBinderGrid::class.java).apply {
+        val intent = Intent(activity, MyBinderGridActivity::class.java).apply {
             putExtra(MY_BINDER_CARDS, list)
         }
         startActivity(intent)

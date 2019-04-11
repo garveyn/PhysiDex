@@ -1,4 +1,4 @@
-package com.physidex.physidex
+package com.physidex.physidex.pages
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -12,13 +12,16 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.physidex.physidex.database.daos.FullCardDao
+import com.physidex.physidex.R
+import com.physidex.physidex.adapters.DisplayCardAdapter
+import com.physidex.physidex.database.daos.CardDao
 import com.physidex.physidex.database.entities.FullPokeCard
 import com.physidex.physidex.database.viewmodels.SearchViewModel
+import com.physidex.physidex.testClasses.TestData
 import io.pokemontcg.model.Card
 import kotlinx.android.synthetic.main.activity_display_card.*
 
-class DisplaySearchActivity : AppCompatActivity() {
+class SearchResultsActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: DisplayCardAdapter
@@ -123,9 +126,9 @@ class DisplaySearchActivity : AppCompatActivity() {
                 searchResultView.visibility = View.VISIBLE
                 adapter.setResults(fullPokeCards)
 
-                var existingCards: List<FullCardDao.CopiesPerId> = emptyList()
+                var existingCards: List<CardDao.CopiesPerId> = emptyList()
                 if (cardViewModel.allCardIds.value != null) {
-                    existingCards = cardViewModel.allCardIds.value as List<FullCardDao.CopiesPerId>
+                    existingCards = cardViewModel.allCardIds.value as List<CardDao.CopiesPerId>
                     adapter.updateResults(existingCards)
                 }
 

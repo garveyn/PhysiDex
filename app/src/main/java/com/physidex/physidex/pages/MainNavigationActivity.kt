@@ -1,25 +1,17 @@
-package com.physidex.physidex
+package com.physidex.physidex.pages
 
-import android.content.Context
 import android.os.Bundle
 // import android.support.design.widget.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import android.content.Intent
 import com.google.android.material.navigation.NavigationView
 import androidx.fragment.app.Fragment
-import androidx.core.view.GravityCompat
 import androidx.core.view.GravityCompat.*
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.widget.Toolbar
-import android.view.LayoutInflater
-import android.widget.EditText
-
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.drawer_test.*
+import com.physidex.physidex.R
 
 const val DISPLAY_CARD = "com.physidex.physidex.CARD"
 const val MY_BINDER_CARDS = "com.physidex.physidex.BINDER_CARDS"
@@ -62,19 +54,19 @@ open class MainActivity : AppCompatActivity() {
                     toolbar.title = getString(R.string.action_settings)
                 }
                 R.id.my_binder_menu -> {
-                    newFragment = MyBinderPage()
+                    newFragment = MyBinderHomeFragment()
                     toolbar.title = getString(R.string.my_binder)
                 }
                 R.id.game_manager_menu -> {
-                    newFragment = GameManagerPage()
+                    newFragment = GameManagerHomeFragment()
                     toolbar.title = getString(R.string.game_manager)
                 }
                 R.id.deck_manager_menu -> {
-                    newFragment = DeckManagerPage()
+                    newFragment = DeckManagerFragment()
                     toolbar.title = getString(R.string.deck_manager)
                 }
                 R.id.search_page -> {
-                    newFragment = SearchFragment()
+                    newFragment = SearchHomeFragment()
                     toolbar.title = getString(R.string.search)
                 }
                 else -> newFragment = Fragment()

@@ -1,4 +1,4 @@
-package com.physidex.physidex
+package com.physidex.physidex.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,7 +7,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.physidex.physidex.database.daos.FullCardDao
+import com.physidex.physidex.R
+import com.physidex.physidex.database.daos.CardDao
 import com.physidex.physidex.database.entities.FullPokeCard
 import com.squareup.picasso.Picasso
 
@@ -56,7 +57,7 @@ class DisplayCardAdapter(var context: Context, val itemClick: (Int) -> Unit) :
         notifyDataSetChanged()
     }
 
-    fun updateResults(allCards: List<FullCardDao.CopiesPerId>) {
+    fun updateResults(allCards: List<CardDao.CopiesPerId>) {
         val cardsOwned: Map<String, Int> = allCards.map { it.id to it.numCopies}.toMap()
         for (card in this.cards) {
             if (cardsOwned.contains(card.pokeCard.id) ) {
