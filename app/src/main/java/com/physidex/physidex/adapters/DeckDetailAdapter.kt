@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.physidex.physidex.R
 import com.physidex.physidex.database.entities.FullPokeCard
+import com.squareup.picasso.Picasso
 
 class DeckDetailAdapter(var context: Context) : RecyclerView.Adapter<DeckDetailAdapter.DeckDetailHolder>() {
 
@@ -29,7 +30,7 @@ class DeckDetailAdapter(var context: Context) : RecyclerView.Adapter<DeckDetailA
         return holder
     }
 
-    override fun getItemCount(): Int = cards.size
+    override fun getItemCount() = cards.size
 
     override fun onBindViewHolder(holder: DeckDetailHolder, position: Int) {
         val currentCard = cards[position]
@@ -37,6 +38,13 @@ class DeckDetailAdapter(var context: Context) : RecyclerView.Adapter<DeckDetailA
 
         holder.itemView.isActivated = isExpanded
 
+        holder.cardDuplicates.text = String.format(context.getString(R.string.binder_owned),
+                currentCard.pokeCard.numCopies)
+
+
+        Picasso.with(context)
+                .load(currentCard.pokeCard.imageUrl)
+                .into(holder.cardImage)
 
     }
 }

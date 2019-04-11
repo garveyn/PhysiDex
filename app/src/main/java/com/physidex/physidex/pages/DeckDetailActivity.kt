@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.physidex.physidex.R
 import com.physidex.physidex.adapters.DeckDetailAdapter
-import com.physidex.physidex.decorations.SeparatorItemDecoration
 import com.physidex.physidex.testClasses.TestData
 
 class DeckDetailActivity : AppCompatActivity() {
