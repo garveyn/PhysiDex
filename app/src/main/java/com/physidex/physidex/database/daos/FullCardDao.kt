@@ -51,4 +51,7 @@ abstract class FullCardDao {
     @Query("SELECT id, num_copies AS numCopies FROM PokeCardEntity")
     abstract fun getAllIds(): LiveData<List<CopiesPerId>>
 
+    @Query("SELECT * FROM PokeCardEntity WHERE card_name LIKE :search")
+    abstract fun searchCardName(search: String): List<FullPokeCard>
+
 }

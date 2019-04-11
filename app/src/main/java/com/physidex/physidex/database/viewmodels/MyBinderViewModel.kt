@@ -14,6 +14,11 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
+//TODO: have two different viewmodels for mybindermain and grid,
+//  so that not all the data is being sent out at once.
+// The main page will just send < the first ten cards for each category.
+// The grid page will have one variable, Cards,
+// and update what the query is based on the request.
 class MyBinderViewModel(application: Application): CardViewModel(application) {
 
     private val repository: PokeCardRepository
@@ -27,15 +32,8 @@ class MyBinderViewModel(application: Application): CardViewModel(application) {
         allCardsByDate = repository.allCardsByDate
     }
 
-//    fun insert(card: FullPokeCard) = scope.launch(Dispatchers.IO) {
-//        val previousNumCopies = card.pokeCard.numCopies
-//        card.pokeCard.numCopies = previousNumCopies + 1
-//
-//        if (previousNumCopies == 0 ) {
-//            repository.insert(card)
-//        } else {
-//            repository.update(card)
-//        }
-//    }
+    fun search(input: String) {
+
+    }
 
 }

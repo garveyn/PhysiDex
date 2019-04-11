@@ -17,9 +17,10 @@ import androidx.room.*
             )
         ]
 )
-class PokeCardPerDeckEntity (cardId: Int, deckId: Int){
-    @ColumnInfo(name = "card_id") var cardId: Int = cardId
+class PokeCardPerDeckEntity (cardId: String, deckId: Int, numCopies: Int = 1){
+    @ColumnInfo(name = "card_id") var cardId: String = cardId
     @ColumnInfo(name = "desk_id") var deckId: Int = deckId
+    @ColumnInfo(name = "num_copies") var numCopies: Int = numCopies
 }
 
 

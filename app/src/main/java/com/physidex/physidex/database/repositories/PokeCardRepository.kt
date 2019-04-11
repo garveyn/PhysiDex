@@ -7,7 +7,7 @@ import com.physidex.physidex.database.entities.FullPokeCard
 
 class PokeCardRepository(private val cardDao: FullCardDao) {
 
-    // execute query asynchronously
+    // execute queries asynchronously
     val allCards: LiveData<List<FullPokeCard>> = cardDao.getFullCards()
     val allCardIds: LiveData<List<FullCardDao.CopiesPerId>> = cardDao.getAllIds()
     val allCardsByDate: LiveData<List<FullPokeCard>> = cardDao.getCardsByDate()
@@ -21,5 +21,10 @@ class PokeCardRepository(private val cardDao: FullCardDao) {
     @WorkerThread
     suspend fun update(card: FullPokeCard) {
         cardDao.updateCard(card.pokeCard.id, card.pokeCard.numCopies)
+    }
+
+    @WorkerThread
+    suspend fun search(input: String): List<FullPokeCard> {
+        return cardDao.searchCardName(input)
     }
 }
