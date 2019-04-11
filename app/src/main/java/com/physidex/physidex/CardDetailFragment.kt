@@ -44,8 +44,10 @@ class CardDetailFragment : Fragment(), View.OnClickListener {
 
             val info: Map<String, String> = detailedCard.getInfo()
 
-            // TODO Set background color
-
+            // Set background color
+            if (context != null) {
+                view.setBackgroundColor(detailedCard.getColor(context!!))
+            }
 
             // Load TableLayout
             tableLayout = view.findViewById(R.id.detail_table)

@@ -19,19 +19,16 @@ import com.physidex.physidex.database.viewmodels.MyBinderViewModel
 
 class MyBinderPage : Fragment() {
 
-    private lateinit var recentContainer:       CardView
     private lateinit var recentCards:           List<FullPokeCard>
     private lateinit var recentRecyclerView:    RecyclerView
     private lateinit var recentViewAdapter:     DisplayCardAdapter
     private lateinit var recentViewManager:     RecyclerView.LayoutManager
 
-    private lateinit var mostUsedContainer:       CardView
     private lateinit var mostUsedCards:         List<FullPokeCard>
     private lateinit var mostUsedRecyclerView:  RecyclerView
     private lateinit var mostUsedViewAdapter:   DisplayCardAdapter
     private lateinit var mostUsedViewManager:   RecyclerView.LayoutManager
 
-    private lateinit var allContainer:       CardView
     private lateinit var allCards:              List<FullPokeCard>
     private lateinit var allRecyclerView:       RecyclerView
     private lateinit var allViewAdapter:        DisplayCardAdapter
@@ -78,7 +75,6 @@ class MyBinderPage : Fragment() {
         //endregion
 
         //region RecyclerView #1 - Recently added cards
-        recentContainer = view.findViewById(R.id.binder_recent_card)
         recentViewManager = LinearLayoutManager(view.context,
                 LinearLayoutManager.HORIZONTAL, false)
         recentViewAdapter = DisplayCardAdapter(view.context, recentCards) { index ->
@@ -116,7 +112,6 @@ class MyBinderPage : Fragment() {
         //endregion
 
         //region RecyclerView #2 - Most Used Cards
-        recentContainer = view.findViewById(R.id.binder_most_used_card)
         mostUsedViewManager = LinearLayoutManager(view.context,
                 LinearLayoutManager.HORIZONTAL, false)
         mostUsedViewAdapter = DisplayCardAdapter(view.context, mostUsedCards) { index ->
@@ -141,8 +136,6 @@ class MyBinderPage : Fragment() {
         //endregion
 
         //region RecyclerView #3 - All Cards
-
-        recentContainer = view.findViewById(R.id.binder_recent_card)
         // load in data from database
 
         allViewManager = LinearLayoutManager(view.context,
@@ -192,6 +185,7 @@ class MyBinderPage : Fragment() {
             fragmentTransaction.commit()
         }
     }
+
 
     fun displayCardList(list: String) {
         // send a string for which list is displayed and start the mybindergrid intent

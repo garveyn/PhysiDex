@@ -11,7 +11,7 @@ import com.physidex.physidex.database.daos.FullCardDao
 import com.physidex.physidex.database.entities.FullPokeCard
 import com.squareup.picasso.Picasso
 
-//TODO: rename to displayCard, lmao
+
 class DisplayCardAdapter(var context: Context, val itemClick: (Int) -> Unit) :
     RecyclerView.Adapter<DisplayCardAdapter.DisplaySearchViewHolder> () {
 
