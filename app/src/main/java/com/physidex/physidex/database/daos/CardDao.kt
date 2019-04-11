@@ -19,38 +19,39 @@ abstract class CardDao {
     abstract fun insertCard(card: PokeCardEntity)
 
     // Update query- custom query because the only field changed is the number of copies.
-    @Query("UPDATE PokeCardEntity SET num_copies = :numberOfNewCopies WHERE id = :cardId")
+    @Query("UPDATE Poke_Card SET num_copies = :numberOfNewCopies WHERE id = :cardId")
     abstract fun updateCard(cardId: String, numberOfNewCopies: Int)
 
 //    @Delete
 //    abstract fun removeCard(card: FullPokeCard)
 
-    @Query("DELETE FROM PokeCardEntity")
+    @Query("DELETE FROM Poke_Card")
     abstract fun deleteAll()
 
-    @Query("SELECT * FROM PokeCardEntity")
+    @Query("SELECT * FROM Poke_Card")
     abstract fun getCards(): List<PokeCardEntity>
 
     // use the Transaction annotation to make sure that the results are consistent,
     // especially since this call is using a relation.
     @Transaction
-    @Query("SELECT * FROM PokeCardEntity")
+    @Query("SELECT * FROM Poke_Card")
     abstract fun getFullCards(): LiveData<List<FullPokeCard>>
 
     @Transaction
-    @Query("SELECT * FROM PokeCardEntity WHERE id == :id")
+    @Query("SELECT * FROM Poke_Card WHERE id == :id")
     abstract fun getCard(id: String): List<FullPokeCard>
 
     @Transaction
-    @Query("SELECT * FROM PokeCardEntity ORDER BY first_added DESC")
+    @Query("SELECT * FROM Poke_Card ORDER BY first_added DESC")
     abstract fun getCardsByDate(): LiveData<List<FullPokeCard>>
 
     data class CopiesPerId(var id: String, var numCopies: Int)
 
-    @Query("SELECT id, num_copies AS numCopies FROM PokeCardEntity")
+    @Query("SELECT id, num_copies AS numCopies FROM Poke_Card")
     abstract fun getAllIds(): LiveData<List<CopiesPerId>>
 
-    @Query("SELECT * FROM PokeCardEntity WHERE card_name LIKE :search")
+    @Transaction
+    @Query("SELECT * FROM Poke_Card WHERE card_name LIKE :search")
     abstract fun searchCardName(search: String): List<FullPokeCard>
 
 }

@@ -25,7 +25,7 @@ fun consolidateEffects(effects: List<Effect>?): PokeEffect? {
     return null
 }
 
-@Entity
+@Entity(tableName = "Poke_Card")
 class PokeCardEntity
 constructor(id: String, cardName: String, nationalDexNum: Int?, imageUrl: String,
             imageUrlHiRes: String, type1: String?, type2: String?, supertype: String, subtype: String,

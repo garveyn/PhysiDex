@@ -7,17 +7,21 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.physidex.physidex.R
 import com.physidex.physidex.adapters.DeckAdapter
+import com.physidex.physidex.database.viewmodels.DeckManagerViewModel
 import com.physidex.physidex.decorations.SeparatorItemDecoration
 import com.physidex.physidex.testClasses.TestData
 
 class DeckManagerFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var viewAdapter: RecyclerView.Adapter<*>
+    private lateinit var viewAdapter: DeckAdapter
     private lateinit var viewManager: RecyclerView.LayoutManager
     private lateinit var itemDecoration: SeparatorItemDecoration
+    private lateinit var dmViewModel: DeckManagerViewModel
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -30,7 +34,7 @@ class DeckManagerFragment : Fragment() {
         val testData = TestData.buildDecks()
 
         viewManager = LinearLayoutManager(context)
-        viewAdapter = DeckAdapter(testData)
+        viewAdapter = DeckAdapter()
         itemDecoration = SeparatorItemDecoration(resources.getDimension(R.dimen.fab_margin).toInt())
 
         recyclerView = view.findViewById<RecyclerView>(R.id.deck_recyclerView).apply {
@@ -44,10 +48,13 @@ class DeckManagerFragment : Fragment() {
             adapter = viewAdapter
         }
 
+        // Initialize view model
+        dmViewModel = ViewModelProviders.of(this).get(DeckManagerViewModel::class.java)
+        dmViewModel.allDecks.observe(this, Observer { decks ->
+            decks?.let { viewAdapter.decks = decks }
+        })
+
         return view
     }
-
-
-
 
 }

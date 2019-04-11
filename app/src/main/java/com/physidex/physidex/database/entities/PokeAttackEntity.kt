@@ -5,7 +5,8 @@ import androidx.room.ForeignKey.CASCADE
 import io.pokemontcg.model.Attack
 import io.pokemontcg.model.Type
 
-@Entity(foreignKeys =
+@Entity(tableName = "Poke_Attack",
+        foreignKeys =
     [
         ForeignKey(
                 entity = PokeCardEntity::class,

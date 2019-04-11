@@ -3,7 +3,7 @@ package com.physidex.physidex.database.entities
 import androidx.room.*
 import java.util.*
 
-@Entity
+@Entity(tableName = "Poke_Deck_Info")
 class PokeDeckInfoEntity (
 
     @PrimaryKey(autoGenerate = true) var id: Int,

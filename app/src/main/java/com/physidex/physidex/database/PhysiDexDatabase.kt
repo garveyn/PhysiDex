@@ -4,18 +4,24 @@ import android.content.Context
 import androidx.room.*
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.physidex.physidex.database.daos.CardDao
+import com.physidex.physidex.database.daos.DeckDao
 import com.physidex.physidex.database.entities.PokeAttackEntity
 import com.physidex.physidex.database.entities.PokeCardEntity
+import com.physidex.physidex.database.entities.PokeCardPerDeckEntity
+import com.physidex.physidex.database.entities.PokeDeckInfoEntity
+import com.physidex.physidex.testClasses.PokeDeck
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-@Database(entities = [PokeCardEntity::class, PokeAttackEntity::class], version = 2)
+@Database(entities = [
+    PokeCardEntity::class, PokeAttackEntity::class,
+    PokeDeckInfoEntity::class, PokeCardPerDeckEntity::class
+], version = 3)
 abstract class PhysiDexDatabase : RoomDatabase() {
 
     abstract fun fullCardDao(): CardDao
-//    abstract fun pokeCardDao(): PokeCardDao
-//    abstract fun pokeAttackDao(): PokeAttackDao
+    abstract fun deckDao(): DeckDao
 
     companion object {
         @Volatile
