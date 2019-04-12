@@ -186,7 +186,6 @@ class MyBinderHomeFragment : Fragment() {
         }
     }
 
-
     fun displayCardList(list: String) {
         // send a string for which list is displayed and start the mybindergrid intent
         val intent = Intent(activity, MyBinderGridActivity::class.java).apply {

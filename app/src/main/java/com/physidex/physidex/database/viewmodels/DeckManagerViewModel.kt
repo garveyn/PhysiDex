@@ -5,6 +5,8 @@ import androidx.lifecycle.LiveData
 import com.physidex.physidex.database.PhysiDexDatabase
 import com.physidex.physidex.database.entities.PokeDeckInfoEntity
 import com.physidex.physidex.database.repositories.PokeDeckRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class DeckManagerViewModel(application: Application): CardViewModel(application) {
 
@@ -15,5 +17,9 @@ class DeckManagerViewModel(application: Application): CardViewModel(application)
         val deckDao = PhysiDexDatabase.getDatabase(application, scope).deckDao()
         repository = PokeDeckRepository(deckDao)
         allDecks = repository.allDecks
+    }
+
+    fun insert() = scope.launch(Dispatchers.IO) {
+        val newDeck = PokeDeckInfoEntity()
     }
 }

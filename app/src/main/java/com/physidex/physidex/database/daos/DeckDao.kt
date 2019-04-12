@@ -21,7 +21,7 @@ abstract class DeckDao {
         insertCardPerDeck(join)
     }
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract fun insertCardPerDeck(cardPerDeck: PokeCardPerDeckEntity)
 
 //    fun removeCard(deckId: Int, cardId: String, numCopies: Int) {
@@ -42,11 +42,16 @@ abstract class DeckDao {
 //        }
 //    }
 
+    @Query("SELECT * FROM Poke_Deck_Info WHERE id == :deckId")
+    abstract fun getDeckInfo(deckId: Int): LiveData<PokeDeckInfoEntity>
+
+    data class CardWithNumCopies(var card: FullPokeCard, var numCopies: Int)
 
     @Transaction
-    @Query("SELECT * FROM Poke_Card " +
+    @Query("SELECT Poke_Card.* AS card, Poke_Card_Per_Deck.num_copies AS numCopies" +
+            "FROM Poke_Card " +
             "INNER JOIN Poke_Card_Per_Deck ON " +
             "Poke_Card.id=Poke_Card_Per_Deck.card_id " +
             "WHERE Poke_Card_Per_Deck.deck_id == :deckId")
-    abstract fun getCardsQuery(deckId: Int): LiveData<List<FullPokeCard>>
+    abstract fun getCardsQuery(deckId: Int): LiveData<List<CardWithNumCopies>>
 }

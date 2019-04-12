@@ -9,7 +9,12 @@ class FullPokeDeck(pokeDeck: PokeDeckInfoEntity) {
     @Embedded
     var deckInfo: PokeDeckInfoEntity = pokeDeck
 
-    var cards: MutableList<FullPokeCard> = mutableListOf()
+//    @Relation(
+//            parentColumn = "id",
+//            entityColumn = "deck_id",
+//            entity = PokeCardPerDeckEntity::class,
+//            projection = ["card_id", "num_copies"])
+//    var cards: MutableList<FullPokeCard> = mutableListOf()
 
 //    fun getDeckSize(): Int {
 //        for (card in )
