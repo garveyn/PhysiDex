@@ -63,7 +63,6 @@ class CardDetailFragment : Fragment(), View.OnClickListener {
 
     fun fillTable(cardSelected: FullPokeCard, info: Map<String, String>) {
 
-        //TODO: Fill table with info in map.
         var fieldLayout: View
         var nameField: TextView
         var dataField: TextView

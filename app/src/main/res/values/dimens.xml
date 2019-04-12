@@ -1,4 +1,7 @@
 <resources>
     <dimen name="small_margin">8dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="pokecard_container_expanded">281dp</dimen>
+    <dimen name="pokecard_container_retracted">50dp</dimen>
+
 </resources>
