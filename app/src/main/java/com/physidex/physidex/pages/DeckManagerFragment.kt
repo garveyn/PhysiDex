@@ -51,7 +51,10 @@ class DeckManagerFragment : Fragment() {
         // Initialize view model
         dmViewModel = ViewModelProviders.of(this).get(DeckManagerViewModel::class.java)
         dmViewModel.allDecks.observe(this, Observer { decks ->
-            decks?.let { viewAdapter.decks = decks }
+            decks?.let {
+                viewAdapter.decks = decks
+                viewAdapter.notifyDataSetChanged()
+            }
         })
 
         return view
