@@ -20,6 +20,11 @@ class DeckAdapter :
 
     var decks = emptyList<PokeDeckInfoEntity>()
 
+    companion object {
+        const val STANDARD: Int = 0
+        const val FOOTER: Int = 1
+    }
+
     class DeckViewHolder(val view: View) : RecyclerView.ViewHolder(view){
 
         var context:        Context     = view.context
@@ -51,6 +56,13 @@ class DeckAdapter :
     }
 
     override fun onBindViewHolder(holder: DeckViewHolder, position: Int) {
+
+        // Last element is a footer
+        if (getItemViewType(position) == FOOTER) {
+            holder.playDeckButton.visibility = View.INVISIBLE
+            return
+        }
+
         var deck: PokeDeckInfoEntity = decks[position]
         holder.nameField.text = deck.deckName
         holder.dateModified.text = deck.lastModified
@@ -93,6 +105,10 @@ class DeckAdapter :
 
     }
 
+    override fun getItemViewType(position: Int): Int {
+        return if (position == itemCount - 1) FOOTER else STANDARD
+    }
+
     private fun editDeck(deck: Deck) {
         TODO("Launch into deck editing view")
     }
@@ -102,6 +118,6 @@ class DeckAdapter :
     }
 
     override fun getItemCount(): Int {
-        return decks.size
+        return decks.size + 1
     }
 }

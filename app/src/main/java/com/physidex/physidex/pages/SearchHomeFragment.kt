@@ -10,7 +10,7 @@ import android.widget.Button
 import android.widget.EditText
 import com.physidex.physidex.R
 
-class SearchHomeFragment : Fragment(), View.OnClickListener {
+class SearchHomeFragment : Fragment() {
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -22,23 +22,19 @@ class SearchHomeFragment : Fragment(), View.OnClickListener {
 
         // Catch 'Em Button
         var button: Button = view.findViewById(R.id.findCard)
-        button.setOnClickListener(this)
+        button.setOnClickListener {
+            // Search!
+            val editText = view.findViewById<EditText>(R.id.editText)
+            val cardName = editText.text.toString()
+
+
+            val intent = Intent(activity, SearchResultsActivity::class.java).apply {
+                putExtra(DISPLAY_CARD, cardName)
+            }
+            startActivity(intent)
+        }
 
         return view
-    }
-
-    /** Called when the user taps the Send button
-     *  inspred by: https://gist.github.com/EmmanuelGuther/1fde5cfbd1cdcd21cd852e3bb5716e02*/
-    override fun onClick(view: View) {
-        // do something in response to the button
-        val editText = getView()!!.findViewById<EditText>(R.id.editText)
-        val cardName = editText.text.toString()
-
-
-        val intent = Intent(activity, SearchResultsActivity::class.java).apply {
-            putExtra(DISPLAY_CARD, cardName)
-        }
-        startActivity(intent)
     }
 
 }

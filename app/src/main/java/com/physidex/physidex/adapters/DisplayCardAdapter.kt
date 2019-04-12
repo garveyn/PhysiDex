@@ -32,6 +32,7 @@ class DisplayCardAdapter(var context: Context, val itemClick: (Int) -> Unit) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DisplaySearchViewHolder {
         val itemView = inflater.inflate(R.layout.my_binder_previews, parent, false)
+        itemView.elevation = context.resources.getDimension(R.dimen.elevation_3dp)
         return DisplaySearchViewHolder(itemView)
     }
 

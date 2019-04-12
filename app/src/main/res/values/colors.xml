@@ -3,6 +3,7 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="shadowedBackground">#9C9C9C</color>
 
     <!-- Common Colors for various usages -->
     <color name="play">#4CAF50</color>

@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import androidx.transition.TransitionManager
 import com.physidex.physidex.R
 import com.physidex.physidex.database.entities.FullPokeCard
 import com.squareup.picasso.Picasso
@@ -58,7 +57,7 @@ class DeckDetailAdapter(var context: Context)
                 expandedHolder!!.itemView.layoutParams.height =
                         expandedHolder!!.itemView.context.resources.getDimension(R.dimen.pokecard_container_retracted).toInt()
                 expandedHolder!!.itemView.elevation =
-                        expandedHolder!!.itemView.context.resources.getDimension(R.dimen.small_margin)
+                        expandedHolder!!.itemView.context.resources.getDimension(R.dimen.margin_8dp)
 
                 notifyItemChanged(expandedPosition)
             }

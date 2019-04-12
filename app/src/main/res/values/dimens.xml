@@ -1,6 +1,7 @@
 <resources>
-    <dimen name="small_margin">8dp</dimen>
-    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="elevation_3dp">3dp</dimen>
+    <dimen name="margin_8dp">8dp</dimen>
+    <dimen name="margin_16dp">16dp</dimen>
     <dimen name="pokecard_container_expanded">281dp</dimen>
     <dimen name="pokecard_container_retracted">50dp</dimen>
 

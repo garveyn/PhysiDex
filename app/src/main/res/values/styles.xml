@@ -18,6 +18,7 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" >
         <item name="android:textColorPrimary">@color/titleText</item>
         <item name="android:textColor">@color/titleText</item>
+        <item name="actionBarItemBackground">@color/colorPrimary</item>
 
     </style>
 

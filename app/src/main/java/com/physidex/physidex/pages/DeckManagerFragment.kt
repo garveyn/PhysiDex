@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.physidex.physidex.R
@@ -15,7 +17,7 @@ import com.physidex.physidex.database.viewmodels.DeckManagerViewModel
 import com.physidex.physidex.decorations.SeparatorItemDecoration
 import com.physidex.physidex.testClasses.TestData
 
-class DeckManagerFragment : Fragment() {
+class DeckManagerFragment : Fragment(), View.OnClickListener {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: DeckAdapter
@@ -35,7 +37,7 @@ class DeckManagerFragment : Fragment() {
 
         viewManager = LinearLayoutManager(context)
         viewAdapter = DeckAdapter()
-        itemDecoration = SeparatorItemDecoration(resources.getDimension(R.dimen.fab_margin).toInt())
+        itemDecoration = SeparatorItemDecoration(resources.getDimension(R.dimen.margin_16dp).toInt())
 
         recyclerView = view.findViewById<RecyclerView>(R.id.deck_recyclerView).apply {
 
@@ -54,7 +56,17 @@ class DeckManagerFragment : Fragment() {
             decks?.let { viewAdapter.decks = decks }
         })
 
+        // New Deck Button
+        var button: Button = view.findViewById(R.id.new_deck)
+        button.setOnClickListener(this)
+
         return view
+    }
+
+    override fun onClick(v: View?) {
+        // do something in response to the button
+        val editText = getView()!!.findViewById<EditText>(R.id.editText)
+
     }
 
 }

@@ -23,7 +23,7 @@ class DeckDetailActivity : AppCompatActivity() {
         val testData = TestData.buildDecks()
 
         viewManager = LinearLayoutManager(this)
-        viewAdapter = DeckDetailAdapter(testData)
+        viewAdapter = DeckDetailAdapter(this)
 
         recyclerView = findViewById<RecyclerView>(R.id.recyclerView).apply {
 

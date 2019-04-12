@@ -1,5 +1,6 @@
 package com.physidex.physidex.pages
 
+import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -8,6 +9,7 @@ import android.os.AsyncTask
 import android.view.View
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
@@ -39,9 +41,11 @@ class SearchResultsActivity : AppCompatActivity() {
         actionbar?.apply {
             setDisplayHomeAsUpEnabled(true)
             setHomeAsUpIndicator(R.drawable.ic_menu)
+            title = getString(R.string.search_results)
+            setBackgroundDrawable(ColorDrawable(
+                    ContextCompat.getColor(this@SearchResultsActivity, R.color.colorPrimary)
+            ))
         }
-
-        toolbar.title = getString(R.string.search_results)
 
         // Get the Intent that started this activity and extract the string
         val card = intent.getStringExtra(DISPLAY_CARD)
