@@ -24,13 +24,23 @@ class PokeDeckRepository(private val deckDao: DeckDao) {
     }
 
     @WorkerThread
-    suspend fun getCards(deckId: Int) : LiveData<List<DeckDao.CardWithNumCopies>> {
-        val rawCards: LiveData<List<DeckDao.CardWithNumCopies>> = deckDao.getCardsQuery(deckId)
-//        val cards: LiveData<List<FullPokeCard>> = Transformations.map(rawCards) {
-//            cards -> putIntoFullPokeCard(cards)
-//        }
-        return rawCards
+    fun getCards(deckId: Int) : LiveData<List<FullPokeCard>> {
+        return deckDao.getCardsQuery(deckId)
     }
+
+    @WorkerThread
+    fun getCardCopies(deckId: Int) : LiveData<List<DeckDao.CardWithNumCopies>> {
+        return deckDao.getCardCopies(deckId)
+    }
+
+//    @WorkerThread
+//    suspend fun getCards(deckId: Int) : LiveData<List<DeckDao.CardWithNumCopies>> {
+//        val rawCards: LiveData<List<DeckDao.CardWithNumCopies>> = deckDao.getCardsQuery(deckId)
+////        val cards: LiveData<List<FullPokeCard>> = Transformations.map(rawCards) {
+////            cards -> putIntoFullPokeCard(cards)
+////        }
+//        return rawCards
+//    }
 
 //    fun putIntoFullPokeCard(cardWithCopies: List<DeckDao.CardWithNumCopies>) : List<FullPokeCard> {
 //        var fullCards: MutableList<FullPokeCard> = mutableListOf()

@@ -2,6 +2,7 @@ package com.physidex.physidex.database.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.Transformations
 import com.physidex.physidex.database.PhysiDexDatabase
 import com.physidex.physidex.database.daos.DeckDao
 import com.physidex.physidex.database.entities.FullPokeCard
@@ -10,17 +11,23 @@ import com.physidex.physidex.database.repositories.PokeDeckRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class DeckDetailModel(application: Application, deckId: Int): CardViewModel(application) {
+class DeckDetailViewModel(application: Application, deckId: Int): CardViewModel(application) {
 
     private val repository: PokeDeckRepository
     lateinit var deckInfo: LiveData<PokeDeckInfoEntity>
-    lateinit var deckCards: LiveData<List<DeckDao.CardWithNumCopies>>
+    var deckCards: LiveData<List<FullPokeCard>>
+    var deckCardCopies: LiveData<List<DeckDao.CardWithNumCopies>>
 
     init {
         val deckDao = PhysiDexDatabase.getDatabase(application, scope).deckDao()
         repository = PokeDeckRepository(deckDao)
         getDeck(deckId)
-        getCards(deckId)
+        deckCards = Transformations.switchMap(deckInfo) {
+            deck -> repository.getCards(deck.id)
+        }
+        deckCardCopies = Transformations.switchMap(deckInfo) {
+            deck -> repository.getCardCopies(deck.id)
+        }
     }
 
     fun getDeck(deckId: Int) = scope.launch(Dispatchers.IO) {

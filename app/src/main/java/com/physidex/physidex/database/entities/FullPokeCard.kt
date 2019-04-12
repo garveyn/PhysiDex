@@ -30,6 +30,7 @@ class FullPokeCard(pokeCard: PokeCardEntity) {
 
     var numCopiesPerDeck: Int? = null
 
+    @Ignore
     fun setNumCopiesPerDeck(copies: Int) {
         this.numCopiesPerDeck = copies
     }

@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.room.*
 import com.physidex.physidex.database.entities.FullPokeCard
+import com.physidex.physidex.database.entities.PokeCardEntity
 import com.physidex.physidex.database.entities.PokeCardPerDeckEntity
 import com.physidex.physidex.database.entities.PokeDeckInfoEntity
 
@@ -45,13 +46,20 @@ abstract class DeckDao {
     @Query("SELECT * FROM Poke_Deck_Info WHERE id == :deckId")
     abstract fun getDeckInfo(deckId: Int): LiveData<PokeDeckInfoEntity>
 
-    data class CardWithNumCopies(var card: FullPokeCard, var numCopies: Int)
+    data class CardWithNumCopies(var id: String, var num_copies: Int)
 
     @Transaction
-    @Query("SELECT Poke_Card.* AS card, Poke_Card_Per_Deck.num_copies AS numCopies" +
-            "FROM Poke_Card " +
-            "INNER JOIN Poke_Card_Per_Deck ON " +
-            "Poke_Card.id=Poke_Card_Per_Deck.card_id " +
+    @Query("SELECT Poke_Card.* " +
+            "FROM Poke_Card INNER JOIN Poke_Card_Per_Deck ON " +
+            "Poke_Card_Per_Deck.card_id=Poke_Card.id " +
             "WHERE Poke_Card_Per_Deck.deck_id == :deckId")
-    abstract fun getCardsQuery(deckId: Int): LiveData<List<CardWithNumCopies>>
+    abstract fun getCardsQuery(deckId: Int): LiveData<List<FullPokeCard>>
+
+    @Transaction
+    @Query("SELECT Poke_Card.id, Poke_Card_Per_Deck.num_copies " +
+            "FROM Poke_Card INNER JOIN Poke_Card_Per_Deck ON " +
+            "Poke_Card_Per_Deck.card_id=Poke_Card.id " +
+            "WHERE Poke_Card_Per_Deck.deck_id == :deckId")
+    abstract fun getCardCopies(deckId: Int): LiveData<List<CardWithNumCopies>>
+
 }

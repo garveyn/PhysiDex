@@ -11,6 +11,7 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.physidex.physidex.R
 import com.physidex.physidex.adapters.DeckAdapter
 import com.physidex.physidex.database.viewmodels.DeckManagerViewModel
@@ -60,7 +61,7 @@ class DeckManagerFragment : Fragment(), View.OnClickListener {
         })
 
         // New Deck Button
-        var button: Button = view.findViewById(R.id.new_deck)
+        var button: FloatingActionButton = view.findViewById(R.id.new_deck)
         button.setOnClickListener(this)
 
         return view
