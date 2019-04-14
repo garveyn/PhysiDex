@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.EditText
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -69,7 +68,7 @@ class DeckManagerFragment : Fragment(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         // do something in response to the button
-        val editText = getView()!!.findViewById<EditText>(R.id.editText)
+        val editText = view!!.findViewById<EditText>(R.id.editText)
 
     }
 

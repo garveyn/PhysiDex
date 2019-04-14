@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import io.pokemontcg.Pokemon
 import android.os.AsyncTask
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.widget.Toolbar
@@ -40,7 +41,7 @@ class SearchResultsActivity : AppCompatActivity() {
         val actionbar: ActionBar? = supportActionBar
         actionbar?.apply {
             setDisplayHomeAsUpEnabled(true)
-            setHomeAsUpIndicator(R.drawable.ic_menu)
+            setHomeAsUpIndicator(R.drawable.ic_arrow_back)
             title = getString(R.string.search_results)
             setBackgroundDrawable(ColorDrawable(
                     ContextCompat.getColor(this@SearchResultsActivity, R.color.colorPrimary)
@@ -83,6 +84,19 @@ class SearchResultsActivity : AppCompatActivity() {
         if (pokemonName.isNotEmpty()) {
 
             PokemonQueryTask().execute(pokemonName)
+        }
+    }
+
+
+    override fun onOptionsItemSelected(menuItem: MenuItem) : Boolean {
+        when (menuItem.itemId) {
+            android.R.id.home -> {
+                finish()
+                return true
+            }
+            else -> {
+                return super.onOptionsItemSelected(menuItem)
+            }
         }
     }
 
@@ -140,5 +154,6 @@ class SearchResultsActivity : AppCompatActivity() {
                resultText.text = getString(R.string.no_cards_found)
             }
         }
+
     }
 }
