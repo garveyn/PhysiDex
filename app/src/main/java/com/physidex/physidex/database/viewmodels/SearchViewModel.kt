@@ -2,6 +2,7 @@ package com.physidex.physidex.database.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.Transformations
 import com.physidex.physidex.database.PhysiDexDatabase
 import com.physidex.physidex.database.daos.CardDao
 import com.physidex.physidex.database.entities.FullPokeCard
@@ -20,14 +21,13 @@ class SearchViewModel(application: Application): CardViewModel(application) {
         allCardIds = repository.allCardIds
     }
 
-    fun insert(card: FullPokeCard, numberOfNewCopies: Int) = scope.launch(Dispatchers.IO) {
-        val previousNumCopies = card.pokeCard.numCopies
-        card.pokeCard.numCopies = previousNumCopies + numberOfNewCopies
+    fun insert(card: FullPokeCard, previousNumberOfCopies: Int) = scope.launch(Dispatchers.IO) {
 
-        if (previousNumCopies == 0 ) {
+        if (previousNumberOfCopies == 0 ) {
             repository.insert(card)
         } else {
             repository.update(card)
         }
     }
+
 }

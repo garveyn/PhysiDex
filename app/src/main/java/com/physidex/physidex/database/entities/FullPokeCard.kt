@@ -71,6 +71,8 @@ class FullPokeCard(pokeCard: PokeCardEntity) {
         val card: PokeCardEntity = pokeCard
 
         // TODO: make toString methods in order to clean this up
+        info["Number of Copies in My Binder"] = card.numCopies.toString()
+        info[""] = ""
         info["Card Name"] = card.cardName
         if (card.type1 != null && card.type2 != null) {
             info["Type"] = "${card.type1}, ${card.type2}"
@@ -107,8 +109,9 @@ class FullPokeCard(pokeCard: PokeCardEntity) {
         if (card.rarity != null) { info["Rarity"] = card.rarity as String}
         info["Series"] = card.series
         info["Set"] = card.set
-        info["Number of Copies in My Binder"] = card.numCopies.toString()
-        info["Date First Added"] = card.dateAdded // testing purposes only
+
+        // TODO: pass this field only if not in the search (not correct/from db in search)
+        // info["Date First Added"] = card.dateAdded // testing purposes only
 
         return info
     }

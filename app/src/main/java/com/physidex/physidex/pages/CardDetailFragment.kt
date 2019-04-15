@@ -63,6 +63,7 @@ class CardDetailFragment : Fragment(), View.OnClickListener {
 
     fun fillTable(cardSelected: FullPokeCard, info: Map<String, String>) {
 
+        tableLayout.removeAllViews()
         var fieldLayout: View
         var nameField: TextView
         var dataField: TextView
@@ -81,8 +82,12 @@ class CardDetailFragment : Fragment(), View.OnClickListener {
 
     override fun onClick(view: View) {
 
-        cardViewModel.insert(detailedCard, 1)
-        //detailedCard.pokeCard.numCopies++
+        // parameter numberOfNewCopies is 0 because we are already adding one to the fullPokeCard
+        //  beforehand
+        val previousNum: Int = detailedCard.pokeCard.numCopies
+        detailedCard.pokeCard.numCopies++
+        fillTable(detailedCard, detailedCard.getInfo())
+        cardViewModel.insert(detailedCard, previousNum)
     }
 
 }
