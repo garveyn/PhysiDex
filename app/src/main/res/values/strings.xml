@@ -37,6 +37,8 @@
     <string name="new_deck_30">30 cards</string>
     <string name="new_deck_button">Create deck</string>
     <string name="new_deck_safety_prompt">This can be changed later</string>
+    <string name="deck_cards_slash_total">%1$d/%2$d cards</string>
+    <string name="deck_games_played">Games played: %1$d</string>
 
     <!-- My Binder -->
     <string name="binder_recent">Recently Added</string>
