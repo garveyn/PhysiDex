@@ -33,6 +33,11 @@ class PokeDeckRepository(private val deckDao: DeckDao) {
         return deckDao.getCardCopies(deckId)
     }
 
+    @WorkerThread
+    fun updateDeck(deckId: Int, deckName: String, deckSize: Int) {
+        deckDao.updateDeckInfo(deckId, deckName, deckSize)
+    }
+
 //    @WorkerThread
 //    suspend fun getCards(deckId: Int) : LiveData<List<DeckDao.CardWithNumCopies>> {
 //        val rawCards: LiveData<List<DeckDao.CardWithNumCopies>> = deckDao.getCardsQuery(deckId)

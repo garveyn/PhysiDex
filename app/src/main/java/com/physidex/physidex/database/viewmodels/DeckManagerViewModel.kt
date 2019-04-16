@@ -19,7 +19,8 @@ class DeckManagerViewModel(application: Application): CardViewModel(application)
         allDecks = repository.allDecks
     }
 
-    fun insert() = scope.launch(Dispatchers.IO) {
-        val newDeck = PokeDeckInfoEntity()
+    fun insert(deckName: String = "New Deck", requiredSize: Int = 60) = scope.launch(Dispatchers.IO) {
+        val newDeck = PokeDeckInfoEntity(deckName, requiredSize)
+        repository.insert(newDeck)
     }
 }

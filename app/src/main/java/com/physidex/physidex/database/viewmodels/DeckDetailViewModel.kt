@@ -37,4 +37,11 @@ class DeckDetailViewModel(application: Application, deckId: Int): CardViewModel(
     fun getCards(deckId: Int) = scope.launch(Dispatchers.IO) {
         deckCards = repository.getCards(deckId)
     }
+
+    // The only deck fields that can be edited by the user are the name and required size.
+    // The object (PokeDeckInfoEntity) should be edited before this function,
+    // so that the UI can reflect the changes. The database then will record the object (parameter)
+    fun updateDeck(deck: PokeDeckInfoEntity) = scope.launch(Dispatchers.IO) {
+        repository.updateDeck(deck.id, deck.deckName, deck.requiredSize)
+    }
 }

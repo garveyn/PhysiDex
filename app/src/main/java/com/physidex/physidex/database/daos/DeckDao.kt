@@ -46,6 +46,10 @@ abstract class DeckDao {
     @Query("SELECT * FROM Poke_Deck_Info WHERE id == :deckId")
     abstract fun getDeckInfo(deckId: Int): LiveData<PokeDeckInfoEntity>
 
+    @Query("UPDATE Poke_Deck_Info SET deck_name = :deckName, required_size = :deckSize " +
+            "WHERE id == :deckId")
+    abstract fun updateDeckInfo(deckId: Int, deckName: String, deckSize: Int)
+
     data class CardWithNumCopies(var id: String, var num_copies: Int)
 
     @Transaction

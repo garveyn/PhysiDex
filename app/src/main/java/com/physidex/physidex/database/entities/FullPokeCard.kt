@@ -28,6 +28,7 @@ class FullPokeCard(pokeCard: PokeCardEntity) {
               entityColumn = "card_id")
     var attacks: MutableList<PokeAttackEntity> = ArrayList()
 
+    @Ignore
     var numCopiesPerDeck: Int? = null
 
     @Ignore
