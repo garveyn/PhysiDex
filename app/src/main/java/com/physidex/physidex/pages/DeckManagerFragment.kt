@@ -1,13 +1,15 @@
 package com.physidex.physidex.pages
 
+import android.content.Context
 import android.os.Bundle
+import android.view.*
+import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.PopupWindow
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -16,6 +18,8 @@ import com.physidex.physidex.adapters.DeckAdapter
 import com.physidex.physidex.database.viewmodels.DeckManagerViewModel
 import com.physidex.physidex.decorations.SeparatorItemDecoration
 import com.physidex.physidex.testClasses.TestData
+
+
 
 class DeckManagerFragment : Fragment(), View.OnClickListener {
 
@@ -60,13 +64,48 @@ class DeckManagerFragment : Fragment(), View.OnClickListener {
         var button: FloatingActionButton = view.findViewById(R.id.new_deck)
         button.setOnClickListener(this)
 
+
+
         return view
     }
 
+
+    /**
+     * Code adapted from:
+     * https://stackoverflow.com/questions/35874001/dim-the-background-using-popupwindow-in-android/46711174
+     *
+     */
+    private fun PopupWindow.dimBehind() {
+        val container = contentView.rootView
+        val context = contentView.context
+        val wm = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+        val p = container.layoutParams as WindowManager.LayoutParams
+        p.flags = p.flags or WindowManager.LayoutParams.FLAG_DIM_BEHIND
+        p.dimAmount = 0.3f
+        wm.updateViewLayout(container, p)
+    }
+
     override fun onClick(v: View?) {
-        // do something in response to the button
-        val editText = view!!.findViewById<EditText>(R.id.editText)
+        // Bring up new deck popup
+        val inflater = LayoutInflater.from(context)
+
+        val popupView = inflater.inflate(R.layout.new_deck_popup, null)
+
+        val createDeckPopup = PopupWindow(popupView, ConstraintLayout.LayoutParams.WRAP_CONTENT,
+                ConstraintLayout.LayoutParams.WRAP_CONTENT, true).apply {
+            showAtLocation(view, Gravity.CENTER, 0, 0)
+            dimBehind()
+        }
+
+        val createDeckName = popupView.findViewById<EditText>(R.id.new_deck_name)
+        val createDeckButton = popupView.findViewById<Button>(R.id.new_deck_create)
+
+        createDeckButton.setOnClickListener {
+            // TODO Create a deck
+        }
+
 
     }
 
 }
+

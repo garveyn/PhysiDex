@@ -25,6 +25,7 @@ class DeckDetailActivity : AppCompatActivity() {
         viewManager = LinearLayoutManager(this)
         viewAdapter = DeckDetailAdapter(this)
 
+
         recyclerView = findViewById<RecyclerView>(R.id.recyclerView).apply {
 
             setHasFixedSize(true)

@@ -20,6 +20,12 @@ class DeckDetailAdapter(var context: Context)
     var expandedPosition: Int = RecyclerView.NO_POSITION
     var expandedHolder: DeckDetailHolder? = null
 
+    companion object {
+        const val STANDARD: Int = 0
+        const val FOOTER: Int = 1
+        const val HEADER: Int = 2
+    }
+
     inner class DeckDetailHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val cardImage:      ImageView   = itemView.findViewById(R.id.card_image_view)
         val cardDuplicates: TextView    = itemView.findViewById(R.id.card_owned)
@@ -33,7 +39,12 @@ class DeckDetailAdapter(var context: Context)
         return holder
     }
 
-    override fun getItemCount() = cards.size
+    /**
+     * gets number of items that can be displayed
+     *
+     * @return The size of the card array plus 2 (to account for the header and footer)
+     */
+    override fun getItemCount() = cards.size + 2
 
     override fun onBindViewHolder(holder: DeckDetailHolder, position: Int) {
         val currentCard = cards[position]
@@ -43,7 +54,6 @@ class DeckDetailAdapter(var context: Context)
         /* code inspired by:
         * https://stackoverflow.com/questions/27203817/recyclerview-expand-collapse-items?answertab=oldest#tab-top
         */
-
 
         // Expand current box if clicked
         holder.itemView.isActivated = isExpanded
@@ -79,6 +89,10 @@ class DeckDetailAdapter(var context: Context)
                 .load(currentCard.pokeCard.imageUrl)
                 .into(holder.cardImage)
 
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return if (position == itemCount - 1) FOOTER else STANDARD
     }
 
     override fun onAttachedToRecyclerView(rv: RecyclerView) {

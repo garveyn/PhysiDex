@@ -1,10 +1,12 @@
 <resources>
+    <!-- Common Strings -->
     <string name="app_name">PhysiDex</string>
-    <string name="edit_message">Enter an owo</string>
     <string name="button_notice">Notice</string>
     <string name="search_pokemon_text">Search for a Pokemon</string>
     <string name="enter_pokemon">Enter a Pokemon</string>
     <string name="search_button">Catch \'Em</string>
+    <string name="plus_symbol">+</string>
+    <string name="minus_symbol">-</string>
 
     <!-- Screen Titles -->
     <string name="deck_manager">Deck Manager</string>
@@ -28,6 +30,13 @@
     <string name="deck_energy">Energy: </string>
     <string name="deck_trainer">Trainers: </string>
     <string name="deck_pokemon">Pokemon: </string>
+    <string name="new_deck_title">New Deck:</string>
+    <string name="new_deck_name">Deck Name</string>
+    <string name="new_deck_num_cards_prompt">Number of cards in deck</string>
+    <string name="new_deck_60">60 cards</string>
+    <string name="new_deck_30">30 cards</string>
+    <string name="new_deck_button">Create deck</string>
+    <string name="new_deck_safety_prompt">This can be changed later</string>
 
     <!-- My Binder -->
     <string name="binder_recent">Recently Added</string>
