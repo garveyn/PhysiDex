@@ -57,6 +57,7 @@ class DisplayCardAdapter(var context: Context, val itemClick: (Int) -> Unit) :
         notifyDataSetChanged()
     }
 
+    // update numCopies
     fun updateResults(allCards: List<CardDao.CopiesPerId>) {
         val cardsOwned: Map<String, Int> = allCards.map { it.id to it.numCopies}.toMap()
         for (card in this.cards) {
