@@ -38,6 +38,12 @@ class PokeDeckRepository(private val deckDao: DeckDao) {
         deckDao.updateDeckInfo(deckId, deckName, deckSize)
     }
 
+    @WorkerThread
+    fun deleteDeck(deckId: Int) {
+        deckDao.removeAllCards(deckId)
+        deckDao.deleteDeckInfo(deckId)
+    }
+
 //    @WorkerThread
 //    suspend fun getCards(deckId: Int) : LiveData<List<DeckDao.CardWithNumCopies>> {
 //        val rawCards: LiveData<List<DeckDao.CardWithNumCopies>> = deckDao.getCardsQuery(deckId)

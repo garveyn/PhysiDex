@@ -32,6 +32,13 @@ abstract class DeckDao {
 //    @Delete
 //    abstract fun removeCard()
 
+    // custom delete deck query
+    @Query("DELETE FROM Poke_Deck_Info WHERE id = :deckId")
+    abstract fun deleteDeckInfo(deckId: Int)
+
+    @Query("DELETE FROM Poke_Card_Per_Deck WHERE deck_id = :deckId")
+    abstract fun removeAllCards(deckId: Int)
+
     @Query("UPDATE Poke_Card_Per_Deck SET num_copies = :newNumCopies " +
             "WHERE card_id = :cardId AND deck_id = :deckId")
     abstract fun updateNumCopies(cardId: String, deckId: Int, newNumCopies: Int)

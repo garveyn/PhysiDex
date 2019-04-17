@@ -23,4 +23,8 @@ class DeckManagerViewModel(application: Application): CardViewModel(application)
         val newDeck = PokeDeckInfoEntity(deckName, requiredSize)
         repository.insert(newDeck)
     }
+
+    fun delete(deckId: Int) = scope.launch(Dispatchers.IO) {
+        repository.deleteDeck(deckId)
+    }
 }
