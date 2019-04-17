@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.HeaderViewListAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -55,7 +54,7 @@ class DeckDetailAdapter(var context: Context)
             itemView = inflater.inflate(R.layout.deck_info, parent, false)
             holder = DeckHeaderHolder(itemView)
         } else {
-            itemView = inflater.inflate(R.layout.deck_manager_card, parent, false)
+            itemView = inflater.inflate(R.layout.deck_detail_card, parent, false)
             holder = DeckDetailHolder(itemView)
             holder.itemView.isClickable = true
         }
@@ -79,7 +78,7 @@ class DeckDetailAdapter(var context: Context)
                 modifyDate.text     = deckInfo.lastModified
                 deckSize.text       = String.format(
                         itemView.resources.getString(R.string.deck_cards_slash_total),
-                        deckInfo.requiredSize,
+                        cards.size,
                         deckInfo.requiredSize
                 )
                 gamesPlayed.text    = String.format(

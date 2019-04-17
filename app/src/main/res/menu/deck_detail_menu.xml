@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/add_card_action"
+        android:title="@string/deck_menu_add_cards"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_add"/>
+
+    <item
+        android:id="@+id/delete_deck_action"
+        android:title="@string/deck_menu_delete_deck"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_delete"/>
+
+</menu>

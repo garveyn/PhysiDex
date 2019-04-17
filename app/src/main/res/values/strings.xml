@@ -46,6 +46,8 @@
     <string name="binder_all">All Cards</string>
     <string name="binder_owned">x%1$d</string>
     <string name="view_more">View More</string>
+    <string name="deck_menu_add_cards">Add Cards</string>
+    <string name="deck_menu_delete_deck">Delete Deck</string>
 
 
 </resources>

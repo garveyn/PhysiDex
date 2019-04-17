@@ -20,6 +20,11 @@ class PokeDeckRepository(private val deckDao: DeckDao) {
     }
 
     @WorkerThread
+    suspend fun addCard(deckId: Int, cardId: String) {
+        deckDao.addCard(deckId, cardId)
+    }
+
+    @WorkerThread
     suspend fun getDeck(deckId: Int) : LiveData<PokeDeckInfoEntity> {
         return deckDao.getDeckInfo(deckId)
     }
@@ -32,6 +37,11 @@ class PokeDeckRepository(private val deckDao: DeckDao) {
     @WorkerThread
     fun getCardCopies(deckId: Int) : LiveData<List<DeckDao.CardWithNumCopies>> {
         return deckDao.getCardCopies(deckId)
+    }
+
+    @WorkerThread
+    fun getCardStat(deckId: Int, statType: String) : LiveData<Int> {
+        return deckDao.getNumPerType(deckId, statType)
     }
 
     @WorkerThread

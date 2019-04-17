@@ -113,6 +113,8 @@ class FullPokeCard(pokeCard: PokeCardEntity) {
 
         // TODO: pass this field only if not in the search (not correct/from db in search)
         // info["Date First Added"] = card.dateAdded // testing purposes only
+        info["Supertype"] = card.supertype
+        info["Subtype"] = card.subtype
 
         return info
     }

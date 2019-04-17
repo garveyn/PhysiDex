@@ -14,9 +14,12 @@ import kotlinx.coroutines.launch
 class DeckDetailViewModel(application: Application, deckId: Int): CardViewModel(application) {
 
     private val repository: PokeDeckRepository
-    lateinit var deckInfo: LiveData<PokeDeckInfoEntity>
+    var deckInfo: LiveData<PokeDeckInfoEntity>
     var deckCards: LiveData<List<FullPokeCard>>
     var deckCardCopies: LiveData<List<DeckDao.CardWithNumCopies>>
+    var numPokemon: LiveData<Int>
+    var numTrainers: LiveData<Int>
+    var numEnergy: LiveData<Int>
 
     init {
         val deckDao = PhysiDexDatabase.getDatabase(application, scope).deckDao()
@@ -29,16 +32,21 @@ class DeckDetailViewModel(application: Application, deckId: Int): CardViewModel(
         deckCardCopies = Transformations.switchMap(deckInfo) {
             deck -> repository.getCardCopies(deck.id)
         }
+
+        numPokemon = Transformations.switchMap(deckInfo) {
+            deck -> repository.getCardStat(deck.id, "POKEMON")
+        }
+        numTrainers = Transformations.switchMap(deckInfo) {
+            deck -> repository.getCardStat(deck.id, "TRAINER")
+        }
+        numEnergy = Transformations.switchMap(deckInfo) {
+            deck -> repository.getCardStat(deck.id, "ENERGY")
+        }
     }
 
     fun getDeck(deckId: Int) = scope.launch(Dispatchers.IO) {
         deckInfo = repository.getDeck(deckId)
     }
-
-    fun getCards(deckId: Int) = scope.launch(Dispatchers.IO) {
-        deckCards = repository.getCards(deckId)
-    }
-
 
     /**
      * Update Deck info

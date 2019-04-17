@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.physidex.physidex.R
 import com.physidex.physidex.adapters.DeckDetailAdapter
 import com.physidex.physidex.database.viewmodels.DeckDetailViewModel
-import com.physidex.physidex.testClasses.TestData
+import kotlinx.android.synthetic.main.deck_details.*
 
 class DeckDetailActivity : AppCompatActivity() {
 
@@ -28,7 +28,7 @@ class DeckDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.deck_manager_editing)
+        setContentView(R.layout.deck_details)
 
         // Create Action bar
         val toolbar: Toolbar = findViewById(R.id.my_toolbar)
@@ -62,12 +62,17 @@ class DeckDetailActivity : AppCompatActivity() {
             Log.d("DECK_ERROR", "Deck id not passed to DeckDetailActivity")
         }
 
+        // get data from view model
         viewModel = ViewModelProviders.of(this, viewModelFactory {
             DeckDetailViewModel(this.application, deckId) }).get(DeckDetailViewModel::class.java)
+
+        // set data in RecyclerView
         viewModel.deckInfo.observe(this, Observer { deck ->
             deck.let {
                 viewAdapter.deckInfo = deck
                 viewAdapter.notifyDataSetChanged()
+
+                actionbar?.title = deck.deckName
             }
 
         })
@@ -77,6 +82,19 @@ class DeckDetailActivity : AppCompatActivity() {
         viewModel.deckCardCopies.observe(this, Observer { cardCopies ->
             cardCopies?.let { viewAdapter.setCopies(cardCopies) }
         })
+
+        // set the numbers of each card
+        viewModel.numPokemon.observe(this, Observer { num ->
+            num.let { deck_pokemon_value.text = num.toString() }
+        })
+        viewModel.numTrainers.observe(this, Observer { num ->
+            num.let { deck_trainer_value.text = num.toString() }
+        })
+        viewModel.numEnergy.observe(this, Observer { num ->
+            num.let { deck_energy_value.text = num.toString() }
+        })
+
+
 
     }
 

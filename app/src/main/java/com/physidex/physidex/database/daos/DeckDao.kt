@@ -11,16 +11,12 @@ import com.physidex.physidex.database.entities.PokeDeckInfoEntity
 @Dao
 abstract class DeckDao {
 
+    // Insert statements
+
     @Insert
     abstract fun newDeck(deck: PokeDeckInfoEntity)
 
-    @Query("SELECT * FROM Poke_Deck_Info")
-    abstract fun getAllDecks(): LiveData<List<PokeDeckInfoEntity>>
-
-    @Query("SELECT * FROM Poke_Deck_Info LIMIT 1")
-    abstract fun getOneDeck(): LiveData<PokeDeckInfoEntity>
-
-    fun addCard(deckId: Int, cardId: String, numCopies: Int) {
+    fun addCard(deckId: Int, cardId: String, numCopies: Int = 1) {
         val join = PokeCardPerDeckEntity(cardId, deckId, numCopies)
         insertCardPerDeck(join)
     }
@@ -28,30 +24,20 @@ abstract class DeckDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract fun insertCardPerDeck(cardPerDeck: PokeCardPerDeckEntity)
 
-//    fun removeCard(deckId: Int, cardId: String, numCopies: Int) {
-//
-//    }
-//
-//    @Delete
-//    abstract fun removeCard()
-
-    // custom delete deck query
-    @Query("DELETE FROM Poke_Deck_Info WHERE id = :deckId")
-    abstract fun deleteDeckInfo(deckId: Int)
-
-    @Query("DELETE FROM Poke_Card_Per_Deck WHERE deck_id = :deckId")
-    abstract fun removeAllCards(deckId: Int)
-
+    // Another copy of a card is added
     @Query("UPDATE Poke_Card_Per_Deck SET num_copies = :newNumCopies " +
             "WHERE card_id = :cardId AND deck_id = :deckId")
     abstract fun updateNumCopies(cardId: String, deckId: Int, newNumCopies: Int)
-//
-//    fun getCards(deckId: Int): LiveData<List<FullPokeCard>> {
-//        var cards: MutableLiveData<List<FullPokeCard>> = getCardsQuery(deckId)
-//        for (card in cards) {
-//
-//        }
-//    }
+
+
+
+    // Select statements
+
+    @Query("SELECT * FROM Poke_Deck_Info")
+    abstract fun getAllDecks(): LiveData<List<PokeDeckInfoEntity>>
+
+    @Query("SELECT * FROM Poke_Deck_Info LIMIT 1")
+    abstract fun getOneDeck(): LiveData<PokeDeckInfoEntity>
 
     @Query("SELECT * FROM Poke_Deck_Info WHERE id == :deckId")
     abstract fun getDeckInfo(deckId: Int): LiveData<PokeDeckInfoEntity>
@@ -75,5 +61,27 @@ abstract class DeckDao {
             "Poke_Card_Per_Deck.card_id=Poke_Card.id " +
             "WHERE Poke_Card_Per_Deck.deck_id == :deckId")
     abstract fun getCardCopies(deckId: Int): LiveData<List<CardWithNumCopies>>
+
+
+    // Calculated fields for a deck
+
+    @Query("SELECT COUNT(id) FROM Poke_Card_Per_Deck " +
+            "INNER JOIN Poke_Card ON Poke_Card_Per_Deck.card_id=Poke_Card.id " +
+            "WHERE Poke_Card.supertype == :type AND Poke_Card_Per_Deck.deck_id == :deckId")
+    abstract fun getNumPerType(deckId: Int, type: String): LiveData<Int>
+
+
+    // Delete statements
+
+    // custom delete deck query
+    @Query("DELETE FROM Poke_Deck_Info WHERE id = :deckId")
+    abstract fun deleteDeckInfo(deckId: Int)
+
+    @Query("DELETE FROM Poke_Card_Per_Deck WHERE deck_id = :deckId")
+    abstract fun removeAllCards(deckId: Int)
+
+
+
+
 
 }
