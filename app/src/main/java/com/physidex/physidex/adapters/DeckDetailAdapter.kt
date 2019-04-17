@@ -52,7 +52,7 @@ class DeckDetailAdapter(var context: Context)
             itemView = inflater.inflate(R.layout.deck_info, parent, false)
             holder = DeckHeaderHolder(itemView)
         } else {
-            itemView = inflater.inflate(R.layout.my_binder_previews, parent, false)
+            itemView = inflater.inflate(R.layout.deck_manager_card, parent, false)
             holder = DeckDetailHolder(itemView)
             holder.itemView.isClickable = true
         }
