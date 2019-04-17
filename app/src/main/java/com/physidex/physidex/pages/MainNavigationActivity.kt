@@ -15,6 +15,7 @@ import com.physidex.physidex.R
 
 const val DISPLAY_CARD = "com.physidex.physidex.CARD"
 const val MY_BINDER_CARDS = "com.physidex.physidex.BINDER_CARDS"
+const val DISPLAY_DECK = "com.physidex.physidex.DECK"
 
 open class MainActivity : AppCompatActivity() {
 

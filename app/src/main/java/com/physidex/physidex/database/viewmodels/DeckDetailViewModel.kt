@@ -38,9 +38,14 @@ class DeckDetailViewModel(application: Application, deckId: Int): CardViewModel(
         deckCards = repository.getCards(deckId)
     }
 
-    // The only deck fields that can be edited by the user are the name and required size.
-    // The object (PokeDeckInfoEntity) should be edited before this function,
-    // so that the UI can reflect the changes. The database then will record the object (parameter)
+
+    /**
+     * Update Deck info
+     * The only deck fields that can be edited by the user are the name and required size.
+     * @param deck the deck should be edited before this function,
+     * so that the UI can reflect the changes. The database then will be update to match.
+     *
+     */
     fun updateDeck(deck: PokeDeckInfoEntity) = scope.launch(Dispatchers.IO) {
         repository.updateDeck(deck.id, deck.deckName, deck.requiredSize)
     }
