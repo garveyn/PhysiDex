@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.physidex.physidex.R
+import com.physidex.physidex.database.daos.DeckDao
 import com.physidex.physidex.database.entities.FullPokeCard
 import com.physidex.physidex.database.entities.PokeDeckInfoEntity
 import com.squareup.picasso.Picasso
@@ -20,6 +21,7 @@ class DeckDetailAdapter(var context: Context)
     lateinit var recyclerView: RecyclerView
     val inflater: LayoutInflater = LayoutInflater.from(context)
     var cards = emptyList<FullPokeCard>()
+    var copiesPerCard: List<DeckDao.CardWithNumCopies> = emptyList()
     var deckInfo = PokeDeckInfoEntity()
     var expandedPosition: Int = RecyclerView.NO_POSITION
     var expandedHolder: DeckDetailHolder? = null
@@ -84,7 +86,8 @@ class DeckDetailAdapter(var context: Context)
                 )
             }
         } else if (holder is DeckDetailHolder) {
-            val currentCard = cards[position]
+            // TODO: check if position needs to be refactored to be position - 1
+            val currentCard = cards[position - 1]
             val isExpanded: Boolean = position == expandedPosition
 
             // region Expand and contract viewholder if clicked
@@ -151,5 +154,13 @@ class DeckDetailAdapter(var context: Context)
         super.onAttachedToRecyclerView(rv)
 
         recyclerView = rv
+    }
+
+    fun setCopies(copies: List<DeckDao.CardWithNumCopies>) {
+        copiesPerCard = copies
+        // also needs to update buttons for each card:
+        // if the number of copies in this deck = the number of copies owned,
+        // disable the "add" button, because no more copies of that card can be added.
+        // this could possibly be done in the "add" (onclick) function instead.
     }
 }
