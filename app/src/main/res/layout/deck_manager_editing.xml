@@ -142,10 +142,30 @@
         tools:text="9" />
 
     <View
-        android:id="@+id/view"
+        android:id="@+id/seperator_p_t"
         android:layout_width="1dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@+id/bottom_container_guideline"
-        tools:layout_editor_absoluteX="145dp" />
+        android:layout_height="0dp"
+        android:background="@drawable/gradient_line"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/bottom_guideline_at_33"
+        app:layout_constraintTop_toTopOf="@+id/bottom_container_guideline" />
+
+    <View
+        android:id="@+id/seperator_t_e"
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:background="@drawable/gradient_line"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/bottom_guideline_at_66"
+        app:layout_constraintTop_toTopOf="@+id/bottom_container_guideline" />
+
+    <View
+        android:id="@+id/seperator_rv_bt"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/pureBlack"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_container_guideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

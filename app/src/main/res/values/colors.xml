@@ -10,6 +10,7 @@
     <color name="edit">#68686B</color>
     <color name="titleText">#E9E9E9</color>
     <color name="pureWhite">#FFFFFF</color>
+    <color name="pureBlack">#000000</color>
 
 
     <!-- Card Type Colors -->
