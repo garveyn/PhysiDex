@@ -1,8 +1,11 @@
 package com.physidex.physidex.pages
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -38,8 +41,13 @@ class DeckDetailActivity : AppCompatActivity() {
             adapter = viewAdapter
         }
 
-        // TODO: pass deckId to DeckDetailViewModel
-        viewModel = ViewModelProviders.of(this).get(DeckDetailViewModel::class.java)
+        val deckId = intent.getIntExtra(DISPLAY_CARD, -1)
+        if (deckId == -1) {
+            Log.d("DECK_ERROR", "Deck id not passed to DeckDetailActivity")
+        }
+
+        viewModel = ViewModelProviders.of(this, viewModelFactory {
+            DeckDetailViewModel(this.application, deckId) }).get(DeckDetailViewModel::class.java)
         viewModel.deckInfo.observe(this, Observer { deck ->
             deck.let { viewAdapter.deckInfo = deck }
         })
@@ -51,4 +59,10 @@ class DeckDetailActivity : AppCompatActivity() {
         })
 
     }
+
+    // function from http://www.albertgao.xyz/2018/04/13/how-to-add-additional-parameters-to-viewmodel-via-kotlin/
+    protected inline fun <VM : ViewModel> viewModelFactory(crossinline f: () -> VM) =
+            object : ViewModelProvider.Factory {
+                override fun <T : ViewModel> create(aClass: Class<T>):T = f() as T
+            }
 }
