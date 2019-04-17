@@ -9,7 +9,6 @@ import com.physidex.physidex.database.entities.PokeAttackEntity
 import com.physidex.physidex.database.entities.PokeCardEntity
 import com.physidex.physidex.database.entities.PokeCardPerDeckEntity
 import com.physidex.physidex.database.entities.PokeDeckInfoEntity
-import com.physidex.physidex.testClasses.PokeDeck
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

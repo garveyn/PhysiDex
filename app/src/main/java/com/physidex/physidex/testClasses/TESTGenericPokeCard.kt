@@ -1,13 +1,13 @@
 package com.physidex.physidex.testClasses
 
-interface GenericCard {
+interface TESTGenericCard {
     var cardName: String
     var numOwned: Int
     var numCopiesInDeck: Int
     var imageUrl: String
 }
 
-interface GenericPokeCard: GenericCard {
+interface TESTGenericPokeCard: TESTGenericCard {
     var cardType: String
 
 }

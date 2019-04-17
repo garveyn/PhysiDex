@@ -114,9 +114,6 @@ class DeckManagerFragment : Fragment() {
 
             newDeckName = if (newDeckName == "") "New Deck" else newDeckName
 
-            // TODO Remove this later!
-            Log.d("DEBUG", "Deck Name: $newDeckName")
-
             when (newDeckSizeID) {
                 R.id.radioButton_30 -> dmViewModel.insert(newDeckName, 30)
                 R.id.radioButton_60 -> dmViewModel.insert(newDeckName, 60)

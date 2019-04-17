@@ -15,33 +15,33 @@ object TestData {
         }
     }
 
-    fun buildDecks() : ArrayList<Deck> {
+    fun buildDecks() : ArrayList<TESTDeck> {
 
 
-        var arrayListOfDecks = ArrayList<Deck>()
-        var arrCard = ArrayList<GenericCard>()
+        var arrayListOfDecks = ArrayList<TESTDeck>()
+        var arrCard = ArrayList<TESTGenericCard>()
 
         for (card in cards)
         {
-            arrCard.add(PokeCard(card))
+            arrCard.add(TESTPokeCard(card))
         }
 
-        var salamanceDeck = PokeDeck(ArrayList())
+        var salamanceDeck = TESTPokeDeck(ArrayList())
 
         for (card in arrCard)
         {
             if (!salamanceDeck.isReadyToPlay) {
                 salamanceDeck.addCard(card)
             } else {
-                salamanceDeck.deckName = "Deck ${card.cardName}"
+                salamanceDeck.deckName = "TESTDeck ${card.cardName}"
                 arrayListOfDecks.add(salamanceDeck)
-                salamanceDeck = PokeDeck(ArrayList())
+                salamanceDeck = TESTPokeDeck(ArrayList())
             }
         }
 
         if (salamanceDeck.deckList.size > 0)
         {
-            salamanceDeck.deckName = "Deck ${salamanceDeck.deckList[0].cardName}"
+            salamanceDeck.deckName = "TESTDeck ${salamanceDeck.deckList[0].cardName}"
             arrayListOfDecks.add(salamanceDeck)
         }
 

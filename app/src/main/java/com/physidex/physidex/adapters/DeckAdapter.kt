@@ -13,7 +13,6 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat.getColor
 import androidx.core.content.ContextCompat.getDrawable
 import androidx.fragment.app.Fragment
-import com.physidex.physidex.testClasses.Deck
 import com.physidex.physidex.R
 import com.physidex.physidex.database.entities.PokeDeckInfoEntity
 import com.physidex.physidex.pages.DISPLAY_DECK
@@ -120,7 +119,7 @@ class DeckAdapter(val fragment: Fragment) :
         fragment.startActivity(intent)
     }
 
-    private fun markDeck(deck: Deck) : Boolean {
+    private fun markDeck(deck: PokeDeckInfoEntity) : Boolean {
         TODO("Mark for delete?")
     }
 

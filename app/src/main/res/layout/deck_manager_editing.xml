@@ -141,4 +141,11 @@
         app:layout_constraintTop_toBottomOf="@+id/deck_energy_label"
         tools:text="9" />
 
+    <View
+        android:id="@+id/view"
+        android:layout_width="1dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/bottom_container_guideline"
+        tools:layout_editor_absoluteX="145dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
