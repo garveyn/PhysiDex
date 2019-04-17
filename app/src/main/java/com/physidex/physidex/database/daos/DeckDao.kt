@@ -17,6 +17,9 @@ abstract class DeckDao {
     @Query("SELECT * FROM Poke_Deck_Info")
     abstract fun getAllDecks(): LiveData<List<PokeDeckInfoEntity>>
 
+    @Query("SELECT * FROM Poke_Deck_Info LIMIT 1")
+    abstract fun getOneDeck(): LiveData<PokeDeckInfoEntity>
+
     fun addCard(deckId: Int, cardId: String, numCopies: Int) {
         val join = PokeCardPerDeckEntity(cardId, deckId, numCopies)
         insertCardPerDeck(join)

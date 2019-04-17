@@ -41,7 +41,7 @@ class DeckDetailActivity : AppCompatActivity() {
             adapter = viewAdapter
         }
 
-        val deckId = intent.getIntExtra(DISPLAY_CARD, -1)
+        val deckId = intent.getIntExtra(DISPLAY_DECK, -1)
         if (deckId == -1) {
             Log.d("DECK_ERROR", "Deck id not passed to DeckDetailActivity")
         }
@@ -49,7 +49,11 @@ class DeckDetailActivity : AppCompatActivity() {
         viewModel = ViewModelProviders.of(this, viewModelFactory {
             DeckDetailViewModel(this.application, deckId) }).get(DeckDetailViewModel::class.java)
         viewModel.deckInfo.observe(this, Observer { deck ->
-            deck.let { viewAdapter.deckInfo = deck }
+            deck.let {
+                viewAdapter.deckInfo = deck
+                viewAdapter.notifyDataSetChanged()
+            }
+
         })
         viewModel.deckCards.observe(this, Observer {cardsInDeck ->
             cardsInDeck?.let { viewAdapter.cards = cardsInDeck }

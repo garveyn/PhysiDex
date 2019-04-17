@@ -21,6 +21,7 @@ class DeckDetailViewModel(application: Application, deckId: Int): CardViewModel(
     init {
         val deckDao = PhysiDexDatabase.getDatabase(application, scope).deckDao()
         repository = PokeDeckRepository(deckDao)
+        deckInfo = repository.deckDetail
         getDeck(deckId)
         deckCards = Transformations.switchMap(deckInfo) {
             deck -> repository.getCards(deck.id)

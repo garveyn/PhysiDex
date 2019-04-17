@@ -1,6 +1,7 @@
 package com.physidex.physidex.adapters
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -50,7 +51,7 @@ class DeckDetailAdapter(var context: Context)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val holder: RecyclerView.ViewHolder
         val itemView: View
-        if (viewType == STANDARD) {
+        if (viewType == HEADER) {
             itemView = inflater.inflate(R.layout.deck_info, parent, false)
             holder = DeckHeaderHolder(itemView)
         } else {
@@ -70,7 +71,8 @@ class DeckDetailAdapter(var context: Context)
     override fun getItemCount() = cards.size + 1
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (holder is DeckHeaderHolder) {
+        Log.d("HOLDER_TYPE", holder::class.java.toString())
+        if (holder is DeckHeaderHolder && getItemViewType(position) == HEADER) {
             holder.apply {
                 deckNameText.text   = deckInfo.deckName
                 creationDate.text   = deckInfo.created
@@ -87,7 +89,7 @@ class DeckDetailAdapter(var context: Context)
             }
         } else if (holder is DeckDetailHolder) {
             // TODO: check if position needs to be refactored to be position - 1
-            val currentCard = cards[position - 1]
+            val currentCard = cards[position]
             val isExpanded: Boolean = position == expandedPosition
 
             // region Expand and contract viewholder if clicked
