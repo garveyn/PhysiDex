@@ -4,24 +4,26 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="10dp"
-    tools:showIn="@layout/deck_manager_deck">
+    android:padding="10dp">
 
  <TextView
      android:id="@+id/deck_name"
      android:layout_width="0dp"
      android:layout_height="wrap_content"
-     android:layout_weight="1"/>
+     android:layout_weight="1"
+     tools:text="Salamance Deck" />
 
  <TextView
      android:id="@+id/deck_last_modified"
      android:layout_width="0dp"
      android:layout_height="wrap_content"
-     android:layout_weight="1"/>
+     android:layout_weight="1"
+     tools:text="2019-04-17 14:41:03" />
 
  <Button
      android:id="@+id/deck_play"
      android:layout_width="wrap_content"
-     android:layout_height="wrap_content"/>
+     android:layout_height="wrap_content"
+     tools:text="Play!" />
 
 </LinearLayout>

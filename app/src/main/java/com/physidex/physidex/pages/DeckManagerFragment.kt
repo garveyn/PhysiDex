@@ -24,7 +24,7 @@ import com.physidex.physidex.testClasses.TestData
 
 
 
-class DeckManagerFragment : Fragment(), View.OnClickListener {
+class DeckManagerFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: DeckAdapter
@@ -43,7 +43,7 @@ class DeckManagerFragment : Fragment(), View.OnClickListener {
         val testData = TestData.buildDecks()
 
         viewManager = LinearLayoutManager(context)
-        viewAdapter = DeckAdapter()
+        viewAdapter = DeckAdapter(this)
         itemDecoration = SeparatorItemDecoration(resources.getDimension(R.dimen.margin_16dp).toInt())
 
         recyclerView = view.findViewById<RecyclerView>(R.id.deck_recyclerView).apply {
@@ -68,7 +68,9 @@ class DeckManagerFragment : Fragment(), View.OnClickListener {
 
         // New Deck Button
         var button: FloatingActionButton = view.findViewById(R.id.new_deck)
-        button.setOnClickListener(this)
+        button.setOnClickListener {
+            createDeckPopup(it)
+        }
 
 
 
@@ -91,7 +93,7 @@ class DeckManagerFragment : Fragment(), View.OnClickListener {
         wm.updateViewLayout(container, p)
     }
 
-    override fun onClick(v: View?) {
+    fun createDeckPopup(v: View?) {
         // Bring up new deck popup
         val inflater = LayoutInflater.from(context)
 
@@ -103,15 +105,18 @@ class DeckManagerFragment : Fragment(), View.OnClickListener {
             dimBehind()
         }
 
-        val newDeckName = popupView
-                .findViewById<EditText>(R.id.new_deck_name).text.toString()
-        val newDeckSizeID = popupView
-                .findViewById<RadioGroup>(R.id.new_deck_card_amount).checkedRadioButtonId
         val createDeckButton = popupView
                 .findViewById<Button>(R.id.new_deck_create)
 
-
         createDeckButton.setOnClickListener {
+            var newDeckName = popupView.findViewById<EditText>(R.id.new_deck_name).text.toString()
+            val newDeckSizeID = popupView.findViewById<RadioGroup>(R.id.new_deck_card_amount).checkedRadioButtonId
+
+            newDeckName = if (newDeckName == "") "New Deck" else newDeckName
+
+            // TODO Remove this later!
+            Log.d("DEBUG", "Deck Name: $newDeckName")
+
             when (newDeckSizeID) {
                 R.id.radioButton_30 -> dmViewModel.insert(newDeckName, 30)
                 R.id.radioButton_60 -> dmViewModel.insert(newDeckName, 60)
@@ -121,6 +126,7 @@ class DeckManagerFragment : Fragment(), View.OnClickListener {
                             "Deck Name: $newDeckName")
                 }
             }
+            createDeckPopup.dismiss()
 
         }
 

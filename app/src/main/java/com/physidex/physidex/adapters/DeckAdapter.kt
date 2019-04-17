@@ -2,6 +2,7 @@ package com.physidex.physidex.adapters
 
 
 import android.content.Context
+import android.content.Intent
 import android.util.TypedValue
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
@@ -11,11 +12,14 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.core.content.ContextCompat.getColor
 import androidx.core.content.ContextCompat.getDrawable
+import androidx.fragment.app.Fragment
 import com.physidex.physidex.testClasses.Deck
 import com.physidex.physidex.R
 import com.physidex.physidex.database.entities.PokeDeckInfoEntity
+import com.physidex.physidex.pages.DISPLAY_DECK
+import com.physidex.physidex.pages.DeckDetailActivity
 
-class DeckAdapter :
+class DeckAdapter(val fragment: Fragment) :
         RecyclerView.Adapter<DeckAdapter.DeckViewHolder>() {
 
     var decks = emptyList<PokeDeckInfoEntity>()
@@ -70,7 +74,7 @@ class DeckAdapter :
         // Set click events
         holder.view.isClickable = true
         holder.view.isLongClickable = true
-//        holder.view.setOnClickListener  { editDeck(deck) }
+        holder.view.setOnClickListener  { editDeck(deck) }
 //        holder.view.setOnLongClickListener { markDeck(deck) }
 
 //        if (deck.deckList.size > 0) {
@@ -109,8 +113,11 @@ class DeckAdapter :
         return if (position == itemCount - 1) FOOTER else STANDARD
     }
 
-    private fun editDeck(deck: Deck) {
-        TODO("Launch into deck editing view")
+    private fun editDeck(deck: PokeDeckInfoEntity) {
+        val intent = Intent(fragment.activity, DeckDetailActivity::class.java).apply {
+            putExtra(DISPLAY_DECK, deck.id)
+        }
+        fragment.startActivity(intent)
     }
 
     private fun markDeck(deck: Deck) : Boolean {
