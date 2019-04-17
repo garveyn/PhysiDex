@@ -31,7 +31,7 @@ class DeckDetailActivity : AppCompatActivity() {
         setContentView(R.layout.deck_manager_editing)
 
         // Create Action bar
-        val toolbar: Toolbar = findViewById(R.id.my_binder_toolbar)
+        val toolbar: Toolbar = findViewById(R.id.my_toolbar)
         setSupportActionBar(toolbar)
         val actionbar: ActionBar? = supportActionBar
         actionbar?.apply {
