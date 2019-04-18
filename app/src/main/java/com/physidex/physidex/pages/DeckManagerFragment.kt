@@ -20,11 +20,12 @@ import com.physidex.physidex.R
 import com.physidex.physidex.adapters.DeckAdapter
 import com.physidex.physidex.database.viewmodels.DeckManagerViewModel
 import com.physidex.physidex.decorations.SeparatorItemDecoration
+import com.physidex.physidex.interfaces.TopLevel
 import com.physidex.physidex.testClasses.TestData
 
 
 
-class DeckManagerFragment : Fragment() {
+class DeckManagerFragment : Fragment(), TopLevel {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: DeckAdapter

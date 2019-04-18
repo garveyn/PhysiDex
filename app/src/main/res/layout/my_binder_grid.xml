@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/grid_constraintLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/pureWhite">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/my_binder_toolbar"

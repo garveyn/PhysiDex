@@ -12,6 +12,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.widget.Toolbar
 import com.physidex.physidex.R
+import kotlinx.android.synthetic.main.drawer_test.*
 
 const val DISPLAY_CARD = "com.physidex.physidex.CARD"
 const val MY_BINDER_CARDS = "com.physidex.physidex.BINDER_CARDS"
@@ -19,13 +20,13 @@ const val DISPLAY_DECK = "com.physidex.physidex.DECK"
 
 open class MainActivity : AppCompatActivity() {
 
-    private lateinit var mDrawerLayout: DrawerLayout
+    private lateinit var drawerLayout: DrawerLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.drawer_test)
 
-        mDrawerLayout = findViewById(R.id.drawer_layout)
+        drawerLayout = findViewById(R.id.drawer_layout)
 
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
@@ -38,13 +39,13 @@ open class MainActivity : AppCompatActivity() {
         val fragmentManager = supportFragmentManager
 
 
-        val navigationView: NavigationView = findViewById(R.id.nav_view)
+        val navigationView: NavigationView = nav_view
 
         navigationView.setNavigationItemSelectedListener { menuItem ->
 
             menuItem.isChecked=true
 
-            mDrawerLayout.closeDrawers()
+            drawerLayout.closeDrawers()
 
             val fragmentTransaction = fragmentManager.beginTransaction()
             val newFragment: Fragment
@@ -81,10 +82,12 @@ open class MainActivity : AppCompatActivity() {
         }
     }
 
+
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
-                mDrawerLayout.openDrawer(START)
+                drawerLayout.openDrawer(START)
                 true
             }
             else -> super.onOptionsItemSelected(item)

@@ -16,8 +16,9 @@ import com.physidex.physidex.R
 import com.physidex.physidex.adapters.DisplayCardAdapter
 import com.physidex.physidex.database.entities.FullPokeCard
 import com.physidex.physidex.database.viewmodels.MyBinderViewModel
+import com.physidex.physidex.interfaces.TopLevel
 
-class MyBinderHomeFragment : Fragment() {
+class MyBinderHomeFragment : Fragment(), TopLevel {
 
     private lateinit var recentCards:           List<FullPokeCard>
     private lateinit var recentRecyclerView:    RecyclerView
@@ -188,10 +189,17 @@ class MyBinderHomeFragment : Fragment() {
 
     fun displayCardList(list: String) {
         // send a string for which list is displayed and start the mybindergrid intent
-        val intent = Intent(activity, MyBinderGridActivity::class.java).apply {
-            putExtra(MY_BINDER_CARDS, list)
-        }
-        startActivity(intent)
+        val fragment = MyBinderGridActivity()
+        val bundle = Bundle()
+
+        bundle.putString(MY_BINDER_CARDS, list)
+        fragment.arguments = bundle
+
+        fragmentManager!!
+                .beginTransaction()
+                .replace(R.id.fragment_frame, fragment)
+                .addToBackStack(null)
+                .commit()
     }
 
 }

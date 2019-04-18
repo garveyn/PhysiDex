@@ -9,8 +9,9 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import com.physidex.physidex.R
+import com.physidex.physidex.interfaces.TopLevel
 
-class SearchHomeFragment : Fragment() {
+class SearchHomeFragment : Fragment(), TopLevel {
 
     override fun onCreateView(
             inflater: LayoutInflater,
