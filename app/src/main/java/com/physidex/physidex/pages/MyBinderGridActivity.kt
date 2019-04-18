@@ -2,11 +2,16 @@ package com.physidex.physidex.pages
 
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
+import android.view.LayoutInflater
 import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
@@ -14,36 +19,38 @@ import androidx.recyclerview.widget.RecyclerView
 import com.physidex.physidex.R
 import com.physidex.physidex.adapters.DisplayCardAdapter
 import com.physidex.physidex.database.viewmodels.MyBinderViewModel
-import kotlinx.android.synthetic.main.my_binder_grid.*
+import kotlinx.android.synthetic.main.drawer_test.*
 
-class MyBinderGridActivity : AppCompatActivity() {
+class MyBinderGridActivity : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: DisplayCardAdapter
     private lateinit var binderViewModel: MyBinderViewModel
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.my_binder_grid)
+    override fun onCreateView(
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?) : View {
 
+        val view = inflater.inflate(R.layout.my_binder_grid, container, false)
+
+        // TODO Determine if this is necessary
         // Create Action bar
-        val toolbar: Toolbar = findViewById(R.id.my_binder_toolbar)
-        setSupportActionBar(toolbar)
-        val actionbar: ActionBar? = supportActionBar
+        val toolbar: Toolbar = toolbar
+        (activity as MainActivity).setSupportActionBar(toolbar)
+        val actionbar: ActionBar? = (activity as MainActivity).supportActionBar
         actionbar?.apply {
             setDisplayHomeAsUpEnabled(true)
             setHomeAsUpIndicator(R.drawable.ic_arrow_back)
             setBackgroundDrawable(ColorDrawable(
-                    ContextCompat.getColor(this@MyBinderGridActivity, R.color.colorPrimary)
-            ))
+                    ContextCompat.getColor(context!!, R.color.colorPrimary)))
         }
 
         // Set up RecyclerView
-        recyclerView = binder_cards_view
-        adapter = DisplayCardAdapter(this) { index ->
+        recyclerView = view.findViewById(R.id.binder_cards_view)
+        adapter = DisplayCardAdapter(context!!) { index ->
             // when a card is selected, open detail fragment
-            val fragmentManager = supportFragmentManager
-            val fragmentTransaction = fragmentManager.beginTransaction()
+            val fragmentTransaction = requireFragmentManager().beginTransaction()
             val detail = CardDetailFragment()
             detail.detailedCard = adapter.cards[index]
             fragmentTransaction.replace(R.id.grid_constraintLayout, detail)
@@ -52,13 +59,13 @@ class MyBinderGridActivity : AppCompatActivity() {
         }
 
         recyclerView.adapter = adapter
-        recyclerView.layoutManager = GridLayoutManager(this, 3)
+        recyclerView.layoutManager = GridLayoutManager(context, 3)
 
         // Set up view model
         binderViewModel = ViewModelProviders.of(this).get(MyBinderViewModel::class.java)
 
         // Get the Intent that started this activity and extract the string
-        val query = intent.getStringExtra(MY_BINDER_CARDS)
+        val query = arguments?.getString(MY_BINDER_CARDS)
 
         when (query) {
             "ALL" -> {
@@ -73,13 +80,17 @@ class MyBinderGridActivity : AppCompatActivity() {
                 })
                 actionbar?.title = getString(R.string.binder_recent)
             }
+            else -> {
+                Log.d("BAD_INTENT", "query was not ALL or RECENT. Found $query")
+            }
         }
+        return view
     }
 
     override fun onOptionsItemSelected(menuItem: MenuItem) : Boolean {
         when (menuItem.itemId) {
             android.R.id.home -> {
-                finish()
+                requireFragmentManager().popBackStack()
                 return true
             }
             else -> {
