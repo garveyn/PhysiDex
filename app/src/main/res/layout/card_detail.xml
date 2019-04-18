@@ -43,9 +43,22 @@
                 android:id="@+id/add_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/add_to_binder"
-                android:layout_marginBottom="@dimen/default_gap" />
-            
+                android:text="@string/add_to_binder" />
+
+            <Button
+                android:id="@+id/remove_one_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-8dp"
+                android:layout_marginBottom="-8dp"
+                android:text="@string/remove_from_binder" />
+
+            <Button
+                android:id="@+id/remove_all_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/remove_all_from_binder" />
+
             <TableLayout
                 android:id="@+id/detail_table"
                 android:layout_width="match_parent"

@@ -20,6 +20,7 @@ class DeckDetailViewModel(application: Application, deckId: Int): CardViewModel(
     var numPokemon: LiveData<Int>
     var numTrainers: LiveData<Int>
     var numEnergy: LiveData<Int>
+    var numCards: LiveData<Int>
 
     init {
         val deckDao = PhysiDexDatabase.getDatabase(application, scope).deckDao()
@@ -42,10 +43,22 @@ class DeckDetailViewModel(application: Application, deckId: Int): CardViewModel(
         numEnergy = Transformations.switchMap(deckInfo) {
             deck -> repository.getCardStat(deck.id, "ENERGY")
         }
+        numCards = Transformations.map(deckCardCopies) {
+            cards -> countCards(cards)
+        }
     }
 
     fun getDeck(deckId: Int) = scope.launch(Dispatchers.IO) {
         deckInfo = repository.getDeck(deckId)
+    }
+
+    fun countCards(cardCopies: List<DeckDao.CardWithNumCopies>): Int {
+        var cardCount = 0
+        cardCopies.forEach {
+            cardCount += it.num_copies
+        }
+
+        return cardCount
     }
 
     /**

@@ -23,6 +23,8 @@
     <string name="results_number">%1$d results found</string>
     <string name="card_description">PokeCard found</string>
     <string name="add_to_binder">ADD TO MY BINDER</string>
+    <string name="remove_from_binder">REMOVE A COPY FROM MY BINDER</string>
+    <string name="remove_all_from_binder">REMOVE ALL COPIES FROM MY BINDER</string>
 
     <!-- Deck Manager Page -->
     <string name="deck_play">Play!</string>

@@ -22,6 +22,7 @@ class DeckDetailAdapter(var context: Context)
     val inflater: LayoutInflater = LayoutInflater.from(context)
     var cards = emptyList<FullPokeCard>()
     var copiesPerCard: List<DeckDao.CardWithNumCopies> = emptyList()
+    var totalCards: Int = 0
     var deckInfo = PokeDeckInfoEntity()
     var expandedPosition: Int = RecyclerView.NO_POSITION
     var expandedHolder: DeckDetailHolder? = null

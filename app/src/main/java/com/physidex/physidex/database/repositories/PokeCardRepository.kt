@@ -24,12 +24,17 @@ class PokeCardRepository(private val cardDao: CardDao) {
     }
 
     @WorkerThread
-    suspend fun update(card: FullPokeCard) {
-        cardDao.updateCard(card.pokeCard.id, card.pokeCard.numCopies)
+    suspend fun update(cardId: String, numCopies: Int) {
+        cardDao.updateCard(cardId, numCopies)
     }
 
     @WorkerThread
     suspend fun search(input: String): List<FullPokeCard> {
         return cardDao.searchCardName(input)
+    }
+
+    @WorkerThread
+    suspend fun removeAllCopies(cardId: String) {
+        cardDao.deleteCard(cardId)
     }
 }

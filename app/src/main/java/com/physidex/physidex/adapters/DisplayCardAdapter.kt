@@ -63,6 +63,8 @@ class DisplayCardAdapter(var context: Context, val itemClick: (Int) -> Unit) :
         for (card in this.cards) {
             if (cardsOwned.contains(card.pokeCard.id) ) {
                 card.pokeCard.numCopies = cardsOwned[card.pokeCard.id] as Int
+            } else {
+                card.pokeCard.numCopies = 0
             }
         }
         notifyDataSetChanged()
