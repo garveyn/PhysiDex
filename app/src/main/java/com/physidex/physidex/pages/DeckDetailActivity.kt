@@ -140,11 +140,9 @@ class DeckDetailActivity : Fragment() {
             findNavController().navigate(action)
 
             // TODO change this to not temp
-            val cardGrid = TempMyBinderFragment()
+            val cardGrid = MyBinderGridFragment()
             cardGrid.setCopiesPerDeck(viewModel.deckCardCopies.value!!)
         }
-
-
 
 
     }
