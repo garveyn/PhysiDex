@@ -10,15 +10,15 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.physidex.physidex.R
 import com.physidex.physidex.adapters.DisplayCardAdapter
 import com.physidex.physidex.database.entities.FullPokeCard
 import com.physidex.physidex.database.viewmodels.MyBinderViewModel
-import com.physidex.physidex.interfaces.TopLevel
 
-class MyBinderHomeFragment : Fragment(), TopLevel {
+class MyBinderHomeFragment : Fragment() {
 
     private lateinit var recentCards:           List<FullPokeCard>
     private lateinit var recentRecyclerView:    RecyclerView
@@ -43,37 +43,26 @@ class MyBinderHomeFragment : Fragment(), TopLevel {
             savedInstanceState: Bundle?): View
     {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.my_binder_main, container, false)
+        return inflater.inflate(R.layout.my_binder_main, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         recentViewManager = LinearLayoutManager(view.context)
         recentViewAdapter = DisplayCardAdapter(view.context) {}
 
         // There are three different RecyclerViews on this fragment
-        // They are in the following regions: TODO Initialize cards for all three
+        // They are in the following regions:
 
         // Initialize view model
         binderViewModel = ViewModelProviders.of(this).get(MyBinderViewModel::class.java)
 
-
-        //region TODO : Remove, only for testing
-
-//        val data = TestData.buildFullCards()
-
+        // Initialize lists
         recentCards = emptyList<FullPokeCard>()
         mostUsedCards = emptyList<FullPokeCard>()
         allCards = emptyList<FullPokeCard>()
 
-//        loadingTestData@ for (card in data) {
-//            when
-//            {
-//                recentCards.size < 10 -> recentCards.add(card)
-//                mostUsedCards.size < 10 -> mostUsedCards.add(card)
-//                allCards.size < 10 -> allCards.add(card)
-//                else -> break@loadingTestData
-//            }
-//        }
-
-        //endregion
 
         //region RecyclerView #1 - Recently added cards
         recentViewManager = LinearLayoutManager(view.context,
@@ -94,7 +83,9 @@ class MyBinderHomeFragment : Fragment(), TopLevel {
         // set onclicklistener so when the user clicks on this recyclerview, it will
         // bring them to the full view of these cards
         view.findViewById<ConstraintLayout>(R.id.binder_recent).setOnClickListener {
-            displayCardList("RECENT")
+            val action = MyBinderHomeFragmentDirections.actionOpenBinder()
+            action.listToDisplay = "RECENT"
+            findNavController().navigate(action)
         }
 
         // used in recyclerviews to find max # of cards that can be displayed (less than 10)
@@ -131,7 +122,9 @@ class MyBinderHomeFragment : Fragment(), TopLevel {
         // set onclicklistener so when the user clicks on this recyclerview, it will
         // bring them to the full view of these cards
         view.findViewById<ConstraintLayout>(R.id.binder_most_used).setOnClickListener {
-            displayCardList("MOST_USED")
+            val action = MyBinderHomeFragmentDirections.actionOpenBinder()
+            action.listToDisplay = "MOST_USED"
+            findNavController().navigate(action)
         }
 
         //endregion
@@ -157,7 +150,9 @@ class MyBinderHomeFragment : Fragment(), TopLevel {
         // set onclicklistener so when the user clicks on this recyclerview, it will
         // bring them to the full view of these cards
         view.findViewById<ConstraintLayout>(R.id.binder_all).setOnClickListener {
-            displayCardList("ALL")
+            val action = MyBinderHomeFragmentDirections.actionOpenBinder()
+            action.listToDisplay = "ALL"
+            findNavController().navigate(action)
         }
 
         maxIndex = 10
@@ -172,7 +167,6 @@ class MyBinderHomeFragment : Fragment(), TopLevel {
         })
         //endregion
 
-        return view
     }
 
     fun displayCardDetails(index: Int, cardList: List<FullPokeCard>) {
@@ -187,19 +181,6 @@ class MyBinderHomeFragment : Fragment(), TopLevel {
         }
     }
 
-    fun displayCardList(list: String) {
-        // send a string for which list is displayed and start the mybindergrid intent
-        val fragment = MyBinderGridActivity()
-        val bundle = Bundle()
 
-        bundle.putString(MY_BINDER_CARDS, list)
-        fragment.arguments = bundle
-
-        fragmentManager!!
-                .beginTransaction()
-                .replace(R.id.fragment_frame, fragment)
-                .addToBackStack(null)
-                .commit()
-    }
 
 }

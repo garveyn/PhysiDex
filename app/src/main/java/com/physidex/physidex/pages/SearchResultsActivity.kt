@@ -6,13 +6,18 @@ import android.os.Bundle
 import android.util.Log
 import io.pokemontcg.Pokemon
 import android.os.AsyncTask
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.navArgs
+import androidx.navigation.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.physidex.physidex.R
@@ -24,38 +29,29 @@ import com.physidex.physidex.testClasses.TestData
 import io.pokemontcg.model.Card
 import kotlinx.android.synthetic.main.activity_display_card.*
 
-class SearchResultsActivity : AppCompatActivity() {
+class SearchResultsActivity : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: DisplayCardAdapter
     private lateinit var cardViewModel: SearchViewModel
     var fullPokeCards: List<FullPokeCard> = emptyList()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_display_card)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.activity_display_card, container, false)
+    }
 
-        // Create Action bar
-        val toolbar: Toolbar = findViewById(R.id.search_toolbar)
-        setSupportActionBar(toolbar)
-        val actionbar: ActionBar? = supportActionBar
-        actionbar?.apply {
-            setDisplayHomeAsUpEnabled(true)
-            setHomeAsUpIndicator(R.drawable.ic_arrow_back)
-            title = getString(R.string.search_results)
-            setBackgroundDrawable(ColorDrawable(
-                    ContextCompat.getColor(this@SearchResultsActivity, R.color.colorPrimary)
-            ))
-        }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         // Get the Intent that started this activity and extract the string
-        val card = intent.getStringExtra(DISPLAY_CARD)
+        val safeArgs: SearchResultsActivityArgs by navArgs()
+        val card = safeArgs.query
 
         // Set up RecyclerView
         recyclerView = searchResultView
-        adapter = DisplayCardAdapter(this) { index ->
+        adapter = DisplayCardAdapter(requireContext()) { index ->
             // when a card is selected, open detail fragment
-            val fragmentManager = supportFragmentManager
+            val fragmentManager = requireFragmentManager()
             val fragmentTransaction = fragmentManager.beginTransaction()
             val detail = CardDetailFragment()
             detail.detailedCard = fullPokeCards[index]
@@ -64,7 +60,7 @@ class SearchResultsActivity : AppCompatActivity() {
             fragmentTransaction.commit()
         }
         recyclerView.adapter = adapter
-        recyclerView.layoutManager = GridLayoutManager(this, 2)
+        recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
         //recyclerView.addItemDecoration(GridItemDecoration(1, 2))
 
         // Set up view model (used to check numCopies of each card)
@@ -87,18 +83,6 @@ class SearchResultsActivity : AppCompatActivity() {
         }
     }
 
-
-    override fun onOptionsItemSelected(menuItem: MenuItem) : Boolean {
-        when (menuItem.itemId) {
-            android.R.id.home -> {
-                finish()
-                return true
-            }
-            else -> {
-                return super.onOptionsItemSelected(menuItem)
-            }
-        }
-    }
 
     inner class PokemonQueryTask : AsyncTask<String, Int, List<Card>>() {
 
@@ -127,7 +111,6 @@ class SearchResultsActivity : AppCompatActivity() {
         }
 
         override fun onPostExecute(result: List<Card>?) {
-            // TODO: check if cards are already owned
             super.onPostExecute(result)
 
             progressBar.visibility = View.INVISIBLE

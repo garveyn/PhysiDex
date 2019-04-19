@@ -9,6 +9,7 @@
     <string name="minus_symbol">-</string>
 
     <!-- Screen Titles -->
+    <string name="home_page">Home Page</string>
     <string name="deck_manager">Deck Manager</string>
     <string name="game_manager">Game Manager</string>
     <string name="my_binder">My Binder</string>

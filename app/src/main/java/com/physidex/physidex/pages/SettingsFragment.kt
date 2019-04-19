@@ -6,9 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.physidex.physidex.R
-import com.physidex.physidex.interfaces.TopLevel
 
-class SettingsFragment : Fragment(), TopLevel {
+class SettingsFragment : Fragment() {
 
     override fun onCreateView(
             inflater: LayoutInflater,

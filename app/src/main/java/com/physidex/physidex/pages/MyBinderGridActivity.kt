@@ -14,6 +14,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.physidex.physidex.R
@@ -34,17 +35,6 @@ class MyBinderGridActivity : Fragment() {
 
         val view = inflater.inflate(R.layout.my_binder_grid, container, false)
 
-        // TODO Determine if this is necessary
-        // Create Action bar
-        val toolbar: Toolbar = toolbar
-        (activity as MainActivity).setSupportActionBar(toolbar)
-        val actionbar: ActionBar? = (activity as MainActivity).supportActionBar
-        actionbar?.apply {
-            setDisplayHomeAsUpEnabled(true)
-            setHomeAsUpIndicator(R.drawable.ic_arrow_back)
-            setBackgroundDrawable(ColorDrawable(
-                    ContextCompat.getColor(context!!, R.color.colorPrimary)))
-        }
 
         // Set up RecyclerView
         recyclerView = view.findViewById(R.id.binder_cards_view)
@@ -65,20 +55,20 @@ class MyBinderGridActivity : Fragment() {
         binderViewModel = ViewModelProviders.of(this).get(MyBinderViewModel::class.java)
 
         // Get the Intent that started this activity and extract the string
-        val query = arguments?.getString(MY_BINDER_CARDS)
+        val safeArgs: MyBinderGridActivityArgs by navArgs()
+        val query = safeArgs.listToDisplay
+        val deckId = safeArgs.deckID
 
         when (query) {
             "ALL" -> {
                 binderViewModel.allCards.observe(this, Observer { cards ->
                     cards?.let { adapter.setResults(it)}
                 })
-                actionbar?.title = getString(R.string.binder_all)
             }
             "RECENT" -> {
                 binderViewModel.allCardsByDate.observe(this, Observer { cards ->
                     cards?.let { adapter.setResults(it)}
                 })
-                actionbar?.title = getString(R.string.binder_recent)
             }
             else -> {
                 Log.d("BAD_INTENT", "query was not ALL or RECENT. Found $query")

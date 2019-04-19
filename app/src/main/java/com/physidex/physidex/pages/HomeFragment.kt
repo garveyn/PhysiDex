@@ -1,13 +1,13 @@
 package com.physidex.physidex.pages
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.physidex.physidex.R
 
-class GameManagerHomeFragment : Fragment() {
+class HomeFragment : Fragment() {
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -15,8 +15,9 @@ class GameManagerHomeFragment : Fragment() {
             savedInstanceState: Bundle?): View
     {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.game_manager_main, container, false)
-    }
+        val view = inflater.inflate(R.layout.settings_main, container, false)
 
+        return view
+    }
 
 }

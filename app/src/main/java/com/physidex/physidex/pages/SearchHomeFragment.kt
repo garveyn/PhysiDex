@@ -8,10 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import androidx.navigation.fragment.findNavController
 import com.physidex.physidex.R
-import com.physidex.physidex.interfaces.TopLevel
+import kotlinx.android.synthetic.main.activity_main.*
 
-class SearchHomeFragment : Fragment(), TopLevel {
+class SearchHomeFragment : Fragment() {
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -19,23 +20,21 @@ class SearchHomeFragment : Fragment(), TopLevel {
             savedInstanceState: Bundle?): View
     {
         // Inflate the layout for this fragment
-        var view: View = inflater.inflate(R.layout.activity_main, container, false)
+        return inflater.inflate(R.layout.activity_main, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         // Catch 'Em Button
-        var button: Button = view.findViewById(R.id.findCard)
-        button.setOnClickListener {
+        findCard.setOnClickListener {
             // Search!
-            val editText = view.findViewById<EditText>(R.id.editText)
             val cardName = editText.text.toString()
 
-
-            val intent = Intent(activity, SearchResultsActivity::class.java).apply {
-                putExtra(DISPLAY_CARD, cardName)
-            }
-            startActivity(intent)
+            val action = SearchHomeFragmentDirections.actionSearch(cardName)
+            findNavController().navigate(action)
         }
 
-        return view
     }
 
 }
