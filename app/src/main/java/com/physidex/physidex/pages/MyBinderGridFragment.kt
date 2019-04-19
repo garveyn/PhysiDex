@@ -19,22 +19,41 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.physidex.physidex.R
 import com.physidex.physidex.adapters.DisplayCardAdapter
+import com.physidex.physidex.database.daos.CardDao
 import com.physidex.physidex.database.viewmodels.MyBinderViewModel
-import kotlinx.android.synthetic.main.drawer_test.*
+import kotlinx.android.synthetic.main.my_binder_grid.*
 
-class MyBinderGridActivity : Fragment() {
+class MyBinderGridFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: DisplayCardAdapter
     private lateinit var binderViewModel: MyBinderViewModel
+    lateinit var deckCopies: List<CardDao.CopiesPerId>
 
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?) : View {
 
-        val view = inflater.inflate(R.layout.my_binder_grid, container, false)
+        return inflater.inflate(R.layout.my_binder_grid, container, false)
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // TODO Determine if this is necessary
+        // Create Action bar
+//        if (!(::deckCopies.isInitialized)) {
+//            val toolbar: Toolbar = my_binder_toolbar
+//            (activity as MainActivity).setSupportActionBar(toolbar)
+//            val actionbar: ActionBar? = (activity as MainActivity).supportActionBar
+//            actionbar?.apply {
+//                setDisplayHomeAsUpEnabled(true)
+//                setHomeAsUpIndicator(R.drawable.ic_arrow_back)
+//                setBackgroundDrawable(ColorDrawable(
+//                        ContextCompat.getColor(context!!, R.color.colorPrimary)))
+//            }
+//        }
 
         // Set up RecyclerView
         recyclerView = view.findViewById(R.id.binder_cards_view)
@@ -62,19 +81,40 @@ class MyBinderGridActivity : Fragment() {
         when (query) {
             "ALL" -> {
                 binderViewModel.allCards.observe(this, Observer { cards ->
-                    cards?.let { adapter.setResults(it)}
+                    cards?.let {
+                        adapter.setResults(it)
+                        // If this is displayed in the Deck manager, set up the number of copies per deck
+                        if (::deckCopies.isInitialized) {
+                            adapter.updateResults(deckCopies, true)
+                        }
+                    }
                 })
             }
             "RECENT" -> {
                 binderViewModel.allCardsByDate.observe(this, Observer { cards ->
-                    cards?.let { adapter.setResults(it)}
+                    cards?.let {
+                        adapter.setResults(it)
+                        // If this is displayed in the Deck manager, set up the number of copies per deck
+                        if (::deckCopies.isInitialized) {
+                            adapter.updateResults(deckCopies, true)
+                        }
+                    }
                 })
             }
             else -> {
                 Log.d("BAD_INTENT", "query was not ALL or RECENT. Found $query")
+                // if no query was set, display all.
+                binderViewModel.allCards.observe(this, Observer { cards ->
+                    cards?.let {
+                        adapter.setResults(it)
+                        // If this is displayed in the Deck manager, set up the number of copies per deck
+                        if (::deckCopies.isInitialized) {
+                            adapter.updateResults(deckCopies, true)
+                        }
+                    }
+                })
             }
         }
-        return view
     }
 
     override fun onOptionsItemSelected(menuItem: MenuItem) : Boolean {
@@ -89,5 +129,8 @@ class MyBinderGridActivity : Fragment() {
         }
     }
 
+    fun setCopiesPerDeck(copies: List<CardDao.CopiesPerId>) {
+        deckCopies = copies
+    }
 
 }
