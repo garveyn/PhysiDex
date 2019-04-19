@@ -14,14 +14,17 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.physidex.physidex.R
 import com.physidex.physidex.adapters.DeckDetailAdapter
 import com.physidex.physidex.database.viewmodels.DeckDetailViewModel
 import kotlinx.android.synthetic.main.deck_details.*
+import kotlinx.android.synthetic.main.drawer_test.*
 
 class DeckDetailActivity : Fragment() {
 
@@ -40,6 +43,9 @@ class DeckDetailActivity : Fragment() {
         viewManager = LinearLayoutManager(requireContext())
         viewAdapter = DeckDetailAdapter(requireContext())
 
+        val navController = Navigation.findNavController((requireActivity() as MainActivity), R.id.fragment)
+        setupActionBarWithNavController((requireActivity() as MainActivity), navController)
+        setHasOptionsMenu(true)
 
         recyclerView = dd_recyclerView.apply {
 
@@ -115,11 +121,18 @@ class DeckDetailActivity : Fragment() {
 
     fun addCards() {
         val action = DeckDetailActivityDirections.actionAddCards()
-        action.deckID
-        findNavController().navigate(action)
+        if (viewModel.deckInfo.value != null) {
+            action.deckID = viewModel.deckInfo.value!!.id
+            findNavController().navigate(action)
 
-        val cardGrid = TempMyBinderFragment()
-        cardGrid.setCopiesPerDeck(viewModel.deckCardCopies.value!!)
+            // TODO change this to not temp
+            val cardGrid = TempMyBinderFragment()
+            cardGrid.setCopiesPerDeck(viewModel.deckCardCopies.value!!)
+        }
+
+
+
+
     }
 
     // function from http://www.albertgao.xyz/2018/04/13/how-to-add-additional-parameters-to-viewmodel-via-kotlin/
