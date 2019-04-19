@@ -14,6 +14,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.physidex.physidex.R
@@ -34,9 +35,7 @@ class TempMyBinderFragment : Fragment() {
             container: ViewGroup?,
             savedInstanceState: Bundle?) : View {
 
-        val view = inflater.inflate(R.layout.my_binder_grid, container, false)
-
-        return view
+        return inflater.inflate(R.layout.my_binder_grid, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -75,7 +74,9 @@ class TempMyBinderFragment : Fragment() {
         binderViewModel = ViewModelProviders.of(this).get(MyBinderViewModel::class.java)
 
         // Get the Intent that started this activity and extract the string
-        val query = arguments?.getString(MY_BINDER_CARDS)
+        val safeArgs: MyBinderGridActivityArgs by navArgs()
+        val query = safeArgs.listToDisplay
+        val deckId = safeArgs.deckID
 
         when (query) {
             "ALL" -> {
@@ -88,7 +89,6 @@ class TempMyBinderFragment : Fragment() {
                         }
                     }
                 })
-                //actionbar?.title = getString(R.string.binder_all)
             }
             "RECENT" -> {
                 binderViewModel.allCardsByDate.observe(this, Observer { cards ->
@@ -100,7 +100,6 @@ class TempMyBinderFragment : Fragment() {
                         }
                     }
                 })
-                //actionbar?.title = getString(R.string.binder_recent)
             }
             else -> {
                 Log.d("BAD_INTENT", "query was not ALL or RECENT. Found $query")
