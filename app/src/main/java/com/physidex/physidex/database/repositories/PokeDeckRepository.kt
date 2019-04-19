@@ -3,8 +3,10 @@ package com.physidex.physidex.database.repositories
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
+import com.physidex.physidex.database.daos.CardDao
 import com.physidex.physidex.database.daos.DeckDao
 import com.physidex.physidex.database.entities.FullPokeCard
+import com.physidex.physidex.database.entities.PokeCardPerDeckEntity
 import com.physidex.physidex.database.entities.PokeDeckInfoEntity
 
 class PokeDeckRepository(private val deckDao: DeckDao) {
@@ -20,11 +22,6 @@ class PokeDeckRepository(private val deckDao: DeckDao) {
     }
 
     @WorkerThread
-    suspend fun addCard(deckId: Int, cardId: String) {
-        deckDao.addCard(deckId, cardId)
-    }
-
-    @WorkerThread
     suspend fun getDeck(deckId: Int) : LiveData<PokeDeckInfoEntity> {
         return deckDao.getDeckInfo(deckId)
     }
@@ -35,13 +32,29 @@ class PokeDeckRepository(private val deckDao: DeckDao) {
     }
 
     @WorkerThread
-    fun getCardCopies(deckId: Int) : LiveData<List<DeckDao.CardWithNumCopies>> {
+    fun getCardCopies(deckId: Int) : LiveData<List<CardDao.CopiesPerId>> {
         return deckDao.getCardCopies(deckId)
     }
 
     @WorkerThread
     fun getCardStat(deckId: Int, statType: String) : LiveData<Int> {
         return deckDao.getNumPerType(deckId, statType)
+    }
+
+    @WorkerThread
+    suspend fun addCard(deckId: Int, cardId: String) {
+        deckDao.addCard(deckId, cardId)
+    }
+
+    @WorkerThread
+    suspend fun removeCard(deckId: Int, cardId: String) {
+        deckDao.removeCard(PokeCardPerDeckEntity(cardId, deckId))
+    }
+
+    // Update the number of copies of a card in a deck
+    @WorkerThread
+    suspend fun updateCard(deckId: Int, cardId: String, newNumCopiesPerDeck: Int) {
+        deckDao.updateNumCopies(cardId, deckId, newNumCopiesPerDeck)
     }
 
     @WorkerThread

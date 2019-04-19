@@ -9,6 +9,7 @@ import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -41,7 +42,7 @@ class DeckDetailActivity : AppCompatActivity() {
             setHomeAsUpIndicator(R.drawable.ic_arrow_back)
             setBackgroundDrawable(ColorDrawable(
                     ContextCompat.getColor(this@DeckDetailActivity, R.color.colorPrimary)))
-
+            title = "Deck Details"
         }
 
         viewManager = LinearLayoutManager(this)
@@ -71,8 +72,6 @@ class DeckDetailActivity : AppCompatActivity() {
             deck.let {
                 viewAdapter.deckInfo = deck
                 viewAdapter.notifyDataSetChanged()
-
-                actionbar?.title = deck.deckName
             }
 
         })
@@ -111,14 +110,25 @@ class DeckDetailActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.add_card_action -> {
                 // add some sweet cards
+                addCards()
                 return true
             }
             R.id.delete_deck_action -> {
-                // delete the whole dang deck (and probably confirm with the user first
+                // delete the whole dang deck (and probably confirm with the user first)
                 return true
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    fun addCards() {
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction: FragmentTransaction = fragmentManager!!.beginTransaction()
+        val cardGrid = TempMyBinderFragment()
+        cardGrid.setCopiesPerDeck(viewModel.deckCardCopies.value!!)
+        fragmentTransaction.replace(R.id.deck_edit_constraintLayout, cardGrid)
+        fragmentTransaction.addToBackStack(null)
+        fragmentTransaction.commit()
     }
 
     // function from http://www.albertgao.xyz/2018/04/13/how-to-add-additional-parameters-to-viewmodel-via-kotlin/

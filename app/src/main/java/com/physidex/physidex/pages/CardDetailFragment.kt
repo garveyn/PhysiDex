@@ -1,7 +1,6 @@
 package com.physidex.physidex.pages
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.physidex.physidex.R
 import com.physidex.physidex.database.entities.FullPokeCard
-import com.physidex.physidex.database.viewmodels.SearchViewModel
+import com.physidex.physidex.database.viewmodels.CardDetailViewModel
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.card_detail.*
 
@@ -19,7 +18,7 @@ import kotlinx.android.synthetic.main.card_detail.*
 class CardDetailFragment : Fragment() {
 
     lateinit var detailedCard: FullPokeCard
-    private lateinit var cardViewModel: SearchViewModel
+    private lateinit var cardViewModel: CardDetailViewModel
     private lateinit var tableLayout: TableLayout
 
 
@@ -30,8 +29,14 @@ class CardDetailFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.card_detail, container, false)
 
+        return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         // Set up view model (used if added to binder)
-        cardViewModel = ViewModelProviders.of(this).get(SearchViewModel::class.java)
+        cardViewModel = ViewModelProviders.of(this).get(CardDetailViewModel::class.java)
         var found = false
         cardViewModel.allCardIds.observe(this, Observer { copies ->
             copies?.let {
@@ -52,7 +57,7 @@ class CardDetailFragment : Fragment() {
         })
 
         // add to binder button
-        val addButton: Button = view.findViewById(R.id.add_button)
+        val addButton: Button = add_binder_button
         addButton.setOnClickListener {
             val previousNum: Int = detailedCard.pokeCard.numCopies
             detailedCard.pokeCard.numCopies++
@@ -61,7 +66,7 @@ class CardDetailFragment : Fragment() {
         }
 
         // remove from binder button
-        val removeButton: Button = view.findViewById(R.id.remove_one_button)
+        val removeButton: Button = remove_one_button
         removeButton.setOnClickListener {
             if (detailedCard.pokeCard.numCopies > 1) {
                 cardViewModel.removeOne(detailedCard)
@@ -69,13 +74,38 @@ class CardDetailFragment : Fragment() {
         }
 
         // remove from binder button
-        val removeAllButton: Button = view.findViewById(R.id.remove_all_button)
+        val removeAllButton: Button = remove_all_button
         removeAllButton.setOnClickListener {
             if (detailedCard.pokeCard.numCopies > 0) {
                 cardViewModel.removeAll(detailedCard)
             } else {
                 fillTable(detailedCard, detailedCard.getInfo())
                 updateButtons()
+            }
+        }
+
+        // remove from deck button
+        val removeDeckButton: Button = remove_deck_button
+        removeDeckButton.setOnClickListener {
+            if (detailedCard.numCopiesPerDeck != null &&
+                    detailedCard.numCopiesPerDeck!! > 0) {
+                detailedCard.numCopiesPerDeck = detailedCard.numCopiesPerDeck!! - 1
+                fillTable(detailedCard, detailedCard.getInfo())
+                // cardViewModel.removeFromDeck(deckId, detailedCard)
+                updateDeckButtons()
+            }
+        }
+
+        // add to deck button
+        val addDeckButton: Button = add_deck_button
+        addDeckButton.setOnClickListener {
+            if (detailedCard.numCopiesPerDeck != null &&
+                    detailedCard.numCopiesPerDeck!! < detailedCard.pokeCard.numCopies) {
+                detailedCard.numCopiesPerDeck = detailedCard.numCopiesPerDeck!! + 1
+                fillTable(detailedCard, detailedCard.getInfo())
+                //cardViewModel.addToDeck(deckId, detailedCard)
+
+                updateDeckButtons()
             }
         }
 
@@ -97,9 +127,15 @@ class CardDetailFragment : Fragment() {
             tableLayout = view.findViewById(R.id.detail_table)
 
             this.fillTable(detailedCard, info)
-        }
 
-        return view
+            if (detailedCard.numCopiesPerDeck != null) {
+                removeAllButton.visibility = View.GONE
+                removeButton.visibility = View.GONE
+                addButton.visibility = View.GONE
+                addDeckButton.visibility = View.VISIBLE
+                removeDeckButton.visibility = View.VISIBLE
+            }
+        }
     }
 
     fun setCard(cardSelected: FullPokeCard) {
@@ -139,6 +175,24 @@ class CardDetailFragment : Fragment() {
             copies >= 1 -> {
                 remove_one_button.isEnabled = true
                 remove_all_button.isEnabled = true
+            }
+        }
+    }
+
+    fun updateDeckButtons() {
+        val copies: Int = detailedCard.numCopiesPerDeck as Int
+        when {
+            copies < 1 -> {
+                remove_deck_button.isEnabled = false
+                add_deck_button.isEnabled = true
+            }
+            copies == detailedCard.pokeCard.numCopies -> {
+                remove_deck_button.isEnabled = true
+                add_deck_button.isEnabled = false
+            }
+            copies > 0 -> {
+                remove_deck_button.isEnabled = true
+                add_deck_button.isEnabled = true
             }
         }
     }

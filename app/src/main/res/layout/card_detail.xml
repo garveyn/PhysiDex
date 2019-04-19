@@ -40,7 +40,7 @@
             tools:layout_editor_absoluteX="62dp">
 
             <Button
-                android:id="@+id/add_button"
+                android:id="@+id/add_binder_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/add_to_binder" />
@@ -59,13 +59,28 @@
                 android:layout_height="wrap_content"
                 android:text="@string/remove_all_from_binder" />
 
+            <Button
+                android:id="@+id/add_deck_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/add_to_deck_button"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/remove_deck_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-8dp"
+                android:text="@string/remove_from_deck_button"
+                android:enabled="false"
+                android:visibility="gone" />
+
             <TableLayout
                 android:id="@+id/detail_table"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/default_gap"
                 android:layout_marginEnd="@dimen/default_gap"/>
-
 
 
         </LinearLayout>

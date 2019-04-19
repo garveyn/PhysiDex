@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.physidex.physidex.R
+import com.physidex.physidex.database.daos.CardDao
 import com.physidex.physidex.database.daos.DeckDao
 import com.physidex.physidex.database.entities.FullPokeCard
 import com.physidex.physidex.database.entities.PokeDeckInfoEntity
@@ -21,7 +22,7 @@ class DeckDetailAdapter(var context: Context)
     lateinit var recyclerView: RecyclerView
     val inflater: LayoutInflater = LayoutInflater.from(context)
     var cards = emptyList<FullPokeCard>()
-    var copiesPerCard: List<DeckDao.CardWithNumCopies> = emptyList()
+    var copiesPerCard: List<CardDao.CopiesPerId> = emptyList()
     var totalCards: Int = 0
     var deckInfo = PokeDeckInfoEntity()
     var expandedPosition: Int = RecyclerView.NO_POSITION
@@ -158,7 +159,7 @@ class DeckDetailAdapter(var context: Context)
         recyclerView = rv
     }
 
-    fun setCopies(copies: List<DeckDao.CardWithNumCopies>) {
+    fun setCopies(copies: List<CardDao.CopiesPerId>) {
         copiesPerCard = copies
         // also needs to update buttons for each card:
         // if the number of copies in this deck = the number of copies owned,
