@@ -38,8 +38,8 @@ class PokeDeckRepository(private val deckDao: DeckDao) {
     }
 
     @WorkerThread
-    fun getCardStat(deckId: Int, statType: String) : LiveData<Int> {
-        return deckDao.getNumPerType(deckId, statType)
+    fun getCardStat(deckId: Int, statType: String) : LiveData<List<CardDao.CopiesPerId>> {
+        return deckDao.getCopiesPerType(deckId, statType)
     }
 
     @WorkerThread
@@ -68,24 +68,5 @@ class PokeDeckRepository(private val deckDao: DeckDao) {
         deckDao.removeAllCards(deckId)
         deckDao.deleteDeckInfo(deckId)
     }
-
-//    @WorkerThread
-//    suspend fun getCards(deckId: Int) : LiveData<List<DeckDao.CardWithNumCopies>> {
-//        val rawCards: LiveData<List<DeckDao.CardWithNumCopies>> = deckDao.getCardsQuery(deckId)
-////        val cards: LiveData<List<FullPokeCard>> = Transformations.map(rawCards) {
-////            cards -> putIntoFullPokeCard(cards)
-////        }
-//        return rawCards
-//    }
-
-//    fun putIntoFullPokeCard(cardWithCopies: List<DeckDao.CardWithNumCopies>) : List<FullPokeCard> {
-//        var fullCards: MutableList<FullPokeCard> = mutableListOf()
-//        for (card in cardWithCopies) {
-//            val pokeCardWithNum = card.card
-//            pokeCardWithNum.setNumCopiesPerDeck(card.numCopies)
-//            fullCards.add(pokeCardWithNum)
-//        }
-//        return fullCards
-//    }
 
 }

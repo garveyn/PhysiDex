@@ -22,7 +22,6 @@ class CardDetailFragment : Fragment() {
     private lateinit var tableLayout: TableLayout
     var deckId: Int = -1
 
-
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
@@ -53,7 +52,6 @@ class CardDetailFragment : Fragment() {
                 }
                 fillTable(detailedCard, detailedCard.getInfo())
                 updateButtons()
-                // Log.d("ALL_CARD_IDS", "allCardIds has updated. numCopies = ${detailedCard.pokeCard.numCopies}")
             }
         })
 

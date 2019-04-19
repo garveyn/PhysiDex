@@ -35,15 +35,25 @@ class DeckDetailViewModel(application: Application, deckId: Int): CardViewModel(
             deck -> repository.getCardCopies(deck.id)
         }
 
-        numPokemon = Transformations.switchMap(deckInfo) {
+        val pokemonList: LiveData<List<CardDao.CopiesPerId>> = Transformations.switchMap(deckInfo) {
             deck -> repository.getCardStat(deck.id, "POKEMON")
         }
-        numTrainers = Transformations.switchMap(deckInfo) {
-            deck -> repository.getCardStat(deck.id, "TRAINER")
+        numPokemon = Transformations.map(pokemonList) {
+            cards -> countCards(cards)
         }
-        numEnergy = Transformations.switchMap(deckInfo) {
+        val energyList = Transformations.switchMap(deckInfo) {
             deck -> repository.getCardStat(deck.id, "ENERGY")
         }
+        numEnergy = Transformations.map(energyList) {
+            cards -> countCards(cards)
+        }
+        val trainerList = Transformations.switchMap(deckInfo) {
+            deck -> repository.getCardStat(deck.id, "TRAINER")
+        }
+        numTrainers = Transformations.map(trainerList) {
+            cards -> countCards(cards)
+        }
+        
         numCards = Transformations.map(deckCardCopies) {
             cards -> countCards(cards)
         }
@@ -71,5 +81,9 @@ class DeckDetailViewModel(application: Application, deckId: Int): CardViewModel(
      */
     fun updateDeck(deck: PokeDeckInfoEntity) = scope.launch(Dispatchers.IO) {
         repository.updateDeck(deck.id, deck.deckName, deck.requiredSize)
+    }
+
+    fun delete(deckId: Int) = scope.launch(Dispatchers.IO) {
+        repository.deleteDeck(deckId)
     }
 }

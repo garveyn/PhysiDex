@@ -15,12 +15,16 @@ class CardDetailViewModel(application: Application): CardViewModel(application) 
 
     private val cardRepository: PokeCardRepository
     private val deckRepository: PokeDeckRepository
+    // val cardDetail: LiveData<FullPokeCard> // To be potentially used to fetch one card from database
     val allCardIds: LiveData<List<CardDao.CopiesPerId>>
 
     init {
         val cardDao = PhysiDexDatabase.getDatabase(application, scope).fullCardDao()
         cardRepository = PokeCardRepository(cardDao)
         allCardIds = cardRepository.allCardIds
+        // cardDetail = cardRepository.cardDetail
+
+        // for a card being viewed in a deck
         val deckDao = PhysiDexDatabase.getDatabase(application, scope).deckDao()
         deckRepository = PokeDeckRepository(deckDao)
     }
@@ -54,11 +58,9 @@ class CardDetailViewModel(application: Application): CardViewModel(application) 
         // determine if this is the first copy of this card being added to this deck
         if ((card.numCopiesPerDeck!! - 1) == 0) {
             // if so, add it in a new entry
-            // card.numCopiesPerDeck = 1
             deckRepository.addCard(deckId, card.pokeCard.id)
         } else {
             // if not, just increase the number of copies
-            // card.numCopiesPerDeck = card.numCopiesPerDeck!! + 1
             deckRepository.updateCard(deckId, card.pokeCard.id, card.numCopiesPerDeck!!)
         }
     }
