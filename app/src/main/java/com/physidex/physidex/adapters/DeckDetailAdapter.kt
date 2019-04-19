@@ -72,7 +72,6 @@ class DeckDetailAdapter(var context: Context)
     override fun getItemCount() = cards.size + 1
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        Log.d("HOLDER_TYPE", holder::class.java.toString())
         if (holder is DeckHeaderHolder && getItemViewType(position) == HEADER) {
             holder.apply {
                 deckNameText.text   = deckInfo.deckName
@@ -88,9 +87,9 @@ class DeckDetailAdapter(var context: Context)
                         deckInfo.gamesPlayed
                 )
             }
-        } else if (holder is DeckDetailHolder) {
+        } else if (holder is DeckDetailHolder && position > 0) {
             // TODO: check if position needs to be refactored to be position - 1
-            val currentCard = cards[position]
+            val currentCard = cards[position - 1]
             val isExpanded: Boolean = position == expandedPosition
 
             // region Expand and contract viewholder if clicked

@@ -13,6 +13,8 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -86,6 +88,12 @@ open class MainActivity : AppCompatActivity() {
 
 
     }
+
+    // function from http://www.albertgao.xyz/2018/04/13/how-to-add-additional-parameters-to-viewmodel-via-kotlin/
+    inline fun <VM : ViewModel> viewModelFactory(crossinline f: () -> VM) =
+            object : ViewModelProvider.Factory {
+                override fun <T : ViewModel> create(aClass: Class<T>):T = f() as T
+            }
 
     /**
      * A native method that is implemented by the 'native-lib' native library,

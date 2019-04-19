@@ -61,7 +61,8 @@ class DeckDetailActivity : Fragment() {
         }
 
         // get data from view model
-        viewModel = ViewModelProviders.of(this, viewModelFactory {
+        viewModel = ViewModelProviders.of(this,
+                (requireActivity() as MainActivity).viewModelFactory {
             DeckDetailViewModel(this.requireActivity().application, deckId) }).get(DeckDetailViewModel::class.java)
 
         // set data in RecyclerView
@@ -140,18 +141,10 @@ class DeckDetailActivity : Fragment() {
             findNavController().navigate(action)
 
             // TODO change this to not temp
-            val cardGrid = TempMyBinderFragment()
+            val cardGrid = MyBinderGridFragment()
             cardGrid.setCopiesPerDeck(viewModel.deckCardCopies.value!!)
         }
 
 
-
-
     }
-
-    // function from http://www.albertgao.xyz/2018/04/13/how-to-add-additional-parameters-to-viewmodel-via-kotlin/
-    protected inline fun <VM : ViewModel> viewModelFactory(crossinline f: () -> VM) =
-            object : ViewModelProvider.Factory {
-                override fun <T : ViewModel> create(aClass: Class<T>):T = f() as T
-            }
 }
