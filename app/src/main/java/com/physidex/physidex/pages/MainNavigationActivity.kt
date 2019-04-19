@@ -1,6 +1,7 @@
 package com.physidex.physidex.pages
 
 import android.os.Bundle
+import android.util.Log
 // import android.support.design.widget.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
@@ -34,6 +35,7 @@ open class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.drawer_test)
+
         setupNavigation()
     }
 
@@ -56,21 +58,32 @@ open class MainActivity : AppCompatActivity() {
         // inspired by:
         // https://stackoverflow.com/questions/51528870/android-navigation-architecture-component-nav-drawer-icons
         val navController = findNavController(this, R.id.fragment)
-        val appBarConfiguration = AppBarConfiguration(topLevelDestinations, drawer_layout)
+        navController.addOnDestinationChangedListener { controller, destination, arguments ->
+            if (destination.id == R.id.deckDetailActivity) {
+                Log.d("owo", "setupNav called!!!!!!!!!!!!!")
+                setupActionBarWithNavController(this, controller)
+                fragment.setHasOptionsMenu(true)
+            } else {
+                val appBarConfiguration = AppBarConfiguration(topLevelDestinations, drawer_layout)
 
-        nav_view.setNavigationItemSelectedListener { menuItem ->
+                nav_view.setNavigationItemSelectedListener { menuItem ->
 
-            menuItem.isChecked=true
+                    menuItem.isChecked=true
 
-            drawer_layout.closeDrawers()
+                    drawer_layout.closeDrawers()
 
-            true
+                    true
+                }
+
+                setSupportActionBar(toolbar)
+                setupActionBarWithNavController(controller, appBarConfiguration)
+
+                nav_view.setupWithNavController(controller)
+            }
+
         }
 
-        setSupportActionBar(toolbar)
-        setupActionBarWithNavController(navController, appBarConfiguration)
 
-        nav_view.setupWithNavController(navController)
 
     }
 
