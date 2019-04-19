@@ -1,7 +1,6 @@
 package com.physidex.physidex.pages
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -20,7 +19,6 @@ import com.physidex.physidex.R
 import com.physidex.physidex.adapters.DeckAdapter
 import com.physidex.physidex.database.viewmodels.DeckManagerViewModel
 import com.physidex.physidex.decorations.SeparatorItemDecoration
-import com.physidex.physidex.testClasses.TestData
 
 
 
@@ -39,8 +37,6 @@ class DeckManagerFragment : Fragment() {
     {
         // Inflate the layout for this fragment
         var view = inflater.inflate(R.layout.deck_manager_main, container, false)
-
-        val testData = TestData.buildDecks()
 
         viewManager = LinearLayoutManager(context)
         viewAdapter = DeckAdapter(this)

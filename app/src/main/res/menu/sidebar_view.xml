@@ -2,37 +2,44 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
 
+        <!-- Home -->
+        <item
+            android:id="@+id/homeFragment"
+            android:icon="@drawable/ic_home"
+            android:title="@string/home_page"
+            />
+
         <!-- Search -->
         <item
-            android:id="@+id/search_page"
+            android:id="@+id/searchHomeFragment"
             android:icon="@drawable/ic_search"
             android:title="@string/search"
             />
 
         <!-- Deck Manager -->
         <item
-            android:id="@+id/deck_manager_menu"
+            android:id="@+id/deckManagerFragment"
             android:icon="@drawable/ic_decks"
             android:title="@string/deck_manager"
             />
 
         <!-- Game Manager -->
         <item
-            android:id="@+id/game_manager_menu"
+            android:id="@+id/gameManagerHomeFragment"
             android:icon="@drawable/ic_play_arrow"
             android:title="@string/game_manager"
             />
 
         <!-- My Binder -->
         <item
-            android:id="@+id/my_binder_menu"
+            android:id="@+id/myBinderHomeFragment"
             android:icon="@drawable/ic_binder"
             android:title="@string/my_binder"
             />
 
         <!-- Settings -->
         <item
-            android:id="@+id/action_settings"
+            android:id="@+id/settingsFragment"
             android:icon="@drawable/ic_settings"
             android:title="@string/action_settings"
             />
