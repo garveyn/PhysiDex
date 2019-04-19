@@ -74,7 +74,7 @@ class TempMyBinderFragment : Fragment() {
         binderViewModel = ViewModelProviders.of(this).get(MyBinderViewModel::class.java)
 
         // Get the Intent that started this activity and extract the string
-        val safeArgs: MyBinderGridActivityArgs by navArgs()
+        val safeArgs: MyBinderGridFragmentArgs by navArgs()
         val query = safeArgs.listToDisplay
         val deckId = safeArgs.deckID
 

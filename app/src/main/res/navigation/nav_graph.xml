@@ -55,7 +55,7 @@
         tools:layout="@layout/my_binder_main" >
         <action
             android:id="@+id/actionOpenBinder"
-            app:destination="@id/myBinderGridActivity"
+            app:destination="@id/myBinderGridFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
@@ -71,17 +71,16 @@
         android:label="@string/action_settings"
         tools:layout="@layout/settings_main"/>
     <fragment
-        android:id="@+id/myBinderGridActivity"
-        android:name="com.physidex.physidex.pages.MyBinderGridActivity"
-        android:label="MyBinderGridActivity"
-        tools:layout="@layout/my_binder_grid">
+        android:id="@+id/myBinderGridFragment"
+        android:name="com.physidex.physidex.pages.MyBinderGridFragment"
+        android:label="MyBinderGridFragment">
         <argument
             android:name="listToDisplay"
             app:argType="string" />
         <argument
             android:name="deckID"
-            app:argType="integer"
-            android:defaultValue="-1" />
+            android:defaultValue="-1"
+            app:argType="integer" />
         <action
             android:id="@+id/actionCardDetails"
             app:destination="@id/cardDetailFragment"
@@ -100,7 +99,7 @@
             app:argType="integer" />
         <action
             android:id="@+id/actionAddCards"
-            app:destination="@id/myBinderGridActivity"
+            app:destination="@id/myBinderGridFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
