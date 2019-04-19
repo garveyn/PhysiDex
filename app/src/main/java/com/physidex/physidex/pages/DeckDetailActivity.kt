@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.*
 import android.widget.Button
 import android.widget.PopupWindow
+import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -29,6 +30,7 @@ class DeckDetailActivity : Fragment() {
     private lateinit var viewAdapter: DeckDetailAdapter
     private lateinit var viewManager: RecyclerView.LayoutManager
     private lateinit var viewModel: DeckDetailViewModel
+    var deckId: Int = -1
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.deck_details, container, false)
@@ -38,7 +40,7 @@ class DeckDetailActivity : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewManager = LinearLayoutManager(requireContext())
-        viewAdapter = DeckDetailAdapter(requireContext())
+        viewAdapter = DeckDetailAdapter(requireContext(), this)
 
         recyclerView = dd_recyclerView.apply {
 
@@ -50,7 +52,7 @@ class DeckDetailActivity : Fragment() {
         }
 
         val safeArgs: DeckDetailActivityArgs by navArgs()
-        val deckId = safeArgs.deckID
+        deckId = safeArgs.deckID
         if (deckId == -1) {
             Log.d("DECK_ERROR", "Deck id not passed to DeckDetailActivity")
         }
@@ -89,10 +91,6 @@ class DeckDetailActivity : Fragment() {
             num?.let { deck_energy_value.text = num.toString() }
         })
 
-        // Setup deck management buttons
-        delete_deck.setOnClickListener { deleteDeck() }
-        add_cards.setOnClickListener { addCards() }
-
 
     }
 
@@ -119,12 +117,20 @@ class DeckDetailActivity : Fragment() {
             dimBehind()
         }
 
-        delete.setOnClickListener {
-            
+        val deleteButton: Button    = popupView.findViewById(R.id.delete)
+        val cancelButton: Button    = popupView.findViewById(R.id.cancel)
+        val textView:     TextView  = popupView.findViewById(R.id.delete_deck_prompt)
+
+        textView.text = String.format(getString(R.string.deck_delete_confirmation), viewModel.deckInfo.value!!.deckName)
+
+        deleteButton.setOnClickListener {
+            Log.d("owo","Delete Deck")
+            viewModel.delete(deckId)
+            // TODO: exit to deck manager
         }
 
         // Do nothing if canceled
-        cancel.setOnClickListener { deleteDeck.dismiss() }
+        cancelButton.setOnClickListener { deleteDeck.dismiss() }
 
 
     }

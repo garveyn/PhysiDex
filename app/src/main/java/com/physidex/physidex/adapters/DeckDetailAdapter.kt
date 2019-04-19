@@ -2,21 +2,27 @@ package com.physidex.physidex.adapters
 
 import android.content.Context
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.PopupWindow
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.physidex.physidex.R
 import com.physidex.physidex.database.daos.CardDao
 import com.physidex.physidex.database.daos.DeckDao
 import com.physidex.physidex.database.entities.FullPokeCard
 import com.physidex.physidex.database.entities.PokeDeckInfoEntity
+import com.physidex.physidex.dimBehind
+import com.physidex.physidex.pages.DeckDetailActivity
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.delete_deck_prompt.*
 
-class DeckDetailAdapter(var context: Context)
+class DeckDetailAdapter(var context: Context, var fragment: DeckDetailActivity)
     : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     lateinit var recyclerView: RecyclerView
@@ -46,6 +52,8 @@ class DeckDetailAdapter(var context: Context)
         val creationDate:       TextView    = itemView.findViewById(R.id.creation_date)
         val modifyDate:         TextView    = itemView.findViewById(R.id.modified_date)
         val gamesPlayed:        TextView    = itemView.findViewById(R.id.games_played)
+        val deleteWholeDeck:    Button      = itemView.findViewById(R.id.delete_deck)
+        val addCardsToDeck:     Button      = itemView.findViewById(R.id.add_cards)
 
     }
 
@@ -79,13 +87,17 @@ class DeckDetailAdapter(var context: Context)
                 modifyDate.text     = deckInfo.lastModified
                 deckSize.text       = String.format(
                         itemView.resources.getString(R.string.deck_cards_slash_total),
-                        cards.size,
+                        totalCards,
                         deckInfo.requiredSize
                 )
                 gamesPlayed.text    = String.format(
                         itemView.resources.getString(R.string.deck_games_played),
                         deckInfo.gamesPlayed
                 )
+
+                // Setup deck management buttons
+                deleteWholeDeck.setOnClickListener { fragment.deleteDeck() }
+                addCardsToDeck.setOnClickListener { fragment.addCards() }
             }
         } else if (holder is DeckDetailHolder && position > 0) {
             // TODO: check if position needs to be refactored to be position - 1
@@ -165,4 +177,6 @@ class DeckDetailAdapter(var context: Context)
         // disable the "add" button, because no more copies of that card can be added.
         // this could possibly be done in the "add" (onclick) function instead.
     }
+
+
 }
