@@ -25,6 +25,7 @@ Thumbs.db
 *.iml
 .idea
 #.idea/workspace.xml - remove # and delete .idea if it better suit your needs.
+.idea/caches/
 .gradle
 build/
 .navigation
@@ -34,3 +35,4 @@ output.json
 #NDK
 obj/
 .externalNativeBuild
+
