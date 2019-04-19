@@ -40,12 +40,10 @@ class DeckDetailActivity : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupNavigation()
+
         viewManager = LinearLayoutManager(requireContext())
         viewAdapter = DeckDetailAdapter(requireContext())
-
-        val navController = Navigation.findNavController((requireActivity() as MainActivity), R.id.fragment)
-        setupActionBarWithNavController((requireActivity() as MainActivity), navController)
-        setHasOptionsMenu(true)
 
         recyclerView = dd_recyclerView.apply {
 
@@ -117,6 +115,22 @@ class DeckDetailActivity : Fragment() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onPause() {
+        (requireActivity() as MainActivity).setupNavigation()
+        super.onPause()
+    }
+
+    override fun onResume() {
+        setupNavigation()
+        super.onResume()
+    }
+
+    fun setupNavigation() {
+        val navController = Navigation.findNavController((requireActivity() as MainActivity), R.id.fragment)
+        setupActionBarWithNavController((requireActivity() as MainActivity), navController)
+        setHasOptionsMenu(true)
     }
 
     fun addCards() {

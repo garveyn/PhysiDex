@@ -34,6 +34,24 @@ open class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.drawer_test)
+        setupNavigation()
+    }
+
+
+    override fun onSupportNavigateUp(): Boolean {
+        return navigateUp(findNavController(this, R.id.fragment),
+                AppBarConfiguration(topLevelDestinations, drawer_layout))
+    }
+
+    override fun onBackPressed() {
+        if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
+            drawer_layout.closeDrawer(GravityCompat.START)
+        } else {
+            super.onBackPressed()
+        }
+    }
+
+    fun setupNavigation() {
 
         // inspired by:
         // https://stackoverflow.com/questions/51528870/android-navigation-architecture-component-nav-drawer-icons
@@ -54,44 +72,7 @@ open class MainActivity : AppCompatActivity() {
 
         nav_view.setupWithNavController(navController)
 
-
-
     }
-
-
-    override fun onSupportNavigateUp(): Boolean {
-        return navigateUp(findNavController(this, R.id.fragment),
-                AppBarConfiguration(topLevelDestinations, drawer_layout))
-    }
-
-    override fun onBackPressed() {
-        if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
-            drawer_layout.closeDrawer(GravityCompat.START)
-        } else {
-            super.onBackPressed()
-        }
-    }
-
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        return when (item.itemId) {
-//            android.R.id.home -> {
-//                drawerLayout.openDrawer(START)
-//                true
-//            }
-//            else -> super.onOptionsItemSelected(item)
-//        }
-//    }
-//
-//
-//    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        menuInflater.inflate(R.menu.menu_main, menu)
-//        return true
-//    }
-
-
-
-
 
     /**
      * A native method that is implemented by the 'native-lib' native library,
