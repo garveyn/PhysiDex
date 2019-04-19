@@ -19,7 +19,7 @@ import com.physidex.physidex.R
 import com.physidex.physidex.adapters.DeckAdapter
 import com.physidex.physidex.database.viewmodels.DeckManagerViewModel
 import com.physidex.physidex.decorations.SeparatorItemDecoration
-
+import com.physidex.physidex.dimBehind
 
 
 class DeckManagerFragment : Fragment() {
@@ -74,20 +74,6 @@ class DeckManagerFragment : Fragment() {
     }
 
 
-    /**
-     * Code adapted from:
-     * https://stackoverflow.com/questions/35874001/dim-the-background-using-popupwindow-in-android/46711174
-     *
-     */
-    private fun PopupWindow.dimBehind() {
-        val container = contentView.rootView
-        val context = contentView.context
-        val wm = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
-        val p = container.layoutParams as WindowManager.LayoutParams
-        p.flags = p.flags or WindowManager.LayoutParams.FLAG_DIM_BEHIND
-        p.dimAmount = 0.3f
-        wm.updateViewLayout(container, p)
-    }
 
     fun createDeckPopup(v: View?) {
         // Bring up new deck popup

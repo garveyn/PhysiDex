@@ -42,6 +42,9 @@
     <string name="new_deck_safety_prompt">This can be changed later</string>
     <string name="deck_cards_slash_total">%1$d/%2$d cards</string>
     <string name="deck_games_played">Games played: %1$d</string>
+    <string name="deck_delete_confirmation">Are you sure you wish to delete %1$s? This cannot be undone!</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
 
     <!-- My Binder -->
     <string name="binder_recent">Recently Added</string>

@@ -1,18 +1,13 @@
 package com.physidex.physidex.pages
 
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import androidx.appcompat.app.ActionBar
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
-import androidx.core.content.ContextCompat
+import android.widget.Button
+import android.widget.PopupWindow
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
@@ -23,8 +18,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.physidex.physidex.R
 import com.physidex.physidex.adapters.DeckDetailAdapter
 import com.physidex.physidex.database.viewmodels.DeckDetailViewModel
+import com.physidex.physidex.dimBehind
 import kotlinx.android.synthetic.main.deck_details.*
-import kotlinx.android.synthetic.main.drawer_test.*
+import kotlinx.android.synthetic.main.deck_info.*
+import kotlinx.android.synthetic.main.delete_deck_prompt.*
 
 class DeckDetailActivity : Fragment() {
 
@@ -39,8 +36,6 @@ class DeckDetailActivity : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        setupNavigation()
 
         viewManager = LinearLayoutManager(requireContext())
         viewAdapter = DeckDetailAdapter(requireContext())
@@ -94,44 +89,11 @@ class DeckDetailActivity : Fragment() {
             num?.let { deck_energy_value.text = num.toString() }
         })
 
+        // Setup deck management buttons
+        delete_deck.setOnClickListener { deleteDeck() }
+        add_cards.setOnClickListener { addCards() }
 
 
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.deck_detail_menu, menu)
-        super.onCreateOptionsMenu(menu, inflater)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.add_card_action -> {
-                // add some sweet cards
-                addCards()
-                return true
-            }
-            R.id.delete_deck_action -> {
-                // TODO delete the whole dang deck (and probably confirm with the user first)
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
-    override fun onPause() {
-        (requireActivity() as MainActivity).setupNavigation()
-        super.onPause()
-    }
-
-    override fun onResume() {
-        setupNavigation()
-        super.onResume()
-    }
-
-    fun setupNavigation() {
-        val navController = Navigation.findNavController((requireActivity() as MainActivity), R.id.fragment)
-        setupActionBarWithNavController((requireActivity() as MainActivity), navController)
-        setHasOptionsMenu(true)
     }
 
     fun addCards() {
@@ -144,6 +106,28 @@ class DeckDetailActivity : Fragment() {
             val cardGrid = MyBinderGridFragment()
             cardGrid.setCopiesPerDeck(viewModel.deckCardCopies.value!!)
         }
+
+
+    }
+
+    fun deleteDeck() {
+        // Bring up new deck popup
+        val inflater = LayoutInflater.from(context)
+
+        val popupView = inflater.inflate(R.layout.delete_deck_prompt, null)
+
+        val deleteDeck = PopupWindow(popupView, ConstraintLayout.LayoutParams.WRAP_CONTENT,
+                ConstraintLayout.LayoutParams.WRAP_CONTENT, true).apply {
+            showAtLocation(view, Gravity.CENTER, 0, 0)
+            dimBehind()
+        }
+
+        delete.setOnClickListener {
+            
+        }
+
+        // Do nothing if canceled
+        cancel.setOnClickListener { deleteDeck.dismiss() }
 
 
     }
