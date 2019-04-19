@@ -20,6 +20,7 @@ class CardDetailFragment : Fragment() {
     lateinit var detailedCard: FullPokeCard
     private lateinit var cardViewModel: CardDetailViewModel
     private lateinit var tableLayout: TableLayout
+    var deckId: Int = -1
 
 
     override fun onCreateView(
@@ -88,10 +89,10 @@ class CardDetailFragment : Fragment() {
         val removeDeckButton: Button = remove_deck_button
         removeDeckButton.setOnClickListener {
             if (detailedCard.numCopiesPerDeck != null &&
-                    detailedCard.numCopiesPerDeck!! > 0) {
+                    detailedCard.numCopiesPerDeck!! > 0 && deckId != -1) {
                 detailedCard.numCopiesPerDeck = detailedCard.numCopiesPerDeck!! - 1
                 fillTable(detailedCard, detailedCard.getInfo())
-                // cardViewModel.removeFromDeck(deckId, detailedCard)
+                cardViewModel.removeFromDeck(deckId, detailedCard)
                 updateDeckButtons()
             }
         }
@@ -99,11 +100,11 @@ class CardDetailFragment : Fragment() {
         // add to deck button
         val addDeckButton: Button = add_deck_button
         addDeckButton.setOnClickListener {
-            if (detailedCard.numCopiesPerDeck != null &&
+            if (detailedCard.numCopiesPerDeck != null && deckId != -1 &&
                     detailedCard.numCopiesPerDeck!! < detailedCard.pokeCard.numCopies) {
                 detailedCard.numCopiesPerDeck = detailedCard.numCopiesPerDeck!! + 1
                 fillTable(detailedCard, detailedCard.getInfo())
-                //cardViewModel.addToDeck(deckId, detailedCard)
+                cardViewModel.addToDeck(deckId, detailedCard)
 
                 updateDeckButtons()
             }

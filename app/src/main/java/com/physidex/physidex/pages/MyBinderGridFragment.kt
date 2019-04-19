@@ -41,6 +41,11 @@ class MyBinderGridFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Get the Intent that started this activity and extract the string
+        val safeArgs: MyBinderGridFragmentArgs by navArgs()
+        val query = safeArgs.listToDisplay
+        val deckId = safeArgs.deckID
+
         // Set up RecyclerView
         recyclerView = view.findViewById(R.id.binder_cards_view)
         adapter = DisplayCardAdapter(context!!) { index ->
@@ -48,6 +53,7 @@ class MyBinderGridFragment : Fragment() {
             val fragmentTransaction = requireFragmentManager().beginTransaction()
             val detail = CardDetailFragment()
             detail.detailedCard = adapter.cards[index]
+            detail.deckId = deckId
             fragmentTransaction.replace(R.id.grid_constraintLayout, detail)
             fragmentTransaction.addToBackStack(null)
             fragmentTransaction.commit()
@@ -57,12 +63,25 @@ class MyBinderGridFragment : Fragment() {
         recyclerView.layoutManager = GridLayoutManager(context, 3)
 
         // Set up view model
-        binderViewModel = ViewModelProviders.of(this).get(MyBinderViewModel::class.java)
+        if (deckId == -1) {
+            binderViewModel = ViewModelProviders.of(this,
+                    (requireActivity() as MainActivity).viewModelFactory {
+                        MyBinderViewModel(this.requireActivity().application, -1) })
+                    .get(MyBinderViewModel::class.java)
+        } else {
+            Log.d("MY_BINDER_DECK", "Received deck id: $deckId")
+            binderViewModel = ViewModelProviders.of(this,
+                    (requireActivity() as MainActivity).viewModelFactory {
+                        MyBinderViewModel(this.requireActivity().application, deckId) })
+                    .get(MyBinderViewModel::class.java)
 
-        // Get the Intent that started this activity and extract the string
-        val safeArgs: MyBinderGridFragmentArgs by navArgs()
-        val query = safeArgs.listToDisplay
-        val deckId = safeArgs.deckID
+            binderViewModel.deckCardCopies.observe(this, Observer { deckCCopies ->
+                deckCCopies?.let {
+                    adapter.updateResults(it)
+                    deckCopies = it
+                }
+            })
+        }
 
         when (query) {
             "ALL" -> {

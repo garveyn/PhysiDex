@@ -56,7 +56,10 @@ class MyBinderHomeFragment : Fragment() {
         // They are in the following regions:
 
         // Initialize view model
-        binderViewModel = ViewModelProviders.of(this).get(MyBinderViewModel::class.java)
+        binderViewModel = ViewModelProviders.of(this,
+                (requireActivity() as MainActivity).viewModelFactory {
+                    MyBinderViewModel(this.requireActivity().application, -1) })
+                .get(MyBinderViewModel::class.java)
 
         // Initialize lists
         recentCards = emptyList<FullPokeCard>()

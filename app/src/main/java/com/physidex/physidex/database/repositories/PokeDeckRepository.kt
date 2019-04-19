@@ -14,6 +14,7 @@ class PokeDeckRepository(private val deckDao: DeckDao) {
     // execute queries asynchronously
     val allDecks: LiveData<List<PokeDeckInfoEntity>> = deckDao.getAllDecks()
     val deckDetail: LiveData<PokeDeckInfoEntity> = deckDao.getOneDeck()
+    val deckCopies: LiveData<List<CardDao.CopiesPerId>> = deckDao.getCardCopies(-1)
     //val allCards: LiveData<List<PokeDeckInfoEntity>>
 
     @WorkerThread
