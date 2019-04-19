@@ -19,11 +19,11 @@ abstract class CardDao {
     abstract fun insertCard(card: PokeCardEntity)
 
     // Update query- custom query because the only field changed is the number of copies.
-    @Query("UPDATE Poke_Card SET num_copies = :numberOfNewCopies WHERE id = :cardId")
+    @Query("UPDATE Poke_Card SET num_copies = :numberOfNewCopies WHERE id == :cardId")
     abstract fun updateCard(cardId: String, numberOfNewCopies: Int)
 
-//    @Delete
-//    abstract fun removeCard(card: FullPokeCard)
+    @Query("DELETE FROM Poke_Card WHERE id == :cardId")
+    abstract fun deleteCard(cardId: String)
 
     @Query("DELETE FROM Poke_Card")
     abstract fun deleteAll()
@@ -39,7 +39,8 @@ abstract class CardDao {
 
     @Transaction
     @Query("SELECT * FROM Poke_Card WHERE id == :id")
-    abstract fun getCard(id: String): List<FullPokeCard>
+    abstract fun getCard(id: String): LiveData<FullPokeCard>
+
 
     @Transaction
     @Query("SELECT * FROM Poke_Card ORDER BY first_added DESC")

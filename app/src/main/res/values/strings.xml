@@ -24,6 +24,8 @@
     <string name="results_number">%1$d results found</string>
     <string name="card_description">PokeCard found</string>
     <string name="add_to_binder">ADD TO MY BINDER</string>
+    <string name="remove_from_binder">REMOVE A COPY FROM MY BINDER</string>
+    <string name="remove_all_from_binder">REMOVE ALL COPIES FROM MY BINDER</string>
 
     <!-- Deck Manager Page -->
     <string name="deck_play">Play!</string>
@@ -46,9 +48,12 @@
     <string name="binder_most_used">Most Used</string>
     <string name="binder_all">All Cards</string>
     <string name="binder_owned">x%1$d</string>
+    <string name="deck_owned">%1$d/%2$d</string>
     <string name="view_more">View More</string>
     <string name="deck_menu_add_cards">Add Cards</string>
     <string name="deck_menu_delete_deck">Delete Deck</string>
+    <string name="add_to_deck_button">ADD TO DECK</string>
+    <string name="remove_from_deck_button">REMOVE FROM DECK</string>
 
 
 </resources>

@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.physidex.physidex.database.PhysiDexDatabase
+import com.physidex.physidex.database.daos.CardDao
 import com.physidex.physidex.database.daos.DeckDao
 import com.physidex.physidex.database.entities.FullPokeCard
 import com.physidex.physidex.database.entities.PokeDeckInfoEntity
@@ -16,10 +17,11 @@ class DeckDetailViewModel(application: Application, deckId: Int): CardViewModel(
     private val repository: PokeDeckRepository
     var deckInfo: LiveData<PokeDeckInfoEntity>
     var deckCards: LiveData<List<FullPokeCard>>
-    var deckCardCopies: LiveData<List<DeckDao.CardWithNumCopies>>
+    var deckCardCopies: LiveData<List<CardDao.CopiesPerId>>
     var numPokemon: LiveData<Int>
     var numTrainers: LiveData<Int>
     var numEnergy: LiveData<Int>
+    var numCards: LiveData<Int>
 
     init {
         val deckDao = PhysiDexDatabase.getDatabase(application, scope).deckDao()
@@ -42,10 +44,22 @@ class DeckDetailViewModel(application: Application, deckId: Int): CardViewModel(
         numEnergy = Transformations.switchMap(deckInfo) {
             deck -> repository.getCardStat(deck.id, "ENERGY")
         }
+        numCards = Transformations.map(deckCardCopies) {
+            cards -> countCards(cards)
+        }
     }
 
     fun getDeck(deckId: Int) = scope.launch(Dispatchers.IO) {
         deckInfo = repository.getDeck(deckId)
+    }
+
+    fun countCards(cardCopies: List<CardDao.CopiesPerId>): Int {
+        var cardCount = 0
+        cardCopies.forEach {
+            cardCount += it.numCopies
+        }
+
+        return cardCount
     }
 
     /**

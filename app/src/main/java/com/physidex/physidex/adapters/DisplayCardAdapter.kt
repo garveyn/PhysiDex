@@ -1,6 +1,7 @@
 package com.physidex.physidex.adapters
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,9 +42,13 @@ class DisplayCardAdapter(var context: Context, val itemClick: (Int) -> Unit) :
         holder.itemView.isClickable = true
         holder.itemView.setOnClickListener{ itemClick(position) }
 
-        holder.cardOwnedTextView.text = String.format(context.getString(R.string.binder_owned),
-                currentCard.pokeCard.numCopies)
-
+        if (currentCard.numCopiesPerDeck != null) {
+            holder.cardOwnedTextView.text = String.format(context.getString(R.string.deck_owned),
+                    currentCard.numCopiesPerDeck, currentCard.pokeCard.numCopies)
+        } else {
+            holder.cardOwnedTextView.text = String.format(context.getString(R.string.binder_owned),
+                    currentCard.pokeCard.numCopies)
+        }
 
         Picasso.with(context)
                 .load(currentCard.pokeCard.imageUrl)
@@ -57,12 +62,27 @@ class DisplayCardAdapter(var context: Context, val itemClick: (Int) -> Unit) :
         notifyDataSetChanged()
     }
 
-    // update numCopies
-    fun updateResults(allCards: List<CardDao.CopiesPerId>) {
-        val cardsOwned: Map<String, Int> = allCards.map { it.id to it.numCopies}.toMap()
+    /**
+     * Set the number of copies for each card in one deck
+     * @param allCards a list of all the ids of cards in my binder or one specific deck,
+     * with the number of copies of each card that are in my binder / that deck.
+     *
+     */
+    fun updateResults(allCards: List<CardDao.CopiesPerId>, isDeck: Boolean = false) {
+        val cardsOwned: Map<String, Int> = allCards.map { it.id to it.numCopies }.toMap()
         for (card in this.cards) {
             if (cardsOwned.contains(card.pokeCard.id) ) {
-                card.pokeCard.numCopies = cardsOwned[card.pokeCard.id] as Int
+                if (!isDeck) {
+                    card.pokeCard.numCopies = cardsOwned[card.pokeCard.id] as Int
+                } else {
+                    card.numCopiesPerDeck = cardsOwned[card.pokeCard.id] as Int
+                }
+            } else {
+                if (!isDeck) {
+                    card.pokeCard.numCopies = 0
+                } else {
+                    card.numCopiesPerDeck = 0
+                }
             }
         }
         notifyDataSetChanged()

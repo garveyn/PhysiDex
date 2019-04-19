@@ -24,7 +24,7 @@ import com.physidex.physidex.R
 import com.physidex.physidex.adapters.DisplayCardAdapter
 import com.physidex.physidex.database.daos.CardDao
 import com.physidex.physidex.database.entities.FullPokeCard
-import com.physidex.physidex.database.viewmodels.SearchViewModel
+import com.physidex.physidex.database.viewmodels.CardDetailViewModel
 import com.physidex.physidex.testClasses.TestData
 import io.pokemontcg.model.Card
 import kotlinx.android.synthetic.main.activity_display_card.*
@@ -33,7 +33,7 @@ class SearchResultsActivity : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: DisplayCardAdapter
-    private lateinit var cardViewModel: SearchViewModel
+    private lateinit var cardViewModel: CardDetailViewModel
     var fullPokeCards: List<FullPokeCard> = emptyList()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -64,7 +64,7 @@ class SearchResultsActivity : Fragment() {
         //recyclerView.addItemDecoration(GridItemDecoration(1, 2))
 
         // Set up view model (used to check numCopies of each card)
-        cardViewModel = ViewModelProviders.of(this).get(SearchViewModel::class.java)
+        cardViewModel = ViewModelProviders.of(this).get(CardDetailViewModel::class.java)
         cardViewModel.allCardIds.observe(this, Observer { cards ->
             cards?.let { adapter.updateResults(it)}
         })

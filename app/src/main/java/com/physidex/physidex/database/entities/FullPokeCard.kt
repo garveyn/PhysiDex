@@ -73,6 +73,9 @@ class FullPokeCard(pokeCard: PokeCardEntity) {
 
         // TODO: make toString methods in order to clean this up
         info["Number of Copies in My Binder"] = card.numCopies.toString()
+        if (this.numCopiesPerDeck != null) {
+            info["Number of Copies in Deck"] = this.numCopiesPerDeck.toString()
+        }
         info[""] = ""
         info["Card Name"] = card.cardName
         if (card.type1 != null && card.type2 != null) {
