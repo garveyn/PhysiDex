@@ -13,10 +13,12 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat.getColor
 import androidx.core.content.ContextCompat.getDrawable
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.physidex.physidex.R
 import com.physidex.physidex.database.entities.PokeDeckInfoEntity
 import com.physidex.physidex.pages.DISPLAY_DECK
 import com.physidex.physidex.pages.DeckDetailActivity
+import com.physidex.physidex.pages.DeckManagerFragmentDirections
 
 class DeckAdapter(val fragment: Fragment) :
         RecyclerView.Adapter<DeckAdapter.DeckViewHolder>() {
@@ -113,10 +115,8 @@ class DeckAdapter(val fragment: Fragment) :
     }
 
     private fun editDeck(deck: PokeDeckInfoEntity) {
-        val intent = Intent(fragment.activity, DeckDetailActivity::class.java).apply {
-            putExtra(DISPLAY_DECK, deck.id)
-        }
-        fragment.startActivity(intent)
+        val action = DeckManagerFragmentDirections.actionOpenDeck(deck.id)
+        fragment.findNavController().navigate(action)
     }
 
     private fun markDeck(deck: PokeDeckInfoEntity) : Boolean {

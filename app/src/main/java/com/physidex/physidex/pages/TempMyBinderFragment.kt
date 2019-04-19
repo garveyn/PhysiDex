@@ -44,17 +44,17 @@ class TempMyBinderFragment : Fragment() {
 
         // TODO Determine if this is necessary
         // Create Action bar
-        if (!(::deckCopies.isInitialized)) {
-            val toolbar: Toolbar = my_binder_toolbar
-            (activity as MainActivity).setSupportActionBar(toolbar)
-            val actionbar: ActionBar? = (activity as MainActivity).supportActionBar
-            actionbar?.apply {
-                setDisplayHomeAsUpEnabled(true)
-                setHomeAsUpIndicator(R.drawable.ic_arrow_back)
-                setBackgroundDrawable(ColorDrawable(
-                        ContextCompat.getColor(context!!, R.color.colorPrimary)))
-            }
-        }
+//        if (!(::deckCopies.isInitialized)) {
+//            val toolbar: Toolbar = my_binder_toolbar
+//            (activity as MainActivity).setSupportActionBar(toolbar)
+//            val actionbar: ActionBar? = (activity as MainActivity).supportActionBar
+//            actionbar?.apply {
+//                setDisplayHomeAsUpEnabled(true)
+//                setHomeAsUpIndicator(R.drawable.ic_arrow_back)
+//                setBackgroundDrawable(ColorDrawable(
+//                        ContextCompat.getColor(context!!, R.color.colorPrimary)))
+//            }
+//        }
 
         // Set up RecyclerView
         recyclerView = view.findViewById(R.id.binder_cards_view)

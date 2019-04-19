@@ -34,7 +34,7 @@
         tools:layout="@layout/deck_manager_main">
         <action
             android:id="@+id/actionOpenDeck"
-            app:destination="@id/deckDetailActivity" />
+            app:destination="@+id/deckDetailActivity" />
     </fragment>
     <fragment
         android:id="@+id/searchResultsActivity"
@@ -45,7 +45,7 @@
             android:name="query"
             app:argType="string" />
         <action
-            android:id="@+id/actionViewDetails"
+            android:id="@+id/actionCardDetails"
             app:destination="@id/cardDetailFragment" />
     </fragment>
     <fragment
@@ -82,8 +82,15 @@
             android:name="deckID"
             app:argType="integer"
             android:defaultValue="-1" />
+        <action
+            android:id="@+id/actionCardDetails"
+            app:destination="@id/cardDetailFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
-    <activity
+    <fragment
         android:id="@+id/deckDetailActivity"
         android:name="com.physidex.physidex.pages.DeckDetailActivity"
         android:label="DeckDetailActivity"
@@ -91,11 +98,23 @@
         <argument
             android:name="deckID"
             app:argType="integer" />
-    </activity>
+        <action
+            android:id="@+id/actionAddCards"
+            app:destination="@id/myBinderGridActivity"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim">
+            <argument
+                android:name="listToDisplay"
+                android:defaultValue="ALL" />
+        </action>
+    </fragment>
     <fragment
         android:id="@+id/cardDetailFragment"
         android:name="com.physidex.physidex.pages.CardDetailFragment"
-        android:label="CardDetailFragment" >
+        android:label="CardDetailFragment"
+        tools:layout="@layout/card_detail">
         <argument
             android:name="deckId"
             app:argType="integer"

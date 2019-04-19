@@ -3,17 +3,19 @@ package com.physidex.physidex.pages
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
+import android.view.*
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.physidex.physidex.R
@@ -21,35 +23,25 @@ import com.physidex.physidex.adapters.DeckDetailAdapter
 import com.physidex.physidex.database.viewmodels.DeckDetailViewModel
 import kotlinx.android.synthetic.main.deck_details.*
 
-class DeckDetailActivity : AppCompatActivity() {
+class DeckDetailActivity : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: DeckDetailAdapter
     private lateinit var viewManager: RecyclerView.LayoutManager
     private lateinit var viewModel: DeckDetailViewModel
 
-    override fun onCreate(savedInstanceState: Bundle?)
-    {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.deck_details)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.deck_details, container, false)
+    }
 
-        // Create Action bar
-        val toolbar: Toolbar = findViewById(R.id.my_toolbar)
-        setSupportActionBar(toolbar)
-        val actionbar: ActionBar? = supportActionBar
-        actionbar?.apply {
-            setDisplayHomeAsUpEnabled(true)
-            setHomeAsUpIndicator(R.drawable.ic_arrow_back)
-            setBackgroundDrawable(ColorDrawable(
-                    ContextCompat.getColor(this@DeckDetailActivity, R.color.colorPrimary)))
-            title = "Deck Details"
-        }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        viewManager = LinearLayoutManager(this)
-        viewAdapter = DeckDetailAdapter(this)
+        viewManager = LinearLayoutManager(requireContext())
+        viewAdapter = DeckDetailAdapter(requireContext())
 
 
-        recyclerView = findViewById<RecyclerView>(R.id.recyclerView).apply {
+        recyclerView = dd_recyclerView.apply {
 
             setHasFixedSize(true)
 
@@ -58,18 +50,19 @@ class DeckDetailActivity : AppCompatActivity() {
             adapter = viewAdapter
         }
 
-        val deckId = intent.getIntExtra(DISPLAY_DECK, -1)
+        val safeArgs: DeckDetailActivityArgs by navArgs()
+        val deckId = safeArgs.deckID
         if (deckId == -1) {
             Log.d("DECK_ERROR", "Deck id not passed to DeckDetailActivity")
         }
 
         // get data from view model
         viewModel = ViewModelProviders.of(this, viewModelFactory {
-            DeckDetailViewModel(this.application, deckId) }).get(DeckDetailViewModel::class.java)
+            DeckDetailViewModel(this.requireActivity().application, deckId) }).get(DeckDetailViewModel::class.java)
 
         // set data in RecyclerView
         viewModel.deckInfo.observe(this, Observer { deck ->
-            deck.let {
+            deck?.let {
                 viewAdapter.deckInfo = deck
                 viewAdapter.notifyDataSetChanged()
             }
@@ -82,28 +75,27 @@ class DeckDetailActivity : AppCompatActivity() {
             cardCopies?.let { viewAdapter.setCopies(cardCopies) }
         })
         viewModel.numCards.observe(this, Observer { num ->
-            num.let { viewAdapter.totalCards = num }
+            num?.let { viewAdapter.totalCards = num }
         })
 
         // set the numbers of each card
         viewModel.numPokemon.observe(this, Observer { num ->
-            num.let { deck_pokemon_value.text = num.toString() }
+            num?.let { deck_pokemon_value.text = num.toString() }
         })
         viewModel.numTrainers.observe(this, Observer { num ->
-            num.let { deck_trainer_value.text = num.toString() }
+            num?.let { deck_trainer_value.text = num.toString() }
         })
         viewModel.numEnergy.observe(this, Observer { num ->
-            num.let { deck_energy_value.text = num.toString() }
+            num?.let { deck_energy_value.text = num.toString() }
         })
 
 
 
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        val inflater = menuInflater
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.deck_detail_menu, menu)
-        return super.onCreateOptionsMenu(menu)
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -114,7 +106,7 @@ class DeckDetailActivity : AppCompatActivity() {
                 return true
             }
             R.id.delete_deck_action -> {
-                // delete the whole dang deck (and probably confirm with the user first)
+                // TODO delete the whole dang deck (and probably confirm with the user first)
                 return true
             }
         }
@@ -122,13 +114,12 @@ class DeckDetailActivity : AppCompatActivity() {
     }
 
     fun addCards() {
-        val fragmentManager = supportFragmentManager
-        val fragmentTransaction: FragmentTransaction = fragmentManager!!.beginTransaction()
+        val action = DeckDetailActivityDirections.actionAddCards()
+        action.deckID
+        findNavController().navigate(action)
+
         val cardGrid = TempMyBinderFragment()
         cardGrid.setCopiesPerDeck(viewModel.deckCardCopies.value!!)
-        fragmentTransaction.replace(R.id.deck_edit_constraintLayout, cardGrid)
-        fragmentTransaction.addToBackStack(null)
-        fragmentTransaction.commit()
     }
 
     // function from http://www.albertgao.xyz/2018/04/13/how-to-add-additional-parameters-to-viewmodel-via-kotlin/
