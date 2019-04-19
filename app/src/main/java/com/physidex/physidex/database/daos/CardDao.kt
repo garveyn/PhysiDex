@@ -41,6 +41,10 @@ abstract class CardDao {
     @Query("SELECT * FROM Poke_Card WHERE id == :id")
     abstract fun getCard(id: String): LiveData<FullPokeCard>
 
+    @Transaction
+    @Query("SELECT * FROM Poke_Card LIMIT 1")
+    abstract fun getOneCard(): LiveData<FullPokeCard>
+
 
     @Transaction
     @Query("SELECT * FROM Poke_Card ORDER BY first_added DESC")

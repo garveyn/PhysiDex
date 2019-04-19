@@ -63,25 +63,18 @@ class MyBinderGridFragment : Fragment() {
         recyclerView.layoutManager = GridLayoutManager(context, 3)
 
         // Set up view model
-        if (deckId == -1) {
-            binderViewModel = ViewModelProviders.of(this,
-                    (requireActivity() as MainActivity).viewModelFactory {
-                        MyBinderViewModel(this.requireActivity().application, -1) })
-                    .get(MyBinderViewModel::class.java)
-        } else {
-            Log.d("MY_BINDER_DECK", "Received deck id: $deckId")
-            binderViewModel = ViewModelProviders.of(this,
-                    (requireActivity() as MainActivity).viewModelFactory {
-                        MyBinderViewModel(this.requireActivity().application, deckId) })
-                    .get(MyBinderViewModel::class.java)
+        Log.d("MY_BINDER_DECK", "Received deck id: $deckId")
+        binderViewModel = ViewModelProviders.of(this,
+                (requireActivity() as MainActivity).viewModelFactory {
+                    MyBinderViewModel(this.requireActivity().application, deckId) })
+                .get(MyBinderViewModel::class.java)
 
-            binderViewModel.deckCardCopies.observe(this, Observer { deckCCopies ->
-                deckCCopies?.let {
-                    adapter.updateResults(it)
-                    deckCopies = it
-                }
-            })
-        }
+        binderViewModel.deckCardCopies.observe(this, Observer { deckCCopies ->
+            deckCCopies?.let {
+                adapter.updateResults(it, true)
+                deckCopies = it
+            }
+        })
 
         when (query) {
             "ALL" -> {
@@ -132,10 +125,6 @@ class MyBinderGridFragment : Fragment() {
                 return super.onOptionsItemSelected(menuItem)
             }
         }
-    }
-
-    fun setCopiesPerDeck(copies: List<CardDao.CopiesPerId>) {
-        deckCopies = copies
     }
 
 }

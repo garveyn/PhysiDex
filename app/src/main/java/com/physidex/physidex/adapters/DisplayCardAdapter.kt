@@ -69,7 +69,6 @@ class DisplayCardAdapter(var context: Context, val itemClick: (Int) -> Unit) :
      *
      */
     fun updateResults(allCards: List<CardDao.CopiesPerId>, isDeck: Boolean = false) {
-        Log.d("DISPLAY_CARD", "Updating results")
         val cardsOwned: Map<String, Int> = allCards.map { it.id to it.numCopies }.toMap()
         for (card in this.cards) {
             if (cardsOwned.contains(card.pokeCard.id) ) {
