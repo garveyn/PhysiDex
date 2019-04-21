@@ -1,12 +1,10 @@
 package com.physidex.physidex.pages
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.Button
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.widget.EditText
 import android.widget.PopupWindow
@@ -14,6 +12,8 @@ import android.widget.RadioGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.physidex.physidex.R
 import com.physidex.physidex.adapters.DeckAdapter
@@ -29,6 +29,7 @@ class DeckManagerFragment : Fragment() {
     private lateinit var viewManager: RecyclerView.LayoutManager
     private lateinit var itemDecoration: SeparatorItemDecoration
     private lateinit var dmViewModel: DeckManagerViewModel
+    private val args: DeckManagerFragmentArgs by navArgs()
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -36,7 +37,11 @@ class DeckManagerFragment : Fragment() {
             savedInstanceState: Bundle?): View
     {
         // Inflate the layout for this fragment
-        var view = inflater.inflate(R.layout.deck_manager_main, container, false)
+        return inflater.inflate(R.layout.deck_manager_main, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         viewManager = LinearLayoutManager(context)
         viewAdapter = DeckAdapter(this)
@@ -63,14 +68,16 @@ class DeckManagerFragment : Fragment() {
         })
 
         // New Deck Button
-        var button: FloatingActionButton = view.findViewById(R.id.new_deck)
+        val button: FloatingActionButton = view.findViewById(R.id.new_deck)
         button.setOnClickListener {
             createDeckPopup(it)
         }
 
+        // Delete deck if there is one to delete
+        if (args.deckId != -1) {
+            dmViewModel.delete(args.deckId)
+        }
 
-
-        return view
     }
 
 

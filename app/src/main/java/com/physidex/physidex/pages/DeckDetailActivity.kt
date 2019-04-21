@@ -94,11 +94,15 @@ class DeckDetailActivity : Fragment() {
 
     }
 
+    /**
+     * Opens myBinder 
+     */
     fun addCards() {
         val action = DeckDetailActivityDirections.actionAddCards()
         if (viewModel.deckInfo.value != null) {
             action.deckID = viewModel.deckInfo.value!!.id
             findNavController().navigate(action)
+        } else {
 
         }
 
@@ -121,12 +125,18 @@ class DeckDetailActivity : Fragment() {
         val cancelButton: Button    = popupView.findViewById(R.id.cancel)
         val textView:     TextView  = popupView.findViewById(R.id.delete_deck_prompt)
 
-        textView.text = String.format(getString(R.string.deck_delete_confirmation), viewModel.deckInfo.value!!.deckName)
+        if (viewModel.deckInfo.value != null) {
+            textView.text = String.format(getString(R.string.deck_delete_confirmation), viewModel.deckInfo.value!!.deckName)
+        } else {
+            textView.text = String.format(getString(R.string.deck_delete_confirmation), viewModel.deckInfo.value!!.deckName)
+        }
 
         deleteButton.setOnClickListener {
             Log.d("owo","Delete Deck")
-            viewModel.delete(deckId)
-            // TODO: exit to deck manager
+            val action = DeckDetailActivityDirections.actionDeleteDeck()
+            action.deckId = deckId
+            deleteDeck.dismiss()
+            findNavController().navigate(action)
         }
 
         // Do nothing if canceled
