@@ -46,16 +46,7 @@ fun consolidateEffects(effects: List<Effect>?): PokeEffect? {
  * This holds all of the base information of one card, as received from Pokemon TCG API.
  *
  * @param id The unique id of a card, based on the set its in and its number in the set.
- * @param cardName
- * @param nationalDexNum
- * @param imageUrl
- * @param imageUrlHiRes
- * @param type1
- * @param type2
- * @param supertype
- * @param subtype
- * @param evolvesFrom
- * @param hp
+ * The parameters following all represent the text on a Pokemon card.
  *
  */
 @Entity(tableName = "Poke_Card")
@@ -90,6 +81,7 @@ constructor(id: String, cardName: String, nationalDexNum: Int?, imageUrl: String
     @ColumnInfo(name = "num_copies") var numCopies: Int = numCopies
     @ColumnInfo(name = "first_added") var dateAdded: String = dateAdded
 
+    // A secondary constructor to initialize PokeCardEntity based on a Card.
     @Ignore
     constructor(card: Card, numCopies: Int?):
             this(card.id, card.name, card.nationalPokedexNumber, card.imageUrl, card.imageUrlHiRes,
