@@ -57,6 +57,9 @@
     <string name="deck_menu_delete_deck">Delete Deck</string>
     <string name="add_to_deck_button">ADD TO DECK</string>
     <string name="remove_from_deck_button">REMOVE FROM DECK</string>
+    <string name="home_total_cards">%1$d total cards</string>
+    <string name="home_unique_cards">%1$d unique cards</string>
+    <string name="home_decks">%1$d decks</string>
 
 
 </resources>

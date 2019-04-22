@@ -63,14 +63,6 @@ class DeckDetailViewModel(application: Application, deckId: Int): CardViewModel(
         deckInfo = repository.getDeck(deckId)
     }
 
-    fun countCards(cardCopies: List<CardDao.CopiesPerId>): Int {
-        var cardCount = 0
-        cardCopies.forEach {
-            cardCount += it.numCopies
-        }
-
-        return cardCount
-    }
 
     /**
      * Update Deck info

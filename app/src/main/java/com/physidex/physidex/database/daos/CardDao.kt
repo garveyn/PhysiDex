@@ -45,7 +45,6 @@ abstract class CardDao {
     @Query("SELECT * FROM Poke_Card LIMIT 1")
     abstract fun getOneCard(): LiveData<FullPokeCard>
 
-
     @Transaction
     @Query("SELECT * FROM Poke_Card ORDER BY first_added DESC")
     abstract fun getCardsByDate(): LiveData<List<FullPokeCard>>
@@ -69,5 +68,6 @@ abstract class CardDao {
     @Transaction
     @Query("SELECT * FROM Poke_Card WHERE card_name LIKE :search")
     abstract fun searchCardName(search: String): List<FullPokeCard>
+
 
 }
