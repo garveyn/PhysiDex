@@ -36,11 +36,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_8dp"
                     android:layout_marginTop="@dimen/margin_8dp"
-                    android:contentDescription="@string/binder_most_used"
-                    android:text="@string/binder_most_used"
+                    android:contentDescription="@string/binder_trainer"
+                    android:text="@string/binder_trainer"
                     app:layout_constraintStart_toStartOf="@+id/binder_most_used_recyclerview"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:text="@string/binder_most_used" />
+                    tools:text="@string/binder_trainer" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/binder_most_used_recyclerview"

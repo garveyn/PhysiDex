@@ -53,7 +53,7 @@ class DeckDetailViewModel(application: Application, deckId: Int): CardViewModel(
         numTrainers = Transformations.map(trainerList) {
             cards -> countCards(cards)
         }
-        
+
         numCards = Transformations.map(deckCardCopies) {
             cards -> countCards(cards)
         }

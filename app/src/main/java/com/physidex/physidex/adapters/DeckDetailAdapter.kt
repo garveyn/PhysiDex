@@ -28,7 +28,7 @@ class DeckDetailAdapter(var context: Context, var fragment: DeckDetailActivity)
     lateinit var recyclerView: RecyclerView
     val inflater: LayoutInflater = LayoutInflater.from(context)
     var cards = emptyList<FullPokeCard>()
-    var copiesPerCard: List<CardDao.CopiesPerId> = emptyList()
+    var copiesPerCard: Map<String, Int> = emptyMap()
     var totalCards: Int = 0
     var deckInfo = PokeDeckInfoEntity()
     var expandedPosition: Int = RecyclerView.NO_POSITION
@@ -145,7 +145,7 @@ class DeckDetailAdapter(var context: Context, var fragment: DeckDetailActivity)
 
 
             holder.cardDuplicates.text = String.format(context.getString(R.string.binder_owned),
-                    currentCard.pokeCard.numCopies)
+                    copiesPerCard[currentCard.pokeCard.id])
 
 
             Picasso.with(context)
@@ -171,7 +171,7 @@ class DeckDetailAdapter(var context: Context, var fragment: DeckDetailActivity)
     }
 
     fun setCopies(copies: List<CardDao.CopiesPerId>) {
-        copiesPerCard = copies
+        copiesPerCard = copies.map { it.id to it.numCopies }.toMap()
         // also needs to update buttons for each card:
         // if the number of copies in this deck = the number of copies owned,
         // disable the "add" button, because no more copies of that card can be added.

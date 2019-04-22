@@ -13,6 +13,7 @@ class PokeCardRepository(private val cardDao: CardDao) {
     val allCards: LiveData<List<FullPokeCard>> = cardDao.getFullCards()
     val allCardIds: LiveData<List<CardDao.CopiesPerId>> = cardDao.getAllIds()
     val allCardsByDate: LiveData<List<FullPokeCard>> = cardDao.getCardsByDate()
+    val trainerCards: LiveData<List<FullPokeCard>> = cardDao.getTrainerCards()
     // val cardDetail: LiveData<FullPokeCard> = cardDao.getOneCard() // To be potentially used to fetch one card from database
 
     // on a non-UI thread, add card into the db

@@ -42,7 +42,7 @@ class DisplayCardAdapter(var context: Context, val itemClick: (Int) -> Unit) :
         holder.itemView.isClickable = true
         holder.itemView.setOnClickListener{ itemClick(position) }
 
-        if (currentCard.numCopiesPerDeck != null) {
+        if (currentCard.numCopiesPerDeck != null && currentCard.numCopiesPerDeck != -1) {
             holder.cardOwnedTextView.text = String.format(context.getString(R.string.deck_owned),
                     currentCard.numCopiesPerDeck, currentCard.pokeCard.numCopies)
         } else {

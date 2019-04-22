@@ -69,16 +69,30 @@ class MyBinderGridFragment : Fragment() {
                     MyBinderViewModel(this.requireActivity().application, deckId) })
                 .get(MyBinderViewModel::class.java)
 
-        binderViewModel.deckCardCopies.observe(this, Observer { deckCCopies ->
-            deckCCopies?.let {
-                adapter.updateResults(it, true)
-                deckCopies = it
-            }
-        })
+        if (deckId != -1){
+            binderViewModel.deckCardCopies.observe(this, Observer { deckCCopies ->
+                deckCCopies?.let {
+                    adapter.updateResults(it, true)
+                    deckCopies = it
+                }
+            })
+        }
+
 
         when (query) {
             "ALL" -> {
                 binderViewModel.allCards.observe(this, Observer { cards ->
+                    cards?.let {
+                        adapter.setResults(it)
+                        // If this is displayed in the Deck manager, set up the number of copies per deck
+                        if (::deckCopies.isInitialized) {
+                            adapter.updateResults(deckCopies, true)
+                        }
+                    }
+                })
+            }
+            "TRAINER" -> {
+                binderViewModel.trainerCards.observe(this, Observer { cards ->
                     cards?.let {
                         adapter.setResults(it)
                         // If this is displayed in the Deck manager, set up the number of copies per deck
@@ -107,6 +121,7 @@ class MyBinderGridFragment : Fragment() {
                         adapter.setResults(it)
                         // If this is displayed in the Deck manager, set up the number of copies per deck
                         if (::deckCopies.isInitialized) {
+                            Log.d("DeckCopies", "deck copies is initialized")
                             adapter.updateResults(deckCopies, true)
                         }
                     }

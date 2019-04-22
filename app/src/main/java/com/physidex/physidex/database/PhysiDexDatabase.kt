@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 @Database(entities = [
     PokeCardEntity::class, PokeAttackEntity::class,
     PokeDeckInfoEntity::class, PokeCardPerDeckEntity::class
-], version = 3)
+], version = 4)
 abstract class PhysiDexDatabase : RoomDatabase() {
 
     abstract fun fullCardDao(): CardDao
