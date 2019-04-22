@@ -100,7 +100,6 @@ class DeckDetailAdapter(var context: Context, var fragment: DeckDetailActivity)
                 addCardsToDeck.setOnClickListener { fragment.addCards() }
             }
         } else if (holder is DeckDetailHolder && position > 0) {
-            // TODO: check if position needs to be refactored to be position - 1
             val currentCard = cards[position - 1]
             val isExpanded: Boolean = position == expandedPosition
 

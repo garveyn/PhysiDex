@@ -95,7 +95,7 @@ class DeckDetailActivity : Fragment() {
     }
 
     /**
-     * Opens myBinder 
+     * Opens myBinder
      */
     fun addCards() {
         val action = DeckDetailActivityDirections.actionAddCards()
