@@ -15,6 +15,7 @@ class PokeDeckRepository(private val deckDao: DeckDao) {
     val allDecks: LiveData<List<PokeDeckInfoEntity>> = deckDao.getAllDecks()
     val deckDetail: LiveData<PokeDeckInfoEntity> = deckDao.getOneDeck()
     val deckCopies: LiveData<List<CardDao.CopiesPerId>> = deckDao.getCardCopies(-1)
+    val numDecks: LiveData<Int> = deckDao.getNumDecks()
     //val allCards: LiveData<List<PokeDeckInfoEntity>>
 
     @WorkerThread

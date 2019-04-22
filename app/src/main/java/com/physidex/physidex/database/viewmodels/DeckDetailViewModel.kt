@@ -35,6 +35,8 @@ class DeckDetailViewModel(application: Application, deckId: Int): CardViewModel(
             deck -> repository.getCardCopies(deck.id)
         }
 
+        // Get card statistics from the database and count how many of each type of card there are,
+        // accounting for multiple copies of the same card.
         val pokemonList: LiveData<List<CardDao.CopiesPerId>> = Transformations.switchMap(deckInfo) {
             deck -> repository.getCardStat(deck.id, "POKEMON")
         }
@@ -53,24 +55,22 @@ class DeckDetailViewModel(application: Application, deckId: Int): CardViewModel(
         numTrainers = Transformations.map(trainerList) {
             cards -> countCards(cards)
         }
-        
+
         numCards = Transformations.map(deckCardCopies) {
             cards -> countCards(cards)
         }
     }
 
-    fun getDeck(deckId: Int) = scope.launch(Dispatchers.IO) {
+    /**
+     * Get deck info for one deck
+     * On a separate thread, get deck details from the repository. Updates the public variable
+     * deckInfo.
+     * @param deckId The id of a single deck in the database
+     */
+    private fun getDeck(deckId: Int) = scope.launch(Dispatchers.IO) {
         deckInfo = repository.getDeck(deckId)
     }
 
-    fun countCards(cardCopies: List<CardDao.CopiesPerId>): Int {
-        var cardCount = 0
-        cardCopies.forEach {
-            cardCount += it.numCopies
-        }
-
-        return cardCount
-    }
 
     /**
      * Update Deck info

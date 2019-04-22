@@ -5,11 +5,26 @@ import io.pokemontcg.model.*
 import java.text.SimpleDateFormat
 import java.util.*
 
+/**
+ * A data class to hold information on an Effect.
+ *
+ * This represents an effect, such as a weakness or strength, including the element that
+ * triggers the effect and the how much it affects the player or opponent's card.
+ */
 data class PokeEffect(
     var type: String,
     var value: String
 )
 
+/**
+ * This function combines a list of Effects into two strings in the data class PokeEffect.
+ *
+ * It is very rare for a card to have multiple effects, but in case they do, this will combine the
+ * text of the effects so that it can be saved as one effect.
+ *
+ * @param effects A list of Effects for one card
+ * @return a PokeEffect with the type and value combined
+ */
 fun consolidateEffects(effects: List<Effect>?): PokeEffect? {
     if (effects != null) {
         if (effects.size == 1) {
@@ -25,6 +40,24 @@ fun consolidateEffects(effects: List<Effect>?): PokeEffect? {
     return null
 }
 
+/**
+ * The class that represents the main info of a Pokemon Card in the database.
+ *
+ * This holds all of the base information of one card, as received from Pokemon TCG API.
+ *
+ * @param id The unique id of a card, based on the set its in and its number in the set.
+ * @param cardName
+ * @param nationalDexNum
+ * @param imageUrl
+ * @param imageUrlHiRes
+ * @param type1
+ * @param type2
+ * @param supertype
+ * @param subtype
+ * @param evolvesFrom
+ * @param hp
+ *
+ */
 @Entity(tableName = "Poke_Card")
 class PokeCardEntity
 constructor(id: String, cardName: String, nationalDexNum: Int?, imageUrl: String,

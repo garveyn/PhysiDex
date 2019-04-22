@@ -1,6 +1,5 @@
 package com.physidex.physidex.pages
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -25,10 +24,10 @@ class MyBinderHomeFragment : Fragment() {
     private lateinit var recentViewAdapter: DisplayCardAdapter
     private lateinit var recentViewManager:     RecyclerView.LayoutManager
 
-    private lateinit var mostUsedCards:         List<FullPokeCard>
-    private lateinit var mostUsedRecyclerView:  RecyclerView
-    private lateinit var mostUsedViewAdapter: DisplayCardAdapter
-    private lateinit var mostUsedViewManager:   RecyclerView.LayoutManager
+    private lateinit var trainerCards:         List<FullPokeCard>
+    private lateinit var trainerRecyclerView:  RecyclerView
+    private lateinit var trainerViewAdapter: DisplayCardAdapter
+    private lateinit var trainerViewManager:   RecyclerView.LayoutManager
 
     private lateinit var allCards:              List<FullPokeCard>
     private lateinit var allRecyclerView:       RecyclerView
@@ -63,7 +62,7 @@ class MyBinderHomeFragment : Fragment() {
 
         // Initialize lists
         recentCards = emptyList<FullPokeCard>()
-        mostUsedCards = emptyList<FullPokeCard>()
+        trainerCards = emptyList<FullPokeCard>()
         allCards = emptyList<FullPokeCard>()
 
 
@@ -106,29 +105,40 @@ class MyBinderHomeFragment : Fragment() {
         })
         //endregion
 
-        //region RecyclerView #2 - Most Used Cards
-        mostUsedViewManager = LinearLayoutManager(view.context,
+        //region RecyclerView #2 - Trainer Cards
+        trainerViewManager = LinearLayoutManager(view.context,
                 LinearLayoutManager.HORIZONTAL, false)
-        mostUsedViewAdapter = DisplayCardAdapter(view.context, mostUsedCards) { index ->
-            displayCardDetails(index, mostUsedCards)
+        trainerViewAdapter = DisplayCardAdapter(view.context, trainerCards) { index ->
+            displayCardDetails(index, trainerCards)
         }
 
-        mostUsedRecyclerView = view.findViewById<RecyclerView>(R.id.binder_most_used_recyclerview).apply {
+        trainerRecyclerView = view.findViewById<RecyclerView>(R.id.binder_most_used_recyclerview).apply {
 
             setHasFixedSize(true)
 
-            layoutManager = mostUsedViewManager
+            layoutManager = trainerViewManager
 
-            adapter = mostUsedViewAdapter
+            adapter = trainerViewAdapter
         }
 
         // set onclicklistener so when the user clicks on this recyclerview, it will
         // bring them to the full view of these cards
         view.findViewById<ConstraintLayout>(R.id.binder_most_used).setOnClickListener {
             val action = MyBinderHomeFragmentDirections.actionOpenBinder()
-            action.listToDisplay = "MOST_USED"
+            action.listToDisplay = "TRAINER"
             findNavController().navigate(action)
         }
+
+        maxIndex = 10
+        binderViewModel.trainerCards.observe(this, Observer { cards ->
+            cards?.let {
+                if (it.size < maxIndex) {
+                    maxIndex = it.size
+                }
+                trainerCards = it.subList(0, maxIndex)
+                trainerViewAdapter.setResults(trainerCards)
+            }
+        })
 
         //endregion
 

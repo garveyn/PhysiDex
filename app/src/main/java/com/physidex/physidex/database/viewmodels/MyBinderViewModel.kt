@@ -22,6 +22,7 @@ class MyBinderViewModel(application: Application, deckId: Int = -1): CardViewMod
     private val deckRepository: PokeDeckRepository
     val allCards: LiveData<List<FullPokeCard>>
     val allCardsByDate: LiveData<List<FullPokeCard>>
+    val trainerCards: LiveData<List<FullPokeCard>>
     var deckCardCopies:  LiveData<List<CardDao.CopiesPerId>>
 
     init {
@@ -29,6 +30,7 @@ class MyBinderViewModel(application: Application, deckId: Int = -1): CardViewMod
         cardRepository = PokeCardRepository(cardDao)
         allCards = cardRepository.allCards
         allCardsByDate = cardRepository.allCardsByDate
+        trainerCards = cardRepository.trainerCards
 
         val deckDao = PhysiDexDatabase.getDatabase(application, scope).deckDao()
         deckRepository = PokeDeckRepository(deckDao)
@@ -42,7 +44,12 @@ class MyBinderViewModel(application: Application, deckId: Int = -1): CardViewMod
     }
 
     fun getDeckCopies(deckId: Int) = scope.launch(Dispatchers.IO) {
-        deckCardCopies = deckRepository.getCardCopies(deckId)
+
+        // deckCardCopies is already set to an empty result (searching with -1),
+        // no need to query it again.
+        if (deckId != -1) {
+            deckCardCopies = deckRepository.getCardCopies(deckId)
+        }
     }
 
 }

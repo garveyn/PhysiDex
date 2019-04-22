@@ -34,7 +34,7 @@ abstract class CardDao {
     // use the Transaction annotation to make sure that the results are consistent,
     // especially since this call is using a relation.
     @Transaction
-    @Query("SELECT * FROM Poke_Card")
+    @Query("SELECT * FROM Poke_Card ORDER BY national_pokedex_number DESC, supertype DESC")
     abstract fun getFullCards(): LiveData<List<FullPokeCard>>
 
     @Transaction
@@ -45,10 +45,20 @@ abstract class CardDao {
     @Query("SELECT * FROM Poke_Card LIMIT 1")
     abstract fun getOneCard(): LiveData<FullPokeCard>
 
-
     @Transaction
     @Query("SELECT * FROM Poke_Card ORDER BY first_added DESC")
     abstract fun getCardsByDate(): LiveData<List<FullPokeCard>>
+
+    // not working correctly currently
+    @Transaction
+    @Query("SELECT *, COUNT(id) AS numCount FROM Poke_Card " +
+            "LEFT JOIN Poke_Card_Per_Deck ON Poke_Card.id=Poke_Card_Per_Deck.card_id " +
+            "ORDER BY numCount ASC")
+    abstract fun getCardsByMostUsed(): LiveData<List<FullPokeCard>>
+
+    @Transaction
+    @Query("SELECT * FROM Poke_Card WHERE supertype == 'TRAINER'")
+    abstract fun getTrainerCards(): LiveData<List<FullPokeCard>>
 
     data class CopiesPerId(var id: String, var numCopies: Int)
 
@@ -58,5 +68,6 @@ abstract class CardDao {
     @Transaction
     @Query("SELECT * FROM Poke_Card WHERE card_name LIKE :search")
     abstract fun searchCardName(search: String): List<FullPokeCard>
+
 
 }

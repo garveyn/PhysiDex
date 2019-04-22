@@ -1,6 +1,7 @@
 package com.physidex.physidex.database.entities
 
 import androidx.room.*
+import androidx.room.ForeignKey.CASCADE
 
 @Entity(tableName = "Poke_Card_Per_Deck",
         primaryKeys = ["deck_id", "card_id"],
@@ -9,12 +10,14 @@ import androidx.room.*
             ForeignKey(
                     entity = PokeDeckInfoEntity::class,
                     parentColumns = arrayOf("id"),
-                    childColumns = arrayOf("deck_id")
+                    childColumns = arrayOf("deck_id"),
+                    onDelete = CASCADE
             ),
             ForeignKey(
                     entity = PokeCardEntity::class,
                     parentColumns = arrayOf("id"),
-                    childColumns = arrayOf("card_id")
+                    childColumns = arrayOf("card_id"),
+                    onDelete = CASCADE
             )
         ]
 )
