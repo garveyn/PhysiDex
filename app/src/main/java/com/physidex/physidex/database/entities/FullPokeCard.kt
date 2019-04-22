@@ -10,8 +10,18 @@ import io.pokemontcg.model.Attack
 import io.pokemontcg.model.Card
 import io.pokemontcg.model.Type
 
+/**
+ * This class contains information on one pokemon card, including attacks.
+ * Attacks need to be in their own table (since there can be a varied amount of attacks per card,
+ * so this class is designed to contain a PokeCardEntity as well as a list of attacks on
+ * the card, if applicable.
+ * @param pokeCard A PokeCardEntity on its own. This parameter is used by Room when querying
+ * one card.
+ */
 class FullPokeCard(pokeCard: PokeCardEntity) {
 
+    // A constructor used when loading cards from search. Since cards are loaded from the
+    // Pokemon TCG API as Cards, this constructor takes a Card and then calls the primary constructor.
     @Ignore
     constructor(card: Card): this(PokeCardEntity(card, 0)) {
         if (card.attacks != null) {
@@ -28,17 +38,19 @@ class FullPokeCard(pokeCard: PokeCardEntity) {
               entityColumn = "card_id")
     var attacks: MutableList<PokeAttackEntity> = ArrayList()
 
+    // A variable used for cards loaded from deck manager. We do not want Room to try to load this
+    // automatically, so it has the Ignore tag.
     @Ignore
     var numCopiesPerDeck: Int? = null
-
-    @Ignore
-    fun setNumCopiesPerDeck(copies: Int) {
-        this.numCopiesPerDeck = copies
-    }
 
 
     // TODO: add isPokemon, isTrainer, isBasicEnergy
 
+    /**
+     * Get the color that corresponds with the element of a card.
+     * @param context The context of the view calling this function.
+     * @return An Int of the Type ID that represents the color of the element of a FullPokeCard.
+     */
     fun getColor(context: Context) : Int {
         if (pokeCard.type1 != null) {
             try {
@@ -66,7 +78,11 @@ class FullPokeCard(pokeCard: PokeCardEntity) {
         }
     }
 
-    // get a Map (key-value list) of all members that are not null
+    /**
+     * Get all members that are not null of a FullPokeCard as strings in a key-value list.
+     * @return Returns a Map<String, String> of every member the user can see, with the column name
+     * as the key and the value as the information on this card.
+     */
     fun getInfo(): Map<String, String> {
         val info: MutableMap<String, String> = mutableMapOf()
         val card: PokeCardEntity = pokeCard

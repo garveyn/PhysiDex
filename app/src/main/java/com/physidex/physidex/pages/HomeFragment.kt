@@ -23,6 +23,8 @@ class HomeFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.home_fragment, container, false)
 
+        // Set up the view model and set observers to update the stats (if data changes) seen
+        // on the homepage.
         viewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
         viewModel.numTotalCards.observe(this, Observer {num ->
             num?.let {
