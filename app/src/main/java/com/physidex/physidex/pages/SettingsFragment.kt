@@ -7,6 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import com.physidex.physidex.R
 
+/**
+ * Placeholder fragment for settings.
+ */
 class SettingsFragment : Fragment() {
 
     override fun onCreateView(

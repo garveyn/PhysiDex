@@ -1,7 +1,6 @@
 package com.physidex.physidex.adapters
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,8 +11,11 @@ import com.physidex.physidex.R
 import com.physidex.physidex.database.daos.CardDao
 import com.physidex.physidex.database.entities.FullPokeCard
 import com.squareup.picasso.Picasso
+import com.physidex.physidex.pages.MyBinderGridFragment
 
-
+/**
+ * [RecyclerView.Adapter] implementation for the [RecyclerView] in [MyBinderGridFragment]
+ */
 class DisplayCardAdapter(var context: Context, val itemClick: (Int) -> Unit) :
     RecyclerView.Adapter<DisplayCardAdapter.DisplaySearchViewHolder> () {
 

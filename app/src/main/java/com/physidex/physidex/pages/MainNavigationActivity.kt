@@ -2,20 +2,10 @@ package com.physidex.physidex.pages
 
 import android.os.Bundle
 import android.util.Log
-// import android.support.design.widget.Snackbar
 import androidx.appcompat.app.AppCompatActivity
-import android.view.Menu
-import android.view.MenuItem
-import com.google.android.material.navigation.NavigationView
-import androidx.fragment.app.Fragment
-import androidx.core.view.GravityCompat.*
-import androidx.drawerlayout.widget.DrawerLayout
-import androidx.appcompat.app.ActionBar
-import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavController
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import com.physidex.physidex.R
@@ -24,10 +14,10 @@ import androidx.navigation.ui.NavigationUI.*
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 
-const val DISPLAY_CARD = "com.physidex.physidex.CARD"
-const val MY_BINDER_CARDS = "com.physidex.physidex.BINDER_CARDS"
-const val DISPLAY_DECK = "com.physidex.physidex.DECK"
-
+/**
+ * The Main and only activity. This handles the navigation drawer, and sets up the ViewModel.
+ * All fragments are loaded on top of this activity
+ */
 open class MainActivity : AppCompatActivity() {
 
     val topLevelDestinations = setOf(R.id.homeFragment, R.id.gameManagerHomeFragment,
@@ -62,7 +52,6 @@ open class MainActivity : AppCompatActivity() {
         val navController = findNavController(this, R.id.fragment)
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
             if (destination.id == R.id.deckDetailActivity) {
-                Log.d("owo", "setupNav called!!!!!!!!!!!!!")
                 setupActionBarWithNavController(this, controller)
                 fragment.setHasOptionsMenu(true)
             } else {

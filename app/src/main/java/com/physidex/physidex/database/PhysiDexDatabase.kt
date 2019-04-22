@@ -58,9 +58,6 @@ abstract class PhysiDexDatabase : RoomDatabase() {
             }
         }
 
-        fun populateDatabase(cardDao: CardDao) {
-            //TODO: get data???
-            //cardDao.deleteAll()
-        }
+        fun populateDatabase(cardDao: CardDao) {}
     }
 }

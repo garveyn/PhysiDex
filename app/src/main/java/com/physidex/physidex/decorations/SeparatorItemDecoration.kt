@@ -7,6 +7,9 @@ import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 
+/**
+ * [RecyclerView.ItemDecoration] used to create separations between decks in Deck Manager
+ */
 class SeparatorItemDecoration(private val spaceHeight: Int) : RecyclerView.ItemDecoration() {
 
 

@@ -2,7 +2,6 @@ package com.physidex.physidex.adapters
 
 
 import android.content.Context
-import android.content.Intent
 import android.util.TypedValue
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
@@ -16,10 +15,12 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.physidex.physidex.R
 import com.physidex.physidex.database.entities.PokeDeckInfoEntity
-import com.physidex.physidex.pages.DISPLAY_DECK
-import com.physidex.physidex.pages.DeckDetailActivity
 import com.physidex.physidex.pages.DeckManagerFragmentDirections
+import com.physidex.physidex.pages.DeckManagerFragment
 
+/**
+ * [RecyclerView.Adapter] implementation for the [RecyclerView] in [DeckManagerFragment]
+ */
 class DeckAdapter(val fragment: Fragment) :
         RecyclerView.Adapter<DeckAdapter.DeckViewHolder>() {
 
@@ -76,25 +77,24 @@ class DeckAdapter(val fragment: Fragment) :
         holder.view.isClickable = true
         holder.view.isLongClickable = true
         holder.view.setOnClickListener  { editDeck(deck) }
-//        holder.view.setOnLongClickListener { markDeck(deck) }
 
-//        if (deck.deckList.size > 0) {
-            when (position % 10) // TODO change to be based on energy types
-            {
-                1 -> {
-                    holder.view.setBackgroundColor(getColor(holder.context, R.color.cardDragon))
-                }
-                2 -> holder.view.setBackgroundColor(getColor(holder.context, R.color.cardDark))
-                3 -> holder.view.setBackgroundColor(getColor(holder.context, R.color.cardFairy))
-                4 -> holder.view.setBackgroundColor(getColor(holder.context, R.color.cardFighting))
-                5 -> holder.view.setBackgroundColor(getColor(holder.context, R.color.cardFire))
-                6 -> holder.view.setBackgroundColor(getColor(holder.context, R.color.cardGrass))
-                7 -> holder.view.setBackgroundColor(getColor(holder.context, R.color.cardMetal))
-                8 -> holder.view.setBackgroundColor(getColor(holder.context, R.color.cardWater))
-                9 -> holder.view.setBackgroundColor(getColor(holder.context, R.color.cardPsychic))
-                0 -> holder.view.setBackgroundColor(getColor(holder.context, R.color.cardLightning))
+
+        when (position % 10) // TODO change to be based on energy types
+        {
+            1 -> {
+                holder.view.setBackgroundColor(getColor(holder.context, R.color.cardDragon))
             }
-//        }
+            2 -> holder.view.setBackgroundColor(getColor(holder.context, R.color.cardDark))
+            3 -> holder.view.setBackgroundColor(getColor(holder.context, R.color.cardFairy))
+            4 -> holder.view.setBackgroundColor(getColor(holder.context, R.color.cardFighting))
+            5 -> holder.view.setBackgroundColor(getColor(holder.context, R.color.cardFire))
+            6 -> holder.view.setBackgroundColor(getColor(holder.context, R.color.cardGrass))
+            7 -> holder.view.setBackgroundColor(getColor(holder.context, R.color.cardMetal))
+            8 -> holder.view.setBackgroundColor(getColor(holder.context, R.color.cardWater))
+            9 -> holder.view.setBackgroundColor(getColor(holder.context, R.color.cardPsychic))
+            0 -> holder.view.setBackgroundColor(getColor(holder.context, R.color.cardLightning))
+        }
+
 
         if (true) {
             holder.playDeckButton.text = holder.context.getString(R.string.deck_play)

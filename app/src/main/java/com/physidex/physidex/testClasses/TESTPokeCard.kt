@@ -2,6 +2,10 @@ package com.physidex.physidex.testClasses
 
 import  io.pokemontcg.model.*
 
+/**
+ * Classes and objects that are not used in the final build. These were used to test with data
+ * in the earlier days of the project. These are kept only for posterity.
+ */
 class TESTPokeCard(card: Card) : TESTGenericCard
 {
     override var cardName: String = card.name

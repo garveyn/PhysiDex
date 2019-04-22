@@ -21,7 +21,10 @@ import com.physidex.physidex.database.viewmodels.DeckManagerViewModel
 import com.physidex.physidex.decorations.SeparatorItemDecoration
 import com.physidex.physidex.dimBehind
 
-
+/**
+ * Fragment for the managment of decks. Contains a [RecyclerView] that displays all created decks
+ * also contains a [FloatingActionButton] to allow the user to add a new deck
+ */
 class DeckManagerFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView

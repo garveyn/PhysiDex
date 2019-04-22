@@ -11,6 +11,11 @@ import com.physidex.physidex.R
 import com.physidex.physidex.database.viewmodels.HomeViewModel
 import kotlinx.android.synthetic.main.home_fragment.*
 
+
+/**
+ * Initial fragment loaded when launching the application. Contains stats about app usage such as
+ * total cards, unique cards, and total decks.
+ */
 class HomeFragment : Fragment() {
 
     private lateinit var viewModel: HomeViewModel

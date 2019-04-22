@@ -10,10 +10,8 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.physidex.physidex.R
@@ -21,9 +19,11 @@ import com.physidex.physidex.adapters.DeckDetailAdapter
 import com.physidex.physidex.database.viewmodels.DeckDetailViewModel
 import com.physidex.physidex.dimBehind
 import kotlinx.android.synthetic.main.deck_details.*
-import kotlinx.android.synthetic.main.deck_info.*
-import kotlinx.android.synthetic.main.delete_deck_prompt.*
 
+/**
+ * The Fragment where the content of the decks is shown. This includes the cards in the deck,
+ * the number of each type of card, and basic details (deck name, last modified, etc)
+ */
 class DeckDetailActivity : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
@@ -132,7 +132,6 @@ class DeckDetailActivity : Fragment() {
         }
 
         deleteButton.setOnClickListener {
-            Log.d("owo","Delete Deck")
             val action = DeckDetailActivityDirections.actionDeleteDeck()
             action.deckId = deckId
             deleteDeck.dismiss()

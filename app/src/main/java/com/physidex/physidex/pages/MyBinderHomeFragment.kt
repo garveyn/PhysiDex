@@ -17,24 +17,28 @@ import com.physidex.physidex.adapters.DisplayCardAdapter
 import com.physidex.physidex.database.entities.FullPokeCard
 import com.physidex.physidex.database.viewmodels.MyBinderViewModel
 
+/**
+ * Fragment that serves as the entry point to MyBinder. This contains three [RecyclerView]s that
+ * each lead to a customized version of [MyBinderGridFragment].
+ */
 class MyBinderHomeFragment : Fragment() {
 
     private lateinit var recentCards:           List<FullPokeCard>
     private lateinit var recentRecyclerView:    RecyclerView
-    private lateinit var recentViewAdapter: DisplayCardAdapter
+    private lateinit var recentViewAdapter:     DisplayCardAdapter
     private lateinit var recentViewManager:     RecyclerView.LayoutManager
 
-    private lateinit var trainerCards:         List<FullPokeCard>
-    private lateinit var trainerRecyclerView:  RecyclerView
-    private lateinit var trainerViewAdapter: DisplayCardAdapter
-    private lateinit var trainerViewManager:   RecyclerView.LayoutManager
+    private lateinit var trainerCards:          List<FullPokeCard>
+    private lateinit var trainerRecyclerView:   RecyclerView
+    private lateinit var trainerViewAdapter:    DisplayCardAdapter
+    private lateinit var trainerViewManager:    RecyclerView.LayoutManager
 
     private lateinit var allCards:              List<FullPokeCard>
     private lateinit var allRecyclerView:       RecyclerView
-    private lateinit var allViewAdapter: DisplayCardAdapter
+    private lateinit var allViewAdapter:        DisplayCardAdapter
     private lateinit var allViewManager:        RecyclerView.LayoutManager
 
-    private lateinit var binderViewModel: MyBinderViewModel
+    private lateinit var binderViewModel:       MyBinderViewModel
 
     override fun onCreateView(
             inflater: LayoutInflater,

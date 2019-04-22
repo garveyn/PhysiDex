@@ -29,6 +29,10 @@ import com.physidex.physidex.testClasses.TestData
 import io.pokemontcg.model.Card
 import kotlinx.android.synthetic.main.activity_display_card.*
 
+/**
+ * Endpoint fragment for [SearchHomeFragment]. This receives a card name in it's arguments,
+ * and displays all cards that match.
+ */
 class SearchResultsActivity : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
@@ -100,12 +104,8 @@ class SearchResultsActivity : Fragment() {
                     }.all()
 
             if (cardsReturned.isNotEmpty()) {
-                //Log.d("FIRST CARD", cardsReturned[0].toString())
                 return cardsReturned
             }
-//            } else {
-//                Log.d("FIRST CARD", "No cards were returned")
-//            }
 
             return null
         }

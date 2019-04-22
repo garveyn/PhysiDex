@@ -22,6 +22,9 @@ import com.physidex.physidex.pages.DeckDetailActivity
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.delete_deck_prompt.*
 
+/**
+ * [RecyclerView.Adapter] implementation for the [RecyclerView] in [DeckDetailActivity]
+ */
 class DeckDetailAdapter(var context: Context, var fragment: DeckDetailActivity)
     : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
