@@ -1,5 +1,6 @@
 package com.physidex.physidex.database.repositories
 
+import android.util.Log
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
@@ -13,7 +14,7 @@ class PokeDeckRepository(private val deckDao: DeckDao) {
 
     // execute queries asynchronously
     val allDecks: LiveData<List<PokeDeckInfoEntity>> = deckDao.getAllDecks()
-    val deckDetail: LiveData<PokeDeckInfoEntity> = deckDao.getOneDeck()
+    var deckDetail: LiveData<PokeDeckInfoEntity> = deckDao.getOneDeck()
     val deckCopies: LiveData<List<CardDao.CopiesPerId>> = deckDao.getCardCopies(-1)
     val numDecks: LiveData<Int> = deckDao.getNumDecks()
     //val allCards: LiveData<List<PokeDeckInfoEntity>>
@@ -25,12 +26,16 @@ class PokeDeckRepository(private val deckDao: DeckDao) {
 
     @WorkerThread
     suspend fun getDeck(deckId: Int) : LiveData<PokeDeckInfoEntity> {
-        return deckDao.getDeckInfo(deckId)
+        val deck = deckDao.getDeckInfo(deckId)
+        this.deckDetail = deck
+        return deck
     }
 
     @WorkerThread
     fun getCards(deckId: Int) : LiveData<List<FullPokeCard>> {
-        return deckDao.getCardsQuery(deckId)
+        val cards = deckDao.getCardsQuery(deckId)
+        Log.d("GetCards", "${cards.value?.count()} cards found from deck $deckId")
+        return cards
     }
 
     @WorkerThread

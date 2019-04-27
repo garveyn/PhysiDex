@@ -78,6 +78,8 @@ class DeckAdapter(val fragment: Fragment) :
         holder.view.isLongClickable = true
         holder.view.setOnClickListener  { editDeck(deck) }
 
+        holder.playDeckButton.visibility = View.INVISIBLE
+
 
         when (position % 10) // TODO change to be based on energy types
         {
@@ -94,6 +96,9 @@ class DeckAdapter(val fragment: Fragment) :
             9 -> holder.view.setBackgroundColor(getColor(holder.context, R.color.cardPsychic))
             0 -> holder.view.setBackgroundColor(getColor(holder.context, R.color.cardLightning))
         }
+        holder.nameField.setTextColor(getColor(holder.context, R.color.pureWhite))
+        holder.dateModified.setTextColor(getColor(holder.context, R.color.pureWhite))
+
 
 
         if (true) {

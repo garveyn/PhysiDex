@@ -20,9 +20,8 @@ import androidx.navigation.ui.setupWithNavController
  */
 open class MainActivity : AppCompatActivity() {
 
-    val topLevelDestinations = setOf(R.id.homeFragment, R.id.gameManagerHomeFragment,
-            R.id.searchHomeFragment, R.id.deckManagerFragment, R.id.myBinderHomeFragment,
-            R.id.settingsFragment)
+    val topLevelDestinations = setOf(R.id.homeFragment,
+            R.id.searchHomeFragment, R.id.deckManagerFragment, R.id.myBinderHomeFragment)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
