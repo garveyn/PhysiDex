@@ -22,6 +22,9 @@ import com.physidex.physidex.pages.DeckDetailActivity
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.delete_deck_prompt.*
 
+/**
+ * [RecyclerView.Adapter] implementation for the [RecyclerView] in [DeckDetailActivity]
+ */
 class DeckDetailAdapter(var context: Context, var fragment: DeckDetailActivity)
     : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -100,7 +103,6 @@ class DeckDetailAdapter(var context: Context, var fragment: DeckDetailActivity)
                 addCardsToDeck.setOnClickListener { fragment.addCards() }
             }
         } else if (holder is DeckDetailHolder && position > 0) {
-            // TODO: check if position needs to be refactored to be position - 1
             val currentCard = cards[position - 1]
             val isExpanded: Boolean = position == expandedPosition
 

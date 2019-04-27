@@ -15,6 +15,10 @@ import androidx.navigation.fragment.findNavController
 import com.physidex.physidex.R
 import kotlinx.android.synthetic.main.activity_main.*
 
+/**
+ * Fragment that serves as the entry point for searching. Users can uses this page to access the
+ * pokemontcg api and search any card.
+ */
 class SearchHomeFragment : Fragment() {
 
     override fun onCreateView(

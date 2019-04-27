@@ -14,7 +14,11 @@ import com.physidex.physidex.database.viewmodels.CardDetailViewModel
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.card_detail.*
 
-
+/**
+ * Fragment that displays high quality verions of the card image, as well as the content of the
+ * card in plain text. In addition, this handles the logic of both adding a card to MyBinder,
+ * but also adding cards from MyBinder to a deck.
+ */
 class CardDetailFragment : Fragment() {
 
     lateinit var detailedCard: FullPokeCard
